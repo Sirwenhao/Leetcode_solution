@@ -23,8 +23,20 @@ def containsNearbyDuplicate(nums, k):
     return False
 
 
+# 2022/3/30 复习
 
-nums = [1,2,3,1]
-k = 3
+# def containsNearbyDuplicate(nums, k):
+#     dic = {}
+#     for i,j in enumerate(nums):
+#         if j in dic and dic[j] - i <= k:
+#             return True
+#         else:  # 此处出错
+#             dic[j] = i
+#     return False
+
+
+
+nums = [1,2,3,1,2,3]
+k = 2
 result = containsNearbyDuplicate(nums, k)
 print(result)
