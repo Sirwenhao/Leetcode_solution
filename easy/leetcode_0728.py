@@ -15,8 +15,8 @@ def selfDividingNumbers(left, right):
 
 
 
-right = 22
-left = 1
+# right = 22
+# left = 1
 
-result = selfDividingNumbers(left, right)
-print(result)
+# result = selfDividingNumbers(left, right)
+# print(result)
