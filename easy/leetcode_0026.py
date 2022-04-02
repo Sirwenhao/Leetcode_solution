@@ -78,17 +78,16 @@ def removeDuplicates(nums):
             if nums[left] != nums[right]:
                 left += 1 
                 nums[left] = nums[right]
-
-            return left+1
+        return left+1
 
     else:
-        return False
+        return 0
                    
 
 
 
-# list = [0,0,1,1,1,2,2,3,3,4]
-list = [1,1,2]
+list = [0,0,1,1,1,2,2,3,3,4]
+# list = [1,1,2]
 result = removeDuplicates(list)
 
 print(result)
