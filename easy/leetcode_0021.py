@@ -2,6 +2,9 @@
     1、leetcode0021合并两个有序链表
 """
 
+from heapq import merge
+
+
 class ListNode:
     def __init__(self, x):
         self.val = x
@@ -51,3 +54,19 @@ if __name__ == '__main__':
 #     else:
 #         l2.next = self.mergeTwoLists(l2.next, l1)
 #         return l2
+
+
+# 2022/4/2 review
+
+def mergeTwoList(l1, l2):
+    if l1 is None:
+        return l2
+    elif l2 is None:
+        return l1
+    if l1.val < l2.val:
+        l1.next = mergeTwoList(l2.val, l1)
+        return l1
+    elif l1.val > l2.val:
+        l2.next = mergeTwoList(l1.val, l2)
+        return l2
+    
