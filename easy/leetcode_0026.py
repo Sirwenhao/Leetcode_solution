@@ -46,19 +46,49 @@
     5、slow+1才是最终要返回的长度，可与debug看下，slow始终比最终长度少1
 '''
 
+# def removeDuplicates(nums):
+#     if nums:
+#         slow = 0
+#         for fast in range(1, len(nums)):
+#             if nums[slow] != nums[fast]:
+#                 slow += 1
+#                 nums[slow] = nums[fast]
+#         return slow + 1
+#     else:
+#         return 0
+
+
+# 2022/4/2 复习
+
+# def removeDuplicates(nums):
+#     if nums is None:
+#         return False
+
+#     left = right = 0
+#     while right < len(nums)-1:
+#         if nums[right] != nums[right+1]:
+#             nums[left] = nums[right]
+#             left += 1
+#         right += 1
+
 def removeDuplicates(nums):
     if nums:
-        slow = 0
-        for fast in range(1, len(nums)):
-            if nums[slow] != nums[fast]:
-                slow += 1
-                nums[slow] = nums[fast]
-        return slow + 1
+        left = 0
+        for right in range(1, len(nums)):
+            if nums[left] != nums[right]:
+                left += 1 
+                nums[left] = nums[right]
+
+            return left+1
+
     else:
-        return 0
+        return False
+                   
 
 
-list = [1,1,1,2,2,3,4,5,5,6,6,7]
+
+# list = [0,0,1,1,1,2,2,3,3,4]
+list = [1,1,2]
 result = removeDuplicates(list)
 
 print(result)
