@@ -71,20 +71,34 @@
 #             left += 1
 #         right += 1
 
-def removeDuplicates(nums):
-    if nums:
-        left = 0
-        for right in range(1, len(nums)):
-            if nums[left] != nums[right]:
-                left += 1 
-                nums[left] = nums[right]
-        return left+1
+# def removeDuplicates(nums):
+#     if nums:
+#         left = 0
+#         for right in range(1, len(nums)):
+#             if nums[left] != nums[right]:
+#                 left += 1 
+#                 nums[left] = nums[right]
+#         return left+1
 
-    else:
-        return 0
+#     else:
+#         return 0
                    
+# 2022/4/9 review
+# 不允许开辟新的空间，也就是说只能在原始的空间上去执行操作的
+# 关键在于慢指针（左指针）的使用，判断nums[left] == nums[right]是否为真，若为真，left不变；若不为真，left+1滑到新位置，然后再把nums[right]给nums[left]
 
+def removeDuplicates(nums):
+    if nums is None:
+        return False
+    else:
+        cnt = left = 0
+        for right in range(1, len(nums)):
+            if nums[right] != nums[left]:
+                cnt += 1
+                left += 1
+                nums[left] = nums[right]
 
+        return cnt+1
 
 list = [0,0,1,1,1,2,2,3,3,4]
 # list = [1,1,2]

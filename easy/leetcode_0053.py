@@ -98,16 +98,28 @@
 
 # 优化前缀和
 
+# def maxSubArray(nums):
+#     n = len(nums)
+#     maxSum = nums[0]
+#     minSum = sum = 0
+#     for i in range(n):
+#         sum += nums[i]
+#         maxSum = max(maxSum, sum - minSum) #sum-minSum 
+#         minSum = min(minSum, sum)
+
+
+# 2022/4/9 review 还是没有思路 时间复杂度O(N),空间复杂度O(1)
+# 对应于力扣加加中的解法三优化前缀和，其中sum被定义为从0开始加到i的值
+# S(i)(i=0,1,2,3,...,n-1)-S(k)(k=0,1,2,3,...,i-1)表示最大和，实际上是在找这个和
 def maxSubArray(nums):
-    n = len(nums)
     maxSum = nums[0]
     minSum = sum = 0
-    for i in range(n):
-        sum += nums[i]
-        maxSum = max(maxSum, sum - minSum) #sum-minSum 
-        minSum = min(minSum, sum)
-
-
+    for i in range(len(nums)):
+        sum += nums[i] # sum是从0到n所有元素顺序逐个求和
+        maxSum = max(maxSum, sum-minSum) #此处没有想到对比的是sum - minSum
+        print('maxSum:', maxSum)
+        minSum = min(minSum, sum) # 也同样没想到对比的是sum，这个minSum是前j个元素之和为最小值时的情况
+        print('minSum:', minSum)
 
 nums = [-2,1,-3,4,-1,2,1,-5,4]
 
