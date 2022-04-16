@@ -29,8 +29,3 @@ def isSymmetric(root):
         return dfs(left.left, right.right) and dfs(left.right, right.left)
 
     return dfs(root.left, root.right)
-
-root = [1,2,3,2,2]
-
-result = isSymmetric(root)
-print(result)

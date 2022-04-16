@@ -4,7 +4,7 @@
 
 
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
+    def maxDepth(self, root):
         if not root: return 0
         q, depth = [root, None], 1
         while q:
