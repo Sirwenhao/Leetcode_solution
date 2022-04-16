@@ -3,7 +3,6 @@
 '''
 
 
-
 def reverseList(head):
     if not head: return None
     prev = None
