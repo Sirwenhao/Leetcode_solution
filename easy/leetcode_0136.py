@@ -23,6 +23,7 @@ def singleNumber(nums):
     single_number = 0
     for num in nums:
         single_number ^= num
+        print(single_number)
     return single_number
 
 
