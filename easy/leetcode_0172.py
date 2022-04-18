@@ -22,6 +22,7 @@
 #     return cnt
 
 # 解法二：递归解法
+# 一个整数n含有的质因数5数量可以表示为：n//5,但还需要考虑n//5之后的数是不是5
 
 def trailingZeros(n):
     if n == 0:
