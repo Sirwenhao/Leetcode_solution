@@ -20,7 +20,7 @@
 
 
 # # 解法二：力扣加加
-
+# 时间复杂度：O(N^2),空间复杂度：O(1)
 # def shortestToChar(S, C):
 #     ans = []
 #     for i in range(len(S)):
@@ -40,20 +40,50 @@
 #         ans.append(min(r - i, i- l))
 #     return ans
 
-# 官解
+# 解法三：力扣加加（与官解基本一样）
 def shortestToChar(s, c):
-    prev = float('-inf')
+    pre = -10000
     ans = []
-    for i, x in enumerate(s):
-        if x==c: prev = i
-        ans.append(i - prev)
-        print(ans)
 
-    prev = float('inf')
+    for i in range(len(s)):
+        if s[i] == c: pre = i
+        ans.append(i - pre)
+    print(ans)
+    pre = 20000
     for i in range(len(s)-1, -1, -1):
-        if s[i] == c: prev = i
-        ans[i] = min(ans[i], prev - i)
-    return ans
+        if s[i] == c: pre = i
+        ans[i] = min(ans[i], pre - i)
+    return ans 
+
+# # 官解
+# def shortestToChar(s, c):
+#     prev = float('-inf')
+#     ans = []
+#     for i, x in enumerate(s):
+#         if x==c: prev = i
+#         ans.append(i - prev)
+#         print(ans)
+
+#     prev = float('inf')
+#     for i in range(len(s)-1, -1, -1):
+#         if s[i] == c: prev = i
+#         ans[i] = min(ans[i], prev - i)
+#     return ans
+
+# 2022/4/19 出现在力扣每日一题中，重新从头写一遍
+# 重新写的想法：把所有的e的index存到一个列表lst1中，遍历S的index与lst1中的元素做差取最小值
+# def shortestToChar(S, C):
+#     lst1 = []
+#     for i in range(len(S)):
+#         if S[i] == C:
+#             lst1.append(i)
+#     print(lst1)
+#     lst3 = []
+#     for j in range(len(S)):
+#         lst2 = [j - k for k in lst1]
+#         lst2 = [abs(i) for i in lst2]
+#         lst3.append(min(lst2))
+#     return lst3
 
 
 s = "loveleetcode"
