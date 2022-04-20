@@ -85,7 +85,8 @@
                    
 # 2022/4/9 review
 # 不允许开辟新的空间，也就是说只能在原始的空间上去执行操作的
-# 关键在于慢指针（左指针）的使用，判断nums[left] == nums[right]是否为真，若为真，left不变；若不为真，left+1滑到新位置，然后再把nums[right]给nums[left]
+# 关键在于慢指针（左指针）的使用，判断nums[left] == nums[right]是否为真、
+# 若为真，left不变；若不为真，left+1滑到新位置，然后再把nums[right]给nums[left]
 
 def removeDuplicates(nums):
     if nums is None:
