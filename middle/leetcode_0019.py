@@ -1,10 +1,10 @@
 """
     1、链表相关
 """
-# 官解
-
+# # 官解,方法一：添加哑节点(dummy node)在头部，可以避免对头节点进行特殊判断
+# 时间复杂度O(L),空间复杂度O(1),L为链表长度
 # class Solution:
-#     def removeNthFromEnd(head, n):
+#     def removeNthFromEnd(self, head, n):
 #         def getLength(head):
 #             length = 0
 #             while head:
@@ -18,8 +18,66 @@
 #         for i in range(1, length - n + 1):
 #             cur = cur.next
 #         cur.next = cur.next.next
+#         return dummy.next # dummy是指向链表表头的哑节点，其后面的节点才是真正要返回的值
+
+# # 官解，方法二：栈，将链表的节点依次入栈，在指定位置出pop出栈顶元素即可。主要是利用栈的删除操作
+# 时间复杂度O(L),空间复杂度O(L),L为链表长度
+# class Solution:
+#     def removeNthFromEnd(self, head, n):
+#         dummy = ListNode(0, head)
+#         stack = list()
+#         cur = dummy
+#         while cur:
+#             stack.append(cur) # 先入栈的元素，后出栈
+#             cur = cur.next
+
+#         for i in range(n):
+#             stack.pop()
+
+#         prev = stack[-1] # 这时的stack[-1]即为倒数第n个元素
+#         prev.next = prev.next.next
 #         return dummy.next
 
-# 力扣加加解法
+# 官解，方法三：双指针
+# 使用快慢指针，快指针比慢指针超前n个节点，这样当快指针指向链表尾部时，慢指针指向倒数第n个节点
+# 时间复杂度O(L),空间复杂度O(1),L为链表长度
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        dummy = ListNode(0, head)
+        first = head
+        second = dummy
+        for i in range(n):
+            first = first.next
 
-# def removeNthFromEnd(head, n):
+        while first:
+            first = first.next
+            second = second.next
+
+        second.next = second.next.next
+        return dummy.next
+        
+# 总结：
+# 添加哑节点的好处：1、一般在头结点之前添加哑节点，这样子可以避免因头节点不存在前驱节点而导致对头结点的单独讨论
+# 2、其返回值部分直接使用return dummy.next，其中的dummy.next刚好就是操作之后的链表
+# 3、栈需要牺牲一点空间，来换取删除操作的便利性
+# 4、上述三种操作均默认不释放被删除节点对应的空间
+
+# # 2022/4/23 review
+# # 需要删除的位置是倒数第n个节点
+# class Solution:
+#     def removeNthFromEnd(head, n):
+#         def getLength(head):
+#             l = 0
+#             while head:
+#                 head = head.next
+#                 l += 1
+#             return l
+
+#         dummy = ListNode(0, head) # 指定位置0为头结点位置
+#         length = getLength(head)
+#         cur = dummy
+#         for i in range(1, length-n+1):
+#             cur = cur.next
+#         cur.next = cur.next.next
+#         return 
+

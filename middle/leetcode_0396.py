@@ -16,6 +16,7 @@
 #     return max_v
 
 # 力扣官解
+# 核心方程：当1 ≤ k < n时, F(k)=F(k−1)+numSum−n×nums[n−k]
 
 def maxRotateFunction(nums):
     f, n, numSum = 0, len(nums), sum(nums)
@@ -23,9 +24,18 @@ def maxRotateFunction(nums):
         f += i * num
     res = f
     for i in range(n-1,0,-1):
-        f = f + numSum- n*nums[i]
+        f = f + numSum - n*nums[i]
         res = max(res, f)
     return res
+
+
+# # 评论区高赞
+
+# import itertools
+
+# def maxRotateFunction(nums):
+#     n, s, cur = len(nums), sum(nums), sum(i*j for i,j in enumerate(nums))
+#     return max(itertools.accumulate((i*n - s for i in nums), initial=cur))
 
 
 nums = [4,3,2,6]
