@@ -33,6 +33,28 @@ class MinStack:
         return self.minstack[-1]
 
 
-# ["MinStack","push","push","push","getMin","pop","top","getMin"]
-# [[],[-2],[0],[-3],[],[],[],[]]
+
+# 力扣官解
+# 思路：当一个元素要入栈时，我们取当前辅助栈的栈顶存储的最小值，与当前值进行比较，取二者中的最小值放入辅助栈
+# 当一个元素要出栈时，把辅助栈元素也一并弹出
+# 在任意时刻，栈内元素的最小值就存储在辅助栈的栈顶
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = [math.inf]
+
+    def push(self, x):
+        self.append(x)
+        self.min_stack.append(min(x, self.min_stack[-1]))
+
+    def pop(self):
+        self.stack.pop()
+        self.min_stack.pop()
+
+    def top(self):
+        return self.stack[-1]
+
+    def getMin(self):
+        return self.min_stack[-1]
 
