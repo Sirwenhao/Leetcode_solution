@@ -24,11 +24,28 @@
 # 解法二：递归解法
 # 一个整数n含有的质因数5数量可以表示为：n//5,但还需要考虑n//5之后的数是不是5
 
+# def trailingZeros(n):
+#     if n == 0:
+#         return 0
+#     return n//5 + trailingZeros(n//5)
+
+
+# 2022/4/24 review
+# 核心点在于质因数5的数量。i,j = divmod(a,b)返回两个值,i = a//b; j = a%b
+# 下述解法在n=625时，不满足情况
+# def trailingZeros(n):
+#     i = n//5
+#     j = i//5
+#     five_num = i + j
+#     if j >= 5:
+#         j = j//5
+#         five_num += j
+#     return five_num
+
+# 最好的方法——递归
 def trailingZeros(n):
-    if n == 0:
-        return 0
+    if n==0: return 0
     return n//5 + trailingZeros(n//5)
 
-
-result = trailingZeros(25)
+result = trailingZeros(625)
 print(result)
