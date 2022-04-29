@@ -1,6 +1,18 @@
 """
     1、目标数据给定，组合数据个数不确定
     2、回溯法（还没有搞清楚这个方法的核心思想）
+    3、回溯法模板：
+
+    res = []
+    def backtrack(路径， 选择列表):
+        if 满足结束条件:
+            res.append(路径)
+            return
+        
+    for 选择 in 选择列表:
+        做选择
+        backtrack(路径，选择列表)
+        撤销选择
 """
 
 class Solution:
@@ -12,13 +24,11 @@ class Solution:
         size = len(candidates)
         if size <= 0:
             return []
-
         # 先排序，便于后面剪枝
         candidates.sort()
-
         path = []
         res = []
-        self._find_path(self, target, path, res, candidates, 0, size)
+        self._find_path(target, path, res, candidates, 0, size)
         return res
 
     def _find_path(self, target, path, res, candidates, begin, size):
@@ -27,7 +37,7 @@ class Solution:
             res.append(path.copy())
         else:
             for i in range(begin, size):
-                left_num = target - candidates
+                left_num = target - candidates[i]
                 # 如果剩余值为负数，说明超过了，剪枝
                 if left_num < 0:
                     break
@@ -40,3 +50,8 @@ class Solution:
                 path.pop()
 
 
+if __name__ == '__main__':
+    candidates = [2,3,6,7]
+    target = 7
+    result = Solution().combinationsSum(candidates, target)
+    print(result)
