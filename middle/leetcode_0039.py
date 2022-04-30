@@ -34,7 +34,7 @@ class Solution:
     def _find_path(self, target, path, res, candidates, begin, size):
         """沿着路径往下走"""
         if target == 0:
-            res.append(path.copy())
+            res.append(path.copy())  # .copy()的使用方法涉及到深浅拷贝
         else:
             for i in range(begin, size):
                 left_num = target - candidates[i]
