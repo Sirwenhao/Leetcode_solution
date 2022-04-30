@@ -71,36 +71,49 @@
 #         return dummy.next
 
 
-# 爱学习的饲养员解法
-# 解法一：迭代法，容易超时
+# # 爱学习的饲养员解法
+# # 解法一：迭代法，容易超时,但这一版能够看得很明白
+# class Solution:
+#     def addTwoNumbers(self, l1, l2):
+#         total = 0
+#         carry = 0
+#         dummy = ListNode()
+#         cur = dummy
+#         while(l1 != None and l2 != None):
+#             total = l1.val + l2.val + carry
+#             cur.next = ListNode(total % 10)
+#             carry = total // 10
+#             cur = cur.next
+#             l1 = l1.next
+#             l2 = l2.next
+
+#         while l1 != None:
+#             total = l1.val + carry
+#             cur.next = ListNode(total % 10)
+#             carry = total // 10
+#             cur = cur.next
+#             l1 = l1.next
+
+#         while l2 != None:
+#             total = l2.val + carry
+#             cur.next = ListNode(total % 10)
+#             carry = total // 10
+#             cur = cur.next
+#             l2 = l2.next
+
+#         if carry != 0:
+#             cur.next = ListNode(carry)
+#         return dummy.next
+
+# 爱学习的饲养员解法二：递归法
 class Solution:
     def addTwoNumbers(self, l1, l2):
-        total = 0
-        carry = 0
-        dummy = ListNode()
-        cur = dummy
-        while(l1 != None and l2 != None):
-            total = l1.val + l2.val + carry
-            cur.next = ListNode(total % 10)
-            carry = total // 10
-            cur = cur.next
-            l1 = l1.next
-            l2 = l2.next
-
-        while l1 != None:
-            total = l1.val + carry
-            cur.next = ListNode(total % 10)
-            carry = total // 10
-            cur = cur.next
-            l1 = l1.next
-
-        while l2 != None:
-            total = l2.val + carry
-            cur.next = ListNode(total % 10)
-            carry = total // 10
-            cur = cur.next
-            l2 = l2.next
-
-        if carry != 0:
-            cur.next = ListNode(carry)
-        return dummy.next
+        total = l1.val + l2.val
+        carry = total // 10
+        dummy = ListNode(total % 10)
+        if(l1.next or l2.next or carry):
+            l1 = l1.next if l1.next else ListNode(0)
+            l2 = l2.next if l2.next else ListNode(0)
+            l1.val += carry # 这一步是防止上一步的及位置丢失
+            carry.next = self.addTwoNumbers(l1, l2)
+        return dummy
