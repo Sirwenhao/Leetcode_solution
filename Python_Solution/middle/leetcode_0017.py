@@ -5,57 +5,57 @@
 
 
 # 力扣加加解法：回溯法
-# class Solution:
-#     def letterCombinations(self, digits):
-#         mapper = [" "," ","abc","def","ghi",
-#                 "jkl","mno","pqrs","tuv","wxyz"]
-
-#         def backtrack(digits, start):
-#             if start >= len(digits):
-#                 return ['']
-#             ans = []
-#             for i in range(start, len(digits)):
-#                 for c in mapper[int(digits[i])]:
-#                     for p in backtrack(digits, i+1):
-#                         if start == 0:
-#                             if len(c + p) == len(digits):
-#                                 ans.append(c+p)
-#                         else:
-#                             ans.append(c+p)
-#             return ans
-#         if not digits:
-#             return []
-#         return backtrack(digits, 0)
-
-# 官解:回溯加递归
 class Solution:
     def letterCombinations(self, digits):
-        if not digits:
-            return list()
-        dic = {
-        "2": "abc",
-        "3": "def",
-        "4": "ghi",
-        "5": "jkl",
-        "6": "mno",
-        "7": "pqrs",
-        "8": "tuv",
-        "9": "wxyz",}
+        mapper = [" "," ","abc","def","ghi",
+                "jkl","mno","pqrs","tuv","wxyz"]
 
-        def backtrack(index):
-            if index == len(digits):
-                combinations.append("".join(combination))
-            else:
-                digit = digits[index]
-                for letter in dic[digit]:
-                    combination.append(letter)
-                    backtrack(index + 1)
-                    combination.pop()
+        def backtrack(digits, start):
+            if start >= len(digits):
+                return ['']
+            ans = []
+            for i in range(start, len(digits)):
+                for c in mapper[int(digits[i])]:
+                    for p in backtrack(digits, i+1):
+                        if start == 0:
+                            if len(c + p) == len(digits):
+                                ans.append(c+p)
+                        else:
+                            ans.append(c+p)
+            return ans
+        if not digits:
+            return []
+        return backtrack(digits, 0)
+
+# 官解:回溯加递归
+# class Solution:
+#     def letterCombinations(self, digits):
+#         if not digits:
+#             return list()
+#         dic = {
+#         "2": "abc",
+#         "3": "def",
+#         "4": "ghi",
+#         "5": "jkl",
+#         "6": "mno",
+#         "7": "pqrs",
+#         "8": "tuv",
+#         "9": "wxyz",}
+
+#         def backtrack(index):
+#             if index == len(digits):
+#                 combinations.append("".join(combination))
+#             else:
+#                 digit = digits[index]
+#                 for letter in dic[digit]:
+#                     combination.append(letter)
+#                     backtrack(index + 1)
+#                     combination.pop()
         
-        combination = list()
-        combinations = list()
-        backtrack(0)
-        return combinations
+#         combination = list()
+#         combinations = list()
+#         backtrack(0)
+#         return combinations
 
 # 2022/5/2 review
 # class Solution:
@@ -78,6 +78,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    digits = "23"
+    digits = "234"
     result = Solution().letterCombinations(digits)
     print(result)
