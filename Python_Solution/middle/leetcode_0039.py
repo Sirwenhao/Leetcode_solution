@@ -50,9 +50,41 @@
 #                 path.pop()
 
 
-# 代码随想录教程
+# # 代码随想录教程
+# class Solution:
+#     # 定义两个全局变量用于存放结果集和符合条件的结果
+#     def __init__(self):
+#         self.path = []
+#         self.paths = []
+
+#     def combinationsSum(self, candidates, target):
+#         self.path.clear()
+#         self.paths.clear()
+#         self.backtracking(candidates, target, 0, 0)
+#         return self.paths
+
+#     def backtracking(self, candidates, target, sum, start_index):
+#         # 基础情况
+#         if sum == target:
+#             self.paths.append(self.path[:]) # 因为是浅拷贝，所以不能直接传入self.path
+#             return
+#         if sum > target:
+#             return
+
+#         # 单层递归逻辑
+#         for i in range(start_index, len(candidates)):
+#             sum += candidates[i]
+#             self.path.append(candidates[i])
+#             self.backtracking(candidates, target, sum, i)
+#             sum -= candidates[i] # 回溯
+#             self.path.pop() # 回溯
+
+# 回溯加剪枝
+
+from tracemalloc import start
+
+
 class Solution:
-    # 定义两个全局变量用于存放结果集和符合条件的结果
     def __init__(self):
         self.path = []
         self.paths = []
@@ -60,26 +92,28 @@ class Solution:
     def combinationsSum(self, candidates, target):
         self.path.clear()
         self.paths.clear()
+
+        # 为了剪枝需要提前进行排序
+        candidates.sort()
         self.backtracking(candidates, target, 0, 0)
         return self.paths
 
     def backtracking(self, candidates, target, sum, start_index):
-        # 基础情况
+        # 基本情况
         if sum == target:
-            self.paths.append(self.path[:]) # 因为是浅拷贝，所以不能直接传入self.path
+            self.paths.append(self.path[:])
             return
-        if sum > target:
-            return
-
-        # 单层递归逻辑
+        # 此处与非剪枝版本有区别
+        # 如果本层sum + candidates[i] > target,就提前结束遍历，剪枝
         for i in range(start_index, len(candidates)):
+            if sum + candidates[i] > target:
+                return
             sum += candidates[i]
             self.path.append(candidates[i])
             self.backtracking(candidates, target, sum, i)
-            sum -= candidates[i] # 回溯
-            self.path.pop() # 回溯
-
-
+            sum -= candidates[i]
+            self.path.pop()
+        
 
 
 if __name__ == '__main__':
