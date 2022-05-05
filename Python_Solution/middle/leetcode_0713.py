@@ -13,9 +13,6 @@ class Solution:
         # 先排序方便剪枝
         nums.sort()
         self.backtracking(nums, k, 0)
-        for k in self.ans:
-            if self.ans.count(k) > 1:
-                self.ans.remove(k)
         return self.ans
 
     # 定义回溯法函数结构体
