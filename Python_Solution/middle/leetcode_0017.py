@@ -4,28 +4,28 @@
 """
 
 
-# 力扣加加解法：回溯法
-class Solution:
-    def letterCombinations(self, digits):
-        mapper = [" "," ","abc","def","ghi",
-                "jkl","mno","pqrs","tuv","wxyz"]
+# # 力扣加加解法：回溯法
+# class Solution:
+#     def letterCombinations(self, digits):
+#         mapper = [" "," ","abc","def","ghi",
+#                 "jkl","mno","pqrs","tuv","wxyz"]
 
-        def backtrack(digits, start):
-            if start >= len(digits):
-                return ['']
-            ans = []
-            for i in range(start, len(digits)):
-                for c in mapper[int(digits[i])]:
-                    for p in backtrack(digits, i+1):
-                        if start == 0:
-                            if len(c + p) == len(digits):
-                                ans.append(c+p)
-                        else:
-                            ans.append(c+p)
-            return ans
-        if not digits:
-            return []
-        return backtrack(digits, 0)
+#         def backtrack(digits, start):
+#             if start >= len(digits):
+#                 return ['']
+#             ans = []
+#             for i in range(start, len(digits)):
+#                 for c in mapper[int(digits[i])]:
+#                     for p in backtrack(digits, i+1):
+#                         if start == 0:
+#                             if len(c + p) == len(digits):
+#                                 ans.append(c+p)
+#                         else:
+#                             ans.append(c+p)
+#             return ans
+#         if not digits:
+#             return []
+#         return backtrack(digits, 0)
 
 # 官解:回溯加递归
 # class Solution:
@@ -57,7 +57,7 @@ class Solution:
 #         backtrack(0)
 #         return combinations
 
-# 2022/5/2 review
+# # 2022/5/2 review
 # class Solution:
 #     def letterCombinations(self, digits):
 #         dic = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']   
@@ -75,6 +75,27 @@ class Solution:
 #                         cache.append(item+letter)
 #                 res = cache
 #         return res
+
+# 2022/5/6 写回溯法尝试解决
+class Solution:
+    def letterCombinations(self, digits):
+        # 先要创建一个待查的备用数据集合
+        dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+        # 定义存放当前需要判断的参数的存储空间
+        res = []
+        # 定义回溯函数结构体
+        def backtracking(digits, start_index, s): # 回溯的参数一开始也没有想明白，没有想到s
+            if start_index == len(digits):
+                res.append(s)
+                return
+            for character in dic[int(digits[start_index])-2]:  # 此处回溯的横向深度遍历对象一开始没有找对
+                backtracking(digits, start_index+1, s+character) # 这个地方也没又想到s+character
+        # base condition
+        if len(digits) == 0:
+            return []
+        backtracking(digits, 0, "")
+        return res
+
 
 
 if __name__ == '__main__':
