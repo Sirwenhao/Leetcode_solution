@@ -50,7 +50,7 @@
 #                 path.pop()
 
 
-# # 代码随想录教程
+# # 代码随想录
 # class Solution:
 #     # 定义两个全局变量用于存放结果集和符合条件的结果
 #     def __init__(self):
@@ -80,8 +80,6 @@
 #             self.path.pop() # 回溯
 
 # 回溯加剪枝
-
-
 class Solution:
     def __init__(self):
         self.path = []

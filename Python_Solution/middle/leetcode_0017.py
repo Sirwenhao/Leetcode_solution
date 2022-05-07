@@ -3,7 +3,6 @@
     2、类似于电话的实体按键，2->(a,b,c)，3->(d,e,f),...,9->(w,x,y,z)
 """
 
-
 # # 力扣加加解法：回溯法
 # class Solution:
 #     def letterCombinations(self, digits):
@@ -76,26 +75,90 @@
 #                 res = cache
 #         return res
 
+# 代码随想录解法
+# class Solution:
+#     def __init__(self):
+#         self.answers: List[str] = []
+#         self.answer: str = ''
+#         self.letter_map = {
+#             '2': 'abc',
+#             '3': 'def',
+#             '4': 'ghi',
+#             '5': 'jkl',
+#             '6': 'mno',
+#             '7': 'pqrs',
+#             '8': 'tuv',
+#             '9': 'wxyz'
+#         }
+
+#     def letterCombinations(self, digits: str) -> List[str]:
+#         self.answers.clear()
+#         if not digits: return []
+#         self.backtracking(digits, 0)
+#         return self.answers
+    
+#     def backtracking(self, digits: str, index: int) -> None:
+#         # 回溯函数没有返回值
+#         # Base Case
+#         if index == len(digits):    # 当遍历穷尽后的下一层时
+#             self.answers.append(self.answer)
+#             return 
+#         # 单层递归逻辑  
+#         letters: str = self.letter_map[digits[index]]
+#         for letter in letters:
+#             self.answer += letter   # 处理
+#             self.backtracking(digits, index + 1)    # 递归至下一层
+#             self.answer = self.answer[:-1]  # 回溯
+
 # 2022/5/6 写回溯法尝试解决
+# class Solution:
+#     def letterCombinations(self, digits):
+#         # 先要创建一个待查的备用数据集合
+#         dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+#         # 定义存放当前需要判断的参数的存储空间
+#         res = []
+#         # 定义回溯函数结构体
+#         def backtracking(digits, start_index, s): # 回溯的参数一开始也没有想明白，没有想到s
+#             if start_index == len(digits):
+#                 res.append(s)
+#                 return
+#             for character in dic[int(digits[start_index])-2]:  # 此处回溯的横向深度遍历对象一开始没有找对
+#                 backtracking(digits, start_index+1, s+character) # 这个地方也没又想到s+character
+#         # base condition
+#         if len(digits) == 0:
+#             return []
+#         backtracking(digits, 0, "")
+#         return res
+
+# 2022/5/7 9:43 author：WH
 class Solution:
     def letterCombinations(self, digits):
-        # 先要创建一个待查的备用数据集合
+        # 首先创建list存放数字对应的字母
         dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
-        # 定义存放当前需要判断的参数的存储空间
-        res = []
-        # 定义回溯函数结构体
-        def backtracking(digits, start_index, s): # 回溯的参数一开始也没有想明白，没有想到s
+        # 结果集
+        ans = []
+        # 当前组合，用于判断当前所选择的是否已经满足条件,这个地方也要注意初始值给的是""
+        current = ""
+
+        # 定义回溯函数结构体,start_index表示当前状态的起始位置
+        def backtracking(digits, start_index, current):
+            # base condition
             if start_index == len(digits):
-                res.append(s)
+                ans.append(current[:])
                 return
-            for character in dic[int(digits[start_index])-2]:  # 此处回溯的横向深度遍历对象一开始没有找对
-                backtracking(digits, start_index+1, s+character) # 这个地方也没又想到s+character
-        # base condition
+
+            # 单层递归逻辑
+            # 此处for循环遍历的条件有一点点不一样，需注意下
+            for character in dic[int(digits[start_index])-2]: # 一开始dic后面给了()导致报错
+                if len(current) == len(digits):
+                    ans.append(current)
+                backtracking(digits, start_index+1, current+character)
+                # current -= character  # 回溯
+        # 忽略了基本情况
         if len(digits) == 0:
             return []
-        backtracking(digits, 0, "")
-        return res
-
+        backtracking(digits, 0, current)
+        return ans
 
 
 if __name__ == '__main__':
