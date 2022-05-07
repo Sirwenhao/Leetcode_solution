@@ -10,7 +10,7 @@
             return
         
     for 选择 in 选择列表:
-        做选择
+        做选择  
         backtrack(路径，选择列表)
         撤销选择
 """
@@ -80,40 +80,74 @@
 #             self.path.pop() # 回溯
 
 # 回溯加剪枝
-class Solution:
-    def __init__(self):
-        self.path = []
-        self.paths = []
+# class Solution:
+#     def __init__(self):
+#         self.path = []
+#         self.paths = []
 
-    def combinationsSum(self, candidates, target):
-        self.path.clear()
-        self.paths.clear()
+#     def combinationsSum(self, candidates, target):
+#         self.path.clear()
+#         self.paths.clear()
 
-        # 为了剪枝需要提前进行排序
-        candidates.sort()
-        self.backtracking(candidates, target, 0, 0)
-        return self.paths
+#         # 为了剪枝需要提前进行排序
+#         candidates.sort()
+#         self.backtracking(candidates, target, 0, 0)
+#         return self.paths
 
-    def backtracking(self, candidates, target, sum, start_index):
-        # 基本情况
-        if sum == target:
-            self.paths.append(self.path[:])
-            return
-        # 此处与非剪枝版本有区别
-        # 如果本层sum + candidates[i] > target,就提前结束遍历，剪枝
-        for i in range(start_index, len(candidates)):
-            if sum + candidates[i] > target:
-                return
-            sum += candidates[i]
-            self.path.append(candidates[i])
-            self.backtracking(candidates, target, sum, i)
-            sum -= candidates[i]
-            self.path.pop()
+#     def backtracking(self, candidates, target, sum, start_index):
+#         # 基本情况
+#         if sum == target:
+#             self.paths.append(self.path[:])
+#             return
+#         # 此处与非剪枝版本有区别
+#         # 如果本层sum + candidates[i] > target,就提前结束遍历，剪枝
+#         for i in range(start_index, len(candidates)):
+#             if sum + candidates[i] > target:
+#                 return
+#             sum += candidates[i]
+#             self.path.append(candidates[i])
+#             self.backtracking(candidates, target, sum, i)
+#             sum -= candidates[i]
+#             self.path.pop()
         
+# 2022/5/7 author:WH 回溯加剪枝
+# 关键问题一：元素可以被无限制重复选取，只要满足条件即可
+# 关键问题二：一定要注意排序的使用
+class Solution:
+    def combinationsSum(self, candidates, target):
+        # 结果集
+        ans = []
+        # 当前解集
+        current = []
+        # 先排序
+        candidates.sort()
+
+        # 定义回溯函数结构体
+        def backtracking(candidates, target, start_index, current):
+            if sum(current) == target:
+                # 此处符合条件的当前解集以前拷贝的方式加入到结果集
+                ans.append(current[:])
+                return
+
+            # 定义剪枝模块
+            if sum(current) > target:
+                return
+
+            # 定义单层循环逻辑
+            for i in range(start_index, len(candidates)):
+                current.append(candidates[i])
+                # 用i来控制每次取元素的起始位置，关键点此处不用i+1表示可以重复读取当前的数
+                backtracking(candidates, target, i, current)
+                current.pop() # 回溯
+
+        backtracking(candidates, target, 0, current)
+        return ans
+
 
 
 if __name__ == '__main__':
-    candidates = [2,3,6,7]
-    target = 7
+    candidates = [2,7,6,3,5,1]
+    target = 9
+
     result = Solution().combinationsSum(candidates, target)
     print(result)
