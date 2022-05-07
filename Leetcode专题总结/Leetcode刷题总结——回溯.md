@@ -25,7 +25,7 @@ class Solution:
         dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
         # 结果集
         ans = []
-        # 当前组合，用于判断当前所选择的是否已经满足条件,这个地方也要注意初始值给的是""
+        # 当前组合，用于判断当前所选择的是否已经满足条件,这个地方要注意初始值给的是""
         current = ""
 
         # 定义回溯函数结构体,start_index表示当前状态的起始位置
@@ -82,6 +82,38 @@ class Solution:
             self.backtracking(digits, index + 1)    # 递归至下一层
             self.answer = self.answer[:-1]  # 回溯
             
+# 回溯简化版本
+class Solution:
+    def __init__(self):
+        self.answers: List[str] = []
+        self.letter_map = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
+    def letterCombinations(self, digits: str) -> List[str]:
+        self.answers.clear()
+        if not digits: return []
+        self.backtracking(digits, 0, '')
+        return self.answers
+    
+    def backtracking(self, digits: str, index: int, answer: str) -> None:
+        # 回溯函数没有返回值
+        # Base Case
+        if index == len(digits):    # 当遍历穷尽后的下一层时
+            self.answers.append(answer)
+            return 
+        # 单层递归逻辑  
+        letters: str = self.letter_map[digits[index]]
+        for letter in letters:
+            self.backtracking(digits, index + 1, answer + letter)    # 递归至下一层 + 回溯
+            
             
 # author: 力扣加加
 class Solution:
@@ -114,6 +146,160 @@ if __name__ == '__main__':
 ```
 
 ##### 2.2. 0039
+
+```python
+# 2022/5/7 author:WH 回溯加剪枝
+# 关键问题一：元素可以被无限制重复选取，只要满足条件即可
+# 关键问题二：一定要注意排序的使用
+class Solution:
+    def combinationsSum(self, candidates, target):
+        # 结果集
+        ans = []
+        # 当前解集
+        current = []
+        # 先排序
+        candidates.sort()
+
+        # 定义回溯函数结构体
+        def backtracking(candidates, target, start_index, current):
+            if sum(current) == target:
+                # 此处符合条件的当前解集以前拷贝的方式加入到结果集
+                ans.append(current[:])
+                return
+
+            # 定义剪枝模块
+            if sum(current) > target:
+                return
+
+            # 定义单层循环逻辑
+            for i in range(start_index, len(candidates)):
+                current.append(candidates[i])
+                # 用i来控制每次取元素的起始位置，关键点此处不用i+1表示可以重复读取当前的数
+                backtracking(candidates, target, i, current)
+                current.pop() # 回溯
+
+        backtracking(candidates, target, 0, current)
+        return ans
+
+# 代码随想录
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.paths = []
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        '''
+        因为本题没有组合数量限制，所以只要元素总和大于target就算结束
+        '''
+        self.path.clear()
+        self.paths.clear()
+
+        # 为了剪枝需要提前进行排序
+        candidates.sort()
+        self.backtracking(candidates, target, 0, 0)
+        return self.paths
+
+    def backtracking(self, candidates: List[int], target: int, sum_: int, start_index: int) -> None:
+        # Base Case
+        if sum_ == target:
+            self.paths.append(self.path[:]) # 因为是shallow copy，所以不能直接传入self.path
+            return
+        # 单层递归逻辑 
+        # 如果本层 sum + condidates[i] > target，就提前结束遍历，剪枝
+        for i in range(start_index, len(candidates)):
+            if sum_ + candidates[i] > target: 
+                return 
+            sum_ += candidates[i]
+            self.path.append(candidates[i])
+            self.backtracking(candidates, target, sum_, i)  # 因为无限制重复选取，所以不是i-1
+            sum_ -= candidates[i]   # 回溯
+            self.path.pop()        # 回溯
+    
+    
+
+if __name__ == '__main__':
+    candidates = [2,7,6,3,5,1]
+    target = 9
+
+    result = Solution().combinationsSum(candidates, target)
+    print(result)
+```
+
+##### 2.3.0040
+
+```python
+# 2022/5/7 0:12 Author:WH 回溯
+class Solution:
+    def combinationSum2(self, candidates, target):
+        ans = []
+        current = []
+        # 排序这个关键步骤不能少
+        candidates.sort()
+
+        # 定义回溯部分主体
+        def backtracking(candidates, target, start_index, current):
+            # base condition
+            if sum(current) == target:
+                ans.append(current[:])  # 此处用浅拷贝
+                return # 这个return语句被我遗忘了
+
+            for i in range(start_index, len(candidates)):  # 此处的start_index是防止重复取元素
+                # 剪枝操作
+                if sum(current) > target:
+                    return
+                # 剪枝操作：跳过同一树层使用过的元素
+                if i > start_index and candidates[i] == candidates[i-1]:
+                    continue
+                current.append(candidates[i])
+                backtracking(candidates, target, i+1, current)
+                current.pop()
+
+        backtracking(candidates, target, 0, current)
+        return ans
+
+# 力扣加加
+class Solution:
+    def combinationSum2(self, candidates, target):
+        """
+        与39题的区别是不能重用元素，而元素可能有重复
+        不能重用好解决，回溯的index往下一个就行；
+        元素可能有重复，就让结果的去重麻烦一些
+        """
+        size = len(candidates)
+        if size == 0:
+            return []
+
+        # 先排序
+        candidates.sort()
+        path = []
+        res = []
+        self._find_path(candidates, path, res, target, 0, size)
+        return res
+
+    def _find_path(self, candidates, path, res, target, begin, size):
+        if target == 0:
+            res.append(path.copy())
+        else:
+            for i in range(begin, size):
+                left_num = target - candidates[i]
+                if left_num < 0:
+                    break
+                # 如果存在重复的元素，前一个元素已经遍历的后一个元素与之后元素组合的所有可能
+                if i > begin and candidates[i]  == candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                # 开始的index往后移一格
+                self._find_path(candidates, path, res, left_num, i+1, size)
+                path.pop()
+
+                
+                
+if __name__ == '__main__':
+    candidates = [5,2,2,1,2]
+    target = 5
+    result = Solution().combinationSum2(candidates, target)
+    print(result)
+```
 
 
 
