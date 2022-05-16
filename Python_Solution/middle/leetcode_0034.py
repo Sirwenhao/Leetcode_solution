@@ -12,7 +12,7 @@ class Solution:
         # 定义二分搜索
         def binarySearch(nums, target:int):
             left, right = 0, len(nums)-1
-            while left < right:
+            while left <= right:   # 这个位置的等于号是要取到的，要不会报错
                 middle = (left + right) // 2
                 if nums[middle] > target:
                     right = middle-1
@@ -36,6 +36,6 @@ class Solution:
 
 if __name__ == '__main__':
     nums = [5,7,7,8,8,10]
-    target = 9
+    target = 8
     result = Solution().searchRange(nums, target)
     print(result)
