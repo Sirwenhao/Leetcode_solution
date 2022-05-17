@@ -9,7 +9,6 @@
 #         res = []
 #         # 定义标志变量用于判断是否进行剪枝
 #         used = [0] * len(nums)
-
 #         def backtracking(nums, used, path):
 #             # 结果不能重复则考虑使用集合来存放
 #             # 终止条件
@@ -50,28 +49,30 @@
 #         backtracking(nums, [])
 #         return res
 
-# 力扣高赞
-class Solution:
-    def permuteUnique(self, nums):
-        nums.sort()
-        self.res = []
-        # check作为校验位，相应位置元素为0则表示被使用过
-        check = [0 for i in range(len(nums))]
-        self.backtracking(nums, [], check)
-        return self.res
+# # 力扣高赞
+# class Solution:
+#     def permuteUnique(self, nums):
+#         nums.sort()
+#         self.res = []
+#         # check作为校验位，相应位置元素为0则表示被使用过
+#         check = [0 for i in range(len(nums))]
+#         self.backtracking(nums, [], check)
+#         return self.res
 
-    def backtracking(self, nums, current, check):
-        if len(current) == len(nums):
-            self.res.append(current)
-            return
-        for i in range(len(nums)):
-            if check[i] == 1:
-                continue
-            if i > 0 and nums[i] == nums[i-1] and check[i-1] == 0:
-                continue
-            check[i] = 1
-            self.backtracking(nums, current+[nums[i]], check)
-            check[i] = 0
+#     def backtracking(self, nums, current, check):
+#         if len(current) == len(nums):
+#             self.res.append(current)
+#             return
+#         for i in range(len(nums)):
+#             if check[i] == 1:
+#                 continue
+#             if i > 0 and nums[i] == nums[i-1] and check[i-1] == 0:
+#                 continue
+#             check[i] = 1
+#             self.backtracking(nums, current+[nums[i]], check)
+#             check[i] = 0
+
+# 
 
 if __name__ == '__main__':
     nums = [1,1,2]
