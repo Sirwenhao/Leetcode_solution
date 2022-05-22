@@ -130,38 +130,84 @@
 #         backtracking(digits, 0, "")
 #         return res
 
-# 2022/5/7 9:43 author：WH
-class Solution:
+# # 2022/5/7 9:43 author：WH
+# class Solution:
+#     def letterCombinations(self, digits):
+#         # 首先创建list存放数字对应的字母
+#         dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+#         # 结果集
+#         ans = []
+#         # 当前组合，用于判断当前所选择的是否已经满足条件,这个地方也要注意初始值给的是""
+#         current = ""
+
+#         # 定义回溯函数结构体,start_index表示当前状态的起始位置
+#         def backtracking(digits, start_index, current):
+#             # base condition
+#             if start_index == len(digits):
+#                 ans.append(current[:])
+#                 return
+
+#             # 单层递归逻辑
+#             # 此处for循环遍历的条件有一点点不一样，需注意下
+#             for character in dic[int(digits[start_index])-2]: # 一开始dic后面给了()导致报错
+#                 if len(current) == len(digits):
+#                     ans.append(current)
+#                 backtracking(digits, start_index+1, current+character)
+#                 # current -= character  # 回溯
+#         # 忽略了基本情况
+#         if len(digits) == 0:
+#             return []
+#         backtracking(digits, 0, current)
+#         return ans
+
+# # 2022/5/21 review author:WH
+# # 还是忘记了，关键点还是没有特别清晰。。。。。。
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+#         self.dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+
+#     def letterCombinations(self, digits):
+        
+#         self.ans.clear()
+#         self.current.clear()
+#         self.backtracking(digits, 0)
+#         return self.ans
+
+#     def backtracking(self, digits, start_index):
+#         if len(self.current) == len(digits):
+#             self.ans.append(self.current[:])
+#             return
+
+#         for i in range(start_index, len(digits)):
+#             character = self.dic[int(digits[i])]
+
+# 对比上述错解，重写（参考了正解） 2022/5/21 author:WH
+class Solution: 
+    def __init__(self):
+        self.ans = []
+        self.current = ''
+        self.dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+
     def letterCombinations(self, digits):
-        # 首先创建list存放数字对应的字母
-        dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
-        # 结果集
-        ans = []
-        # 当前组合，用于判断当前所选择的是否已经满足条件,这个地方也要注意初始值给的是""
-        current = ""
+        self.ans.clear()
+        self.backtracking(digits, 0)
+        return self.ans
 
-        # 定义回溯函数结构体,start_index表示当前状态的起始位置
-        def backtracking(digits, start_index, current):
-            # base condition
-            if start_index == len(digits):
-                ans.append(current[:])
+    def backtracking(self, digits, index):
+        # 此处有使用到start_index，则递归终止的条件
+        if index == len(digits):
+            self.ans.append(self.current[:])
+            return
+        for i in self.dic[int(digits[index])-2]:
+            if len(self.current) > len(digits):
                 return
-
-            # 单层递归逻辑
-            # 此处for循环遍历的条件有一点点不一样，需注意下
-            for character in dic[int(digits[start_index])-2]: # 一开始dic后面给了()导致报错
-                if len(current) == len(digits):
-                    ans.append(current)
-                backtracking(digits, start_index+1, current+character)
-                # current -= character  # 回溯
-        # 忽略了基本情况
-        if len(digits) == 0:
-            return []
-        backtracking(digits, 0, current)
-        return ans
-
+            self.current += i
+            self.backtracking(digits, index+1)
+            self.current = self.current[:-1] # 字符串的回溯
 
 if __name__ == '__main__':
-    digits = "234"
+    digits = "23"
     result = Solution().letterCombinations(digits)
     print(result)
