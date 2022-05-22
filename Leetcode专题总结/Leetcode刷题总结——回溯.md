@@ -1,8 +1,8 @@
-### Leetcode刷题总结——回溯
+## Leetcode刷题总结——回溯
 
 2022/5/7版本，后续再补...
 
-#### 1. 相关题目编号：
+### 1. 相关题目编号：
 
 - 0017电话号码的字母组合：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
 - 0039组合总和：https://leetcode-cn.com/problems/combination-sum/
@@ -11,7 +11,13 @@
 - 0047全排列II：https://leetcode-cn.com/problems/permutations-ii/
 - 0713乘积小于K的子数组：https://leetcode-cn.com/problems/subarray-product-less-than-k/
 
-#### 2. 代码实现
+放弃篇~：
+
+- 0037 解数独
+- 0051 N皇后
+- 0332 重新安排形成
+
+### 2. 代码实现
 
 ##### 2.1. 0017
 
@@ -301,10 +307,184 @@ if __name__ == '__main__':
     print(result)
 ```
 
-
-
-#### 3.  相关学习资料
+### 3.  相关学习资料
 
 - 代码随想录：https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E9%A2%98%E7%9B%AE%E5%88%86%E7%B1%BB%E5%A4%A7%E7%BA%B2%E5%A6%82%E4%B8%8B
 - 力扣加加：https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/thinkings/backtrack
+
+### 4. 回溯专题总结
+
+2022/5/21~2022/5/22更新，以《代码随想录》分类为参考
+
+#### 4.1. 组合问题
+
+- 0017 电话号码的字母组合
+- 0039 组合总和
+- 0040 组合总和II
+- 0077 组合
+- 0216 组合总和III
+
+4.1.1 组合问题中的关键点：如何保证取过的元素不被重复选取?（使用参数start_index）
+
+使用参数start_index记录<font color=red>下一层递归搜索的起始位置</font>，每次从集合[1,2,3,...,n]中选取元素，可选择的范围逐渐收缩，而这种收缩就是由start_index决定的。内层循环中的嵌套回溯中的参数start_index可以决定当前元素是否能够重复选取（取i或i+1）。
+
+难点：树层去重和树枝去重的实现
+
+具体实例：
+
+0077 组合
+
+```python
+# 2022/5/21 author:WH
+class Solution:
+	def __init__(self):
+        self.ans = []
+        self.current = []
+    def combine(self, n, k):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(n, k, 1)
+        return self.ans
+    def backtracking():
+        if len(self.current) == k:
+            self.ans.append(self.current[:])
+            return
+        for i in range(start_index, n+1):
+            self.current.append(i)
+            self.backtracking(n, k, i+1)  # 关键点：i+1
+            self.current.pop()
+            
+# 上述解法的剪枝版本
+# 剪枝优化的版本
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
+    def combine(self, n, k):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(n, k, 1)
+        return self.ans
+
+    def backtracking(self, n, k, start_index):
+        if len(self.current) == k:
+            self.ans.append(self.current[:])
+            return
+
+        for i in range(start_index, n-(k-len(self.current))+2):
+            self.current.append(i)
+            self.backtracking(n, k, i+1)
+            self.current.pop()
+```
+
+0017 电话号码的字母组合
+
+```python
+# 2022/5/22 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = ''
+        self.dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+    def letterCombinations(self, digits):
+        self.ans.clear()
+        self.backtracking(digits, 0)
+        return self.ans
+    def letterCombinations(self, digits, index):
+        if index == len(digits):
+            self.ans.append(self.current[:])
+            return
+        for i in self.dic[int(digits[index])-2]:
+            if len(self.current) > len(digits):
+                return
+            self.current += i
+            self.backtracking(digits, index+1)
+            self.current = self.current[:-1]
+```
+
+0039 组合总和
+
+```python
+# 2022/5/21 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+    def combinationsSum(self, candidates, target):
+        candidates.sort()
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(candidates, target, 0) 
+        return self.ans
+    def backtracking(self, candidates, target, start_index):
+        if sum(self.current) == target:
+            self.ans.append(self.current[:])
+            return
+        for i in range(start_index, len(candidates)):
+            # 剪枝
+            if sum(self.current) > target:
+            	return
+            self.current.append(candidates[i])
+            self.backtracking(candidates, target, i) // 关键点:不用i+1了，表示可以重复读取当前的数
+            self.current.pop() # 回溯
+```
+
+0040 组合总和II
+
+```python
+# 2022/5/21 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
+    def combinationSum2(self, candidates, target):
+        candidates.sort()
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(candidates, target, 0)
+        return self.ans
+
+    def backtracking(self, candidates, target, start_index):
+        if sum(self.current) == target:
+            self.ans.append(self.current[:])
+            return
+        for i in range(start_index, len(candidates)):
+            # 剪枝
+            if sum(self.current) > target:
+                return
+            # 去重，这个地方的i>start_index没有想明白
+            if i > start_index and candidates[i] == candidates[i-1]:
+                continue
+            self.current.append(candidates[i])
+            self.backtracking(candidates, target, i+1)
+            self.current.pop()
+```
+
+0216 组合总和III
+
+```python
+# 2022/5/22  author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
+    def combinationSum3(self, k, n):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(k, n, 1)
+        return self.ans
+    def backtracking(k, n, start_index):
+        if len(self.current) == k and sum(self.current) == n:
+            self.ans.append(self.current[:])
+            return
+        for i in range(start_index, 10):
+            if sum(self.current) > n:
+               return
+        	self.current.append(i)
+            self.backtracking(k, n, i+1)
+            self.current.pop()
+```
 
