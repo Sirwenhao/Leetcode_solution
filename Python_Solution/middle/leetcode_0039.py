@@ -1,8 +1,6 @@
 """
     1、目标数据给定，组合数据个数不确定
-    2、回溯法（还没有搞清楚这个方法的核心思想）
-    3、回溯法模板：
-
+    2、回溯法模板：
     res = []
     def backtrack(路径， 选择列表):
         if 满足结束条件:
@@ -113,41 +111,63 @@
 # 2022/5/7 author:WH 回溯加剪枝
 # 关键问题一：元素可以被无限制重复选取，只要满足条件即可
 # 关键问题二：一定要注意排序的使用
+# class Solution:
+#     def combinationsSum(self, candidates, target):
+#         # 结果集
+#         ans = []
+#         # 当前解集
+#         current = []
+#         # 先排序
+#         candidates.sort()
+
+#         # 定义回溯函数结构体
+#         def backtracking(candidates, target, start_index, current):
+#             if sum(current) == target:
+#                 # 此处符合条件的当前解集以前拷贝的方式加入到结果集
+#                 ans.append(current[:])
+#                 return
+
+#             # 定义剪枝模块
+#             if sum(current) > target:
+#                 return
+
+#             # 定义单层循环逻辑
+#             for i in range(start_index, len(candidates)):
+#                 current.append(candidates[i])
+#                 # 用i来控制每次取元素的起始位置，关键点此处不用i+1表示可以重复读取当前的数
+#                 backtracking(candidates, target, i, current)
+#                 current.pop() # 回溯
+
+#         backtracking(candidates, target, 0, current)
+#         return ans
+
+# 2022/5/21 author:WH
 class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
     def combinationsSum(self, candidates, target):
-        # 结果集
-        ans = []
-        # 当前解集
-        current = []
-        # 先排序
         candidates.sort()
+        self.ans.clear()    
+        self.current.clear()
+        self.backtracking(candidates, target, 0)
+        return self.ans
 
-        # 定义回溯函数结构体
-        def backtracking(candidates, target, start_index, current):
-            if sum(current) == target:
-                # 此处符合条件的当前解集以前拷贝的方式加入到结果集
-                ans.append(current[:])
+    def backtracking(self, candidates, target, start_index):
+        if sum(self.current) == target:
+            self.ans.append(self.current[:])
+            return
+        for i in range(start_index, len(candidates)):
+            # 如果不加上这个if语句，递归栈会炸
+            if sum(self.current) > target:
                 return
-
-            # 定义剪枝模块
-            if sum(current) > target:
-                return
-
-            # 定义单层循环逻辑
-            for i in range(start_index, len(candidates)):
-                current.append(candidates[i])
-                # 用i来控制每次取元素的起始位置，关键点此处不用i+1表示可以重复读取当前的数
-                backtracking(candidates, target, i, current)
-                current.pop() # 回溯
-
-        backtracking(candidates, target, 0, current)
-        return ans
-
-
+            self.current.append(candidates[i])
+            self.backtracking(candidates, target, i) # 关键点:不用i+1了，表示可以重复读取当前的数
+            self.current.pop()
 
 if __name__ == '__main__':
-    candidates = [2,7,6,3,5,1]
+    candidates = [2,7,6,3,1,5]
     target = 9
-
     result = Solution().combinationsSum(candidates, target)
     print(result)
