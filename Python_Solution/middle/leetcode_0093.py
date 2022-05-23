@@ -81,6 +81,9 @@ class Solution:
                 break
 
     def isValid(self, s, start, end):
+        # 这个if判断没有搞明白
+        if start > end:
+            return False
         # 判断num是否为0开头的非零数字
         if s[start] == 0 and start != end:
             return False
