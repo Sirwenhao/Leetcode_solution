@@ -488,3 +488,86 @@ class Solution:
             self.current.pop()
 ```
 
+2022/5/25~2022/5/26更新，author: WH
+
+#### 4.2 分割/切割问题
+
+- 0093 复原IP地址
+- 0131 分割回文串
+
+4.2.1 切割问题中的关键点：起始点start_index和每次遍历的变量i共同决定了每次所截取到的字符串字串，s[strat_index:i+1]这个才是每次所截取到的字串，需要做的操作就是判断这个字串是否合法。
+
+具体实例：
+
+0093 复原IP地址
+
+```python
+# 2022/5/25 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        
+    def restoreIPAddress(self, s):
+        self.ans.clear()
+        self.backtracking(self, s, 0, 0)
+        return self.ans
+    def backtracking(self, s, start_index, dotNum):
+        if dotNum == 3:
+            if self.isValid(s, start_index, len(s)-1):
+                self.ans.append(s[:])
+            return False
+        for i in range(start_index, len(s)):
+            if self.isValid(s, start_index, i):
+                s = s[:i+1] + '.' + s[i+1:]
+                self.backtracking(s, i+2, dotNum+1)
+                s = s[:i+1] + s[i+2:] # 回溯
+            else:
+                break
+                
+         def isValid(self, s, start, end):
+            if start > end:
+                return Fasle
+            if s[start] == 0 and start != end:
+                return False
+            if not 0 <= int(s[satrt:end+1]) <= 255:
+                return False
+if __name__ == "__main__":
+    s = "25525511135"
+    result = Solution().restoreIPAddress(s)
+    print(result)
+```
+
+0131 分割回文串
+
+```python
+# 2022/5/25 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+        
+    def partition(self, s):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(s, 0)
+        return self.ans
+    
+    def backtracking(self, s, start_index):
+        if start_index >= len(s):
+            self.ans.append(self.current[:])
+            return self.ans
+        for i in range(start_index, len(s)):
+            # 判断是否满足回文
+            if s[start_index:i+1][::1] == s[start_index:i+1][::-1]:
+                self.current.append(s[start_index:i+1])
+                self.backtracking(s, i+1)
+                self.current.pop()
+            else:
+                continue
+                
+if __name__ == "__main__":
+    s = "aab"
+    result = Solution().partition(s)
+    print(result)           
+```
+
