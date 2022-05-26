@@ -571,3 +571,73 @@ if __name__ == "__main__":
     print(result)           
 ```
 
+#### 4.3 子集问题
+
+- 0078 子集
+- 0090 子集II
+
+4.3.1 子集问题中的关键点：集合是无序的，元素顺序并不影响最终结果，因此取过的元素不会再重取，需要使用start_index。
+
+具体实例：
+
+0078 子集
+
+```python
+#2022/5/25 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+        
+    def subsets(self, nums):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(nums, 0)
+        return self.ans
+    
+    def backtracking(self, nums, start_index):
+        self.ans.append(self.current[:])
+        if start_index == len(nums):
+            return
+        for i in range(start_index, len(nums)):
+            self.current.append(nums[i])
+            self.backtracking(nums, i+1)
+            self.current.pop()
+if __name__ == "__name__":
+    nums = [1,2,3]
+    result = Solution().subsets(nums)
+    p        
+```
+
+0090 子集II
+
+```python
+#2022/5/26 author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+        
+    def subsetsWithDup(self, nums, start_index):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(nums, 0)
+        return self.ans
+    def backtracking(self, nums, start_index):
+        self.current(nums[i])
+        if start_index == len(nums):
+            return
+        for i in range(start_index, len(nums)):
+            if i > start_index and nums[i]==nums[i-1]:
+                continue
+            else:
+                self.current.append(nums[i])
+                self.backtracking(start_index, i+1) # 树枝不能重复选取
+                self.current.pop()
+                
+if __name__ == "__main__":
+    nums = [1,2,2]
+    result = Solution().subsetsWithDup(nums)
+    print(result)
+```
+
