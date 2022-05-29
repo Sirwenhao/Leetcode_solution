@@ -641,3 +641,35 @@ if __name__ == "__main__":
     print(result)
 ```
 
+0491 递增子序列
+
+```python
+# 2022/05/29  author:Wh
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
+    def findSubsequences(self, nums):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(nums, 0)
+        return self.ans
+    
+    def backtracking(self, nums, start_index):
+        if len(self.current) >= 2:
+            self.ans.append(self.current[:])
+
+        if len(self.current) == len(nums):
+            return
+        
+        usedList = set()
+        for i in range(start_index, len(nums)):
+            if (self.current and nums[i] < self.current[-1]) or nums[i] in usedList:
+                continue
+            usedList.add(nums[i])
+            self.current.append(nums[i])
+            self.backtracking(nums, i+1)
+            self.current.pop() 
+```
+
