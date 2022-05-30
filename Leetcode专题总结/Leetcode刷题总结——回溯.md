@@ -680,4 +680,8 @@ class Solution:
 
 ```python
 # 2022/5/30  author:WH
+class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
 ```
