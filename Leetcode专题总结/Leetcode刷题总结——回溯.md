@@ -673,3 +673,12 @@ class Solution:
             self.current.pop() 
 ```
 
+#### 4.4 排列问题
+
+- 0046 全排列
+- 0047 全排列II
+
+```python
+# 2022/5/30  author:WH
+```
+
