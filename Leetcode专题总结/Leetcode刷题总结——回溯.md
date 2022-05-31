@@ -678,10 +678,70 @@ class Solution:
 - 0046 全排列
 - 0047 全排列II
 
+4.4.1 排列问题的关键在于元素可以重复使用且元素顺序不同也会影响结果，因此不需要使用start_index来进行元素选择范围的缩减。
+
+此外，如果包含重复元素，则去重时一定要考虑对元素进行排序。
+
+0047中的去重才是最核心的关键步骤，去重问题一般包含两个维度：树层去重和树枝去重，此外去重问题一般也都会借助used数组进行
+
+0046 全排列
+
 ```python
 # 2022/5/30  author:WH
 class Solution:
     def __init__(self):
         self.ans = []
         self.current = []
+        
+    def permute(self, nums):
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(nums)
+        return self.ans
+    def backtracking(self, nums):
+        if len(self.current) == len(nums):
+            self.ans.append(self.current[:])
+            return
+        for i in range(len(nums)):
+            self.current.append(nums[:])
+            self.backtracking(nums)
+            self.current.pop()
+            
+if __name__ == "__main__":
+    nums = [1,2,3]
+    result = Solution().permute(nums)
+    print(result)
 ```
+
+0047 全排列II
+
+```python
+# 2022/5/31 author:WH
+class Solution:
+    def permuteUnique(self, nums):
+        res = []
+        used = [0] * len(nums)
+        def backtracking(self, nums):
+            if len(self.current) == len(nums):
+                self.ans.append(self.current[:])
+                return
+            for i in range(len(nums)):
+                if not used[i]:
+                    if i > 0 and used[i] == used[i-1] and not used[i-1]:
+                        continue
+                    used[i] = 1
+                    path.append(nums[i])
+                    backtracking(nums, used, path)
+                    path.pop() # 回溯
+                    used[i] = 0
+
+        backtracking(sorted(nums), used, [])
+        return res
+    
+if __name__ == "__main__":
+    nums = [1,1,2]
+    result = Solution().permuteUnique(nums)
+    print(result)
+```
+
+​      
