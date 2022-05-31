@@ -104,25 +104,50 @@
 #         return backtracking(nums, used)
         
 # 版本二：不适用used做标记，遇见重复直接跳过
+# class Solution:
+#     def permute(self, nums):
+#         """定义结果集"""
+#         ans = []
+#         """定义满足条件的当前结果"""
+#         current = []
+#         """定义回溯函数主体"""
+#         def backtracking(nums):
+#             if len(current) == len(nums):
+#                 ans.append(current[:])
+#                 return
+#             for i in range(len(nums)):
+#                 if nums[i] in current:
+#                     continue
+#                 current.append(nums[i])
+#                 backtracking(nums)
+#                 current.pop()
+#         backtracking(nums)
+#         return ans
+
+# 2022/5/31 author:WH
 class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = []
+
     def permute(self, nums):
-        """定义结果集"""
-        ans = []
-        """定义满足条件的当前结果"""
-        current = []
-        """定义回溯函数主体"""
-        def backtracking(nums):
-            if len(current) == len(nums):
-                ans.append(current[:])
-                return
-            for i in range(len(nums)):
-                if nums[i] in current:
-                    continue
-                current.append(nums[i])
-                backtracking(nums)
-                current.pop()
-        backtracking(nums)
-        return ans
+        self.ans.clear()
+        self.current.clear()
+        self.backtracking(nums)
+        return self.ans
+
+    def backtracking(self, nums):
+        if len(self.current) == len(nums):
+            self.ans.append(self.current[:])
+            return
+
+        for i in range(len(nums)):
+            # 子集中的元素不能重复
+            if nums[i] in self.current:
+                continue
+            self.current.append(nums[i])
+            self.backtracking(nums)
+            self.current.pop()
 
 if __name__ == "__main__":
     nums = [1,2,3]
