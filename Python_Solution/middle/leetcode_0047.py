@@ -2,31 +2,29 @@
     1、回溯专题
 """
 # # 代码随想录
-# class Solution:
-#     def permuteUnique(self, nums):
-#         if len(nums) == 0:
-#             return []
-#         res = []
-#         # 定义标志变量用于判断是否进行剪枝
-#         used = [0] * len(nums)
-#         def backtracking(nums, used, path):
-#             # 结果不能重复则考虑使用集合来存放
-#             # 终止条件
-#             if len(path) == len(nums):
-#                 res.append(path.copy())
-#                 return 
-#             for i in range(len(nums)):
-#                 if not used[i]:
-#                     if i > 0 and nums[i] == nums[i-1] and not used[i-1]:
-#                         continue
-#                     used[i] = 1
-#                     path.append(nums[i])
-#                     backtracking(nums, used, path)
-#                     path.pop() # 回溯
-#                     used[i] = 0
+class Solution:
+    def permuteUnique(self, nums):
+        res = []
+        # 定义标志变量用于判断是否进行剪枝
+        used = [0] * len(nums)
+        def backtracking(nums, used, path):
+            # 结果不能重复则考虑使用集合来存放
+            # 终止条件
+            if len(path) == len(nums):
+                res.append(path.copy())
+                return 
+            for i in range(len(nums)):
+                if not used[i]:
+                    if i > 0 and nums[i] == nums[i-1] and not used[i-1]:
+                        continue
+                    used[i] = 1
+                    path.append(nums[i])
+                    backtracking(nums, used, path)
+                    path.pop() # 回溯
+                    used[i] = 0
 
-#         backtracking(sorted(nums), used, [])
-#         return res
+        backtracking(sorted(nums), used, [])
+        return res
 
 # # 力扣加加
 # class Solution:
@@ -72,7 +70,36 @@
 #             self.backtracking(nums, current+[nums[i]], check)
 #             check[i] = 0
 
-# 
+# 2022/5/31  author:WH
+# 还是需要借助used数组辅助进行去重
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def permuteUnique(self, nums):
+#         nums.sort()
+#         self.ans.clear()
+#         self.current.clear()
+#         used = [0] * len(nums)
+#         self.backtracking(nums, used)
+#         return self.ans
+
+#     def backtracking(self, nums, used):
+#         if len(self.current) == len(nums):
+#             self.ans.append(self.current[:])
+#             return
+
+#         for i in range(len(nums)):
+#             if not used[i]:
+#                 if nums[i] == nums[i-1] and i > 0:
+#                     continue
+#                 used[i] = 1
+#                 self.current.append(nums[i])
+#                 self.backtracking(nums, used)
+#                 self.current.pop()
+#                 used[i] = 0
+
 
 if __name__ == '__main__':
     nums = [1,1,2]
