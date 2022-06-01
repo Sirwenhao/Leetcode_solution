@@ -88,22 +88,39 @@
 # 关键在于慢指针（左指针）的使用，判断nums[left] == nums[right]是否为真、
 # 若为真，left不变；若不为真，left+1滑到新位置，然后再把nums[right]给nums[left]
 
-def removeDuplicates(nums):
-    if nums is None:
-        return False
-    else:
-        cnt = left = 0
-        for right in range(1, len(nums)):
-            if nums[right] != nums[left]:
-                cnt += 1
-                left += 1
-                nums[left] = nums[right]
+# def removeDuplicates(nums):
+#     if nums is None:
+#         return False
+#     else:
+#         cnt = left = 0
+#         for right in range(1, len(nums)):
+#             if nums[right] != nums[left]:
+#                 cnt += 1
+#                 left += 1
+#                 nums[left] = nums[right]
 
-        return cnt+1
+#         return cnt+1
 
-list = [0,0,1,1,1,2,2,3,3,4]
-# list = [1,1,2]
-result = removeDuplicates(list)
+# list = [0,0,1,1,1,2,2,3,3,4]
+# # list = [1,1,2]
+# result = removeDuplicates(list)
+# print(result)
+# print(list)
 
-print(result)
-print(list)
+# 2022/6/1 author:WH  双指针解法
+class Solution:
+    def removeDuplicates(self, nums):
+        if len(nums) == 0:
+            return False
+        slow = fast = 0
+        for fast in range(1, len(nums)):
+            if nums[slow] != nums[fast]:
+                slow += 1
+                nums[slow] = nums[fast]
+        return nums
+
+if __name__ == "__main__":
+    nums = [0,0,1,1,1,2,2,3,3,4]
+    result = Solution().removeDuplicates(nums)
+    print(result)
+
