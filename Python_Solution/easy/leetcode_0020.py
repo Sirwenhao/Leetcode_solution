@@ -67,30 +67,56 @@
 #         else:
 #             top_elements = stack.pop() # 如果不在键中，则判断当前的元素与栈顶元素是否相同（原理：先进后出）
 #             if i == top_elements:
-#                 return True
-    
+#                 return True    
 
-def isValid(s):
-    stack = []
-    dic = {
-        '{':'}',
-        '[':']',
-        '(':')',
-    }
-    for i in s:
-        if i in dic:
-            stack.append(dic[i])
-        else:
-            if len(stack) != 0:
-                top_element = stack.pop()
-                if i == top_element:
-                    continue
+# def isValid(s):
+#     stack = []
+#     dic = {
+#         '{':'}',
+#         '[':']',
+#         '(':')',
+#     }
+#     for i in s:
+#         if i in dic:
+#             stack.append(dic[i])
+#         else:
+#             if len(stack) != 0:
+#                 top_element = stack.pop()
+#                 if i == top_element:
+#                     continue
+#                 else:
+#                     return False
+#             else:
+#                 return False
+#     return len(stack) == 0
+
+
+# 2022/6/6 author:WH
+class Solution:
+    def isValid(self, s):
+        dict = {
+            "{":"}",
+            "[":"]",
+            "(":")",
+        }
+        strList = []
+        for i in s:
+            if i in dict:
+                strList.append(dict[i])
+            else:
+                if len(strList) != 0:
+                    top_element = strList.pop()
+                    if i != top_element:
+                        return False
+                    else:
+                        continue
                 else:
                     return False
-            else:
-                return False
-    return len(stack) == 0
+        return len(strList) == 0
 
 
-result = isValid(s)
-print(result)
+if __name__ == "__main__":
+    s = "{[()]}"
+    result = Solution().isValid(s)
+    print(result)
+
