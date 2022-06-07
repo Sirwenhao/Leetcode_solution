@@ -6,7 +6,6 @@
 # 应该包含四层循环，用于模拟矩阵四条边的循环过程
 class Solution:
     def generateMatrix(self, n):
-        # 计数变量，用于判断while循环是否结束
         # 每一条边在循环时，都应该坚持左闭右开或者左开右闭的原则
         count = 1
         # 定义起始位置坐标
