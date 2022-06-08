@@ -41,20 +41,20 @@
 # 官解，方法三：双指针
 # 使用快慢指针，快指针比慢指针超前n个节点，这样当快指针指向链表尾部时，慢指针指向倒数第n个节点
 # 时间复杂度O(L),空间复杂度O(1),L为链表长度
-class Solution:
-    def removeNthFromEnd(self, head, n):
-        dummy = ListNode(0, head)
-        first = head
-        second = dummy
-        for i in range(n):
-            first = first.next
+# class Solution:
+#     def removeNthFromEnd(self, head, n):
+#         dummy = ListNode(0, head)
+#         first = head
+#         second = dummy
+#         for i in range(n):
+#             first = first.next
 
-        while first:
-            first = first.next
-            second = second.next
+#         while first:
+#             first = first.next
+#             second = second.next
 
-        second.next = second.next.next
-        return dummy.next
+#         second.next = second.next.next
+#         return dummy.next
         
 # 总结：
 # 添加哑节点的好处：
@@ -82,3 +82,29 @@ class Solution:
 #         cur.next = cur.next.next
 #         return 
 
+# 2022/6/8  author:WH
+from logging.config import valid_ident
+
+
+class ListNode:
+    def __init__(self, val=0, next = None):
+        self.val = val
+        self.next = None
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        # 添加虚拟头节点
+        dummy_node = ListNode(0)
+        dummy_node.next = head
+
+        # 设置快慢两个指针，其间距为n，则当快指针走到尾部时，慢指针所在位置即为需要删除的位置
+        slow, fast = dummy_node, dummy_node
+        while(n!=0):
+            fast = fast.next
+            n -= 1
+        while(fast != None):
+            slow = slow.next
+            fast = fast.next
+
+        # fast走到最后时，slow刚好在倒数第n个节点
+        slow.next = slow.next.next # 删除倒数第n个节点
+        return dummy_node.next
