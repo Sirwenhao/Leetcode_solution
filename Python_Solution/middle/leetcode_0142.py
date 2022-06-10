@@ -14,6 +14,7 @@ class Solution:
     def detectCycle(self, head):
         slow, fast = head, head
         while fast and fast.next:
+            slow = slow.next
             fast = fast.next.next
             # 如果相遇
             if slow == fast:
