@@ -90,7 +90,7 @@ class MyLinkedList:
             prev_node, current_node = None, self.head
             for _ in range(index + 1):
                 prev_node, current_node = current_node, current_node.next
-        else:
-            prev_node.next, current_node.next = current_node.next, None
+        	else:
+            	prev_node.next, current_node.next = current_node.next, None
 ```
 
