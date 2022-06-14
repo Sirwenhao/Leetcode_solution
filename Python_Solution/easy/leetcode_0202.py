@@ -5,19 +5,19 @@
 # 2022/6/13   author:WH
 # 第一想法：递归,自己写的，但是有点问题，没能通过
 # 如何使用哈希表，把一个数字n变成每一位上数字的集合
+# 此方法没有考虑到特殊情况：快乐数可能存在循环，从而导致计算中进入死循环，递归爆炸
+# 第二种情况是虽然没有死循环，但值不断增大，最后接近无穷大
 # class Solution:
 #     def isHappy(self, n):
-#         if n == 1:
-#             return True # 这个地方的return语句只是中断当前层，并没有完全跳出递归
-#             exit()
 #         s = str(n)
+#         global total
 #         total = 0
 #         for i in range(len(s)):
 #             total += int(s[i]) ** 2
 #         if total == 1:
 #             return True
-#         else:
-#             total = self.isHappy(total)
+#         total = self.isHappy(total)
+#         return total == 1
 
 
 # 代码随想录
