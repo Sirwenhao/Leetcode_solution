@@ -67,32 +67,60 @@
 #                     left += 1
 #         return list(map(list, dir))  #直接使用map语法把集合元素转成列表
 
+# class Solution:
+#     def threeSum(self, nums):
+#         n, res = len(nums), []
+#         if n < 3:
+#             return res
+#         nums.sort()
+#         for i in range(n-2):
+#             if nums[i] > 0:
+#                 break
+#             if i > 0 and nums[i] == nums[i-1]:
+#                 continue
+#             j, k = i+1, n-1
+#             while j < k:
+#                 if nums[i] + nums[j] + nums[k] == 0:
+#                     res.append([nums[i], nums[j], nums[k]])
+#                     j += 1
+#                     k -= 1
+#                     while j < n and nums[j] == nums[j-1]:
+#                         j += 1
+#                     while k > i and nums[k] == nums[k+1]:
+#                         k -= 1
+#                 elif nums[i] + nums[j] + nums[k] < 0:
+#                     j += 1
+#                 else:
+#                     k -= 1
+#         return res
+
+# 2022/6/15  author:代码随想录
 class Solution:
     def threeSum(self, nums):
-        n, res = len(nums), []
-        if n < 3:
-            return res
+        ans = []
+        n = len(nums)
         nums.sort()
-        for i in range(n-2):
+        for i in range(n):
+            left = i + 1
+            right = n - 1
             if nums[i] > 0:
                 break
-            if i > 0 and nums[i] == nums[i-1]:
+            if i >= 1 and nums[i] == nums[i - 1]:
                 continue
-            j, k = i+1, n-1
-            while j < k:
-                if nums[i] + nums[j] + nums[k] == 0:
-                    res.append([nums[i], nums[j], nums[k]])
-                    j += 1
-                    k -= 1
-                    while j < n and nums[j] == nums[j-1]:
-                        j += 1
-                    while k > i and nums[k] == nums[k+1]:
-                        k -= 1
-                elif nums[i] + nums[j] + nums[k] < 0:
-                    j += 1
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+                if total > 0:
+                    right -= 1
+                elif total < 0:
+                    left += 1
                 else:
-                    k -= 1
-        return res
+                    ans.append([nums[i], nums[left], nums[right]])
+                    while left != right and nums[left] == nums[left + 1]: left += 1
+                    while left != right and nums[right] == nums[right - 1]: right -= 1
+                    right -= 1
+        return ans
+
+
 
 if __name__ == '__main__':
     nums = [-1, 0, 1, 2, -1, -4]
