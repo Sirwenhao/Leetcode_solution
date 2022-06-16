@@ -95,32 +95,52 @@
 #         return res
 
 # 2022/6/15  author:代码随想录
+# class Solution:
+#     def threeSum(self, nums):
+#         ans = []
+#         n = len(nums)
+#         nums.sort()
+#         for i in range(n):
+#             left = i + 1
+#             right = n - 1
+#             if nums[i] > 0:
+#                 break
+#             if i >= 1 and nums[i] == nums[i - 1]:
+#                 continue
+#             while left < right:
+#                 total = nums[i] + nums[left] + nums[right]
+#                 if total > 0:
+#                     right -= 1
+#                 elif total < 0:
+#                     left += 1
+#                 else:
+#                     ans.append([nums[i], nums[left], nums[right]])
+#                     while left != right and nums[left] == nums[left + 1]: left += 1
+#                     while left != right and nums[right] == nums[right - 1]: right -= 1
+#                     right -= 1
+#         return ans
+
+# 2022/6/16  author:代码随想录  双指针法
 class Solution:
     def threeSum(self, nums):
-        ans = []
-        n = len(nums)
-        nums.sort()
-        for i in range(n):
-            left = i + 1
-            right = n - 1
-            if nums[i] > 0:
-                break
-            if i >= 1 and nums[i] == nums[i - 1]:
-                continue
-            while left < right:
-                total = nums[i] + nums[left] + nums[right]
-                if total > 0:
-                    right -= 1
-                elif total < 0:
-                    left += 1
+        if len(nums) < 3: return []
+        nums, res = sorted(nums), []
+        for i in range(len(nums) - 2):
+            cur, l, r = nums[i], i + 1, len(nums) - 1
+            if res != [] and res[-1][0] == cur: continue
+
+            while l < r:
+                if cur + nums[l] + nums[r] == 0:
+                    res.append([cur, nums[l], nums[r]])
+                    while l < r - 1 and nums[l] == nums[l + 1]:
+                        l += 1
+                    while r > l and nums[r] == nums[r - 1]:
+                        r -= 1
+                if cur + nums[l] + nums[r] > 0:
+                    r -= 1
                 else:
-                    ans.append([nums[i], nums[left], nums[right]])
-                    while left != right and nums[left] == nums[left + 1]: left += 1
-                    while left != right and nums[right] == nums[right - 1]: right -= 1
-                    right -= 1
-        return ans
-
-
+                    l += 1
+        return res
 
 if __name__ == '__main__':
     nums = [-1, 0, 1, 2, -1, -4]
