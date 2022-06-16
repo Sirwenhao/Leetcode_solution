@@ -12,15 +12,16 @@ class Solution:
                     hashmap[n1+n2] += 1
                 else:
                     hashmap[n1+n2] = 1
-        print(hashmap)
+        # print(hashmap)
         count = 0
         for n3 in nums3:
             for n4 in nums4:
                 key = - n3 - n4
+                print(hashmap)
                 # print(key)
                 if key in hashmap:
                     count += hashmap[key]
-                print(hashmap)
+                
         return count
 if __name__ == "__main__":
     nums1 = [3,1,4]
