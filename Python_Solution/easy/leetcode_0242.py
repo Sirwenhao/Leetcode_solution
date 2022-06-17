@@ -24,4 +24,3 @@ if __name__ == "__main__":
     t = 'recordsdss'
     result = Solution().isAnagram(s, t)
     print(result)
-        
