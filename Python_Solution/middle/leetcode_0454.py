@@ -64,6 +64,7 @@ class Solution:
         for m in nums3:
             for n in nums4:
                 key = - m - n
+                print('key:', key)
                 if key in dic1:
                     count += dic1[key]
         return count
