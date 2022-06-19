@@ -21,27 +21,47 @@
 
 
 # 代码随想录
+# class Solution:
+#     def isHappy(self, n):
+#         def calculate_happy(num):
+#             sum = 0
+#             # 从个位数开始依次取数字平方和
+#             while num:
+#                 sum += (num % 10) ** 2
+#                 num = num // 10
+#             return sum
+#         # 记录中间结果
+#         record = set()
+#         while True:
+#             n = calculate_happy(n)
+#             if n == 1:
+#                 return True
+#             #  如果中间结果重复出现，说明出现了死循环，该数不是快乐数
+#             if n in record:
+#                 return False
+#             else:
+#                 record.add(n)
+
+# 2022/6/19  author:WH
 class Solution:
+    def calculate(self, num):
+        sum = 0
+        while num:
+            i = num % 10
+            sum += i**2
+            num = num // 10
+        return sum
     def isHappy(self, n):
-        def calculate_happy(num):
-            sum = 0
-            # 从个位数开始依次取数字平方和
-            while num:
-                sum += (num % 10) ** 2
-                num = num // 10
-            return sum
-        # 记录中间结果
-        record = set()
+        record = set()   # 用于记录已经出现过的情况，防止再次出现，陷入死循环
         while True:
-            n = calculate_happy(n)
+            n = self.calculate(n)
             if n == 1:
                 return True
-            #  如果中间结果重复出现，说明出现了死循环，该数不是快乐数
             if n in record:
                 return False
             else:
                 record.add(n)
-        
+
 if __name__ == "__main__":
     n = 19
     result = Solution().isHappy(n)
