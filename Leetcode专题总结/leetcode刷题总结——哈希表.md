@@ -109,12 +109,40 @@ class Solution:
             if target - val not in record:
                 record[val] = idx
             else:
-                return [record[target - val], idx]
-            
+                return [record[target - val], idx]            
 if __name__ == "__main__":
     nums = [2, 7, 11, 15]
     target = 9
     result = Solution().twoSum(nums, target)
     print(result)
+```
+
+2.5 0454
+
+```python
+# 2022/6/19   author:WH
+class Solution:
+    def fourSumCount(self, nums1, nums2, nums3, nums4):
+        dic1 = {}
+        for i in nums1:
+            for j in nums2:
+                if i + j in dic1:
+                    dic1[i + j] += 1
+                else:
+                    dic1[i + j] = 1
+        print('dic1:', dic1)
+        cnt = 0
+        for m in nums3:
+            for n in nums4:
+                key = - m - n
+                if key in dic1:
+                    cnt += dic1[key]
+        return cnt
+if __name__ == "__main__":
+    nums1 = [1, 2]
+    nums2 = [-2, -1]
+    nums3 = [-1, 2]
+    nums4 = [0, 2]
+    result = Solution().forSumCount(nums1, nums2, nums3, nums4)  
 ```
 
