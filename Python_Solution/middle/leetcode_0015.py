@@ -121,26 +121,56 @@
 #         return ans
 
 # 2022/6/16  author:代码随想录  双指针法
+# class Solution:
+#     def threeSum(self, nums):
+#         if len(nums) < 3: return []
+#         nums, res = sorted(nums), []
+#         for i in range(len(nums) - 2):
+#             cur, l, r = nums[i], i + 1, len(nums) - 1
+#             if res != [] and res[-1][0] == cur: continue  # 去重
+
+#             while l < r:
+#                 if cur + nums[l] + nums[r] == 0:
+#                     res.append([cur, nums[l], nums[r]])
+#                     while l < r - 1 and nums[l] == nums[l + 1]:
+#                         l += 1
+#                     while r > l and nums[r] == nums[r - 1]:
+#                         r -= 1
+#                 if cur + nums[l] + nums[r] > 0:
+#                     r -= 1
+#                 else:
+#                     l += 1
+#         return res
+
+# 2022/6/22  author:WH
+# 双指针法，初步想法：左右指针相对比较好固定，但是中间指针需要单独的遍历
+# 情况考虑不清楚
+
 class Solution:
     def threeSum(self, nums):
+        # 漏掉了一种情况
         if len(nums) < 3: return []
-        nums, res = sorted(nums), []
-        for i in range(len(nums) - 2):
-            cur, l, r = nums[i], i + 1, len(nums) - 1
-            if res != [] and res[-1][0] == cur: continue
-
-            while l < r:
-                if cur + nums[l] + nums[r] == 0:
-                    res.append([cur, nums[l], nums[r]])
-                    while l < r - 1 and nums[l] == nums[l + 1]:
-                        l += 1
-                    while r > l and nums[r] == nums[r - 1]:
-                        r -= 1
-                if cur + nums[l] + nums[r] > 0:
-                    r -= 1
+        # 先排序
+        nums.sort()
+        ans = []
+        # 设置中间数
+        for i in range(1, len(nums) - 2):
+            # 定义左右指针
+            left, right = i+1, len(nums) - 1
+            if ans != [] and ans[-1][0] == nums[i]: continue   # 去重
+            while left < right:
+                if nums[i] + nums[left] + nums[right] == 0:
+                    ans.append([nums[i], nums[left], nums[right]])
+                    while left < right - 1 and nums[left] == nums[left+1]:
+                        left += 1
+                    while right > left and nums[right] == nums[right-1]:
+                        right -= 1
+                if nums[i] + nums[left] + nums[right] > 0:
+                    right -= 1
                 else:
-                    l += 1
-        return res
+                    left += 1
+        return ans
+
 
 if __name__ == '__main__':
     nums = [-1, 0, 1, 2, -1, -4]
