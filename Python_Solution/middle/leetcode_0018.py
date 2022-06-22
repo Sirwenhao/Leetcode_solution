@@ -2,7 +2,7 @@
 1、哈希表专题
 2、四数之和
 """
-# 2022/6/16  author:WH  双指针法
+# 2022/6/16  author:代码随想录  双指针法
 class Solution:
     def fourSum(self, nums, target):
         nums.sort()
@@ -25,6 +25,25 @@ class Solution:
                         l += 1
                         r -= 1
         return res
+
+# 2022/6/22  author:WH
+# class Solution:
+#     def fourSum(self, nums, target):
+#         if len(nums) < 4: return []
+#         nums.sort()
+#         ans = set()
+#         for i in range(len(nums) - 3):
+#             for j in range(i+1, len(nums) - 2):
+#                 left, right = j+1, len(nums) - 1
+#                 while left < right:
+#                     if nums[i] + nums[j] + nums[left] + nums[right] == target:
+#                         ans.add((nums[i], nums[j], nums[left], nums[right]))
+#                     if nums[i] + nums[j] + nums[left] + nums[right] < target:
+#                         left += 1
+#                     else:
+#                         right -= 1
+#         return list(map(list, ans))
+
 
 if __name__ == "__main__":
     nums = [1, 0, -1, 0, -2, 2]
