@@ -33,7 +33,7 @@ class Solution:
         return True
 ```
 
-2.2 0349
+#### 2.2 0349
 
 ```python
 # 2022/6/19  author:WH
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     print(result)
 ```
 
-2.3 0202
+#### 2.3 0202
 
 ```python
 # 2022/6/19  author:WH
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     print(result)
 ```
 
-2.4 0001
+#### 2.4 0001
 
 ```python
 # 2022/6/19  author:WH  存在问题，有些案例不能通过，出现索引值相同的情况
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     print(result)
 ```
 
-2.5 0454
+#### 2.5 0454
 
 ```python
 # 2022/6/19   author:WH
@@ -144,5 +144,105 @@ if __name__ == "__main__":
     nums3 = [-1, 2]
     nums4 = [0, 2]
     result = Solution().forSumCount(nums1, nums2, nums3, nums4)  
+```
+
+#### 2.5 0015
+
+```python
+# 2022/6/22  author:WH
+# 2022/5/1日解法  author:WH
+class Solution:
+    def threeSum(self, nums):
+        nums.sort()
+        # 使用哈希表实现去重
+        ans = set()
+        for i in range(len(nums) - 2):
+            left, right = i+1, len(nums)-1
+            while left < right:
+                if nums[i] + nums[left] + nums[right] == 0:
+                    ans.add([nums[i], nums[left], nums[right]]) #此条语句如果按照此写法会报错:"unhashable type list"
+                if nums[i] + nums[left] + nums[right] < 0:
+                    left += 1
+                else:
+                    right -= 1
+        return list(map(list, ans))
+
+# 2022/6/22  author:WH
+class Solution:
+    def threeSum(self, nums):
+        if len(nums) < 3: return []
+        nums.sort()
+        ans = []
+        for i in range(len(nums) - 2):
+            left, right = i+1, len(nums) - 1
+            if ans != [] and ans[-1][0] == nums[i]: continue
+            while left < right:
+                if nums[i] + nums[left] + nums[right] == 0:
+                    ans.append([nums[i], nums[left], nums[right]])
+                    while left < right - 1 and nums[left] == nums[left+1]:
+                        left += 1
+                    while right > left and nums[right] == nums[right-1]:
+                        right -= 1
+                if nums[i] + nums[left] + nums[right] > 0:
+                    right -= 1
+                else:
+                    left += 1
+        return ans 
+    
+if __name__ == "__main__":
+    nums = [-1,0,1,2,-1,-4]
+    result = Solution().threeSum(nums)
+    print(result)
+```
+
+2.6 0018
+
+```python
+# 2022/6/22  author:WH  使用哈希表去重
+class Solution:
+    def fourSum(self, nums, target):
+        if len(nums) < 4: return []
+        nums.sort()
+        ans = set()
+        for i in range(len(nums) - 3):
+            for j in range(i+1, len(nums) - 2):
+                left, right = j+1, len(nums) - 1
+                while left < right:
+                    if nums[i] + nums[j] + nums[left] + nums[right] == target:
+                        ans.add((nums[i], nums[j], nums[left], nums[right]))
+                    if nums[i] + nums[j] + nums[left] + nums[right] < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(map(list, ans))
+        
+ class Solution:
+    def fourSum(self, nums, target):
+        nums.sort()
+        n = len(nums)
+        res = []
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]: continue
+            for j in range(i+1, n):
+                if j > i + 1 and nums[j] == nums[j-1]: continue
+                l = j + 1
+                r = n - 1
+
+                while l < r:
+                    if nums[i] + nums[j] + nums[l] + nums[r] > target: r -= 1
+                    elif nums[i] + nums[j] + nums[l] + nums[r] < target: l += 1
+                    else:
+                        res.append([nums[i], nums[j], nums[l], nums[r]])
+                        while l < r and nums[l] == nums[l + 1]: p += 1
+                        while l < r and nums[r] == nums[r - 1]: r -= 1
+                        l += 1
+                        r -= 1
+        return res
+       
+ if __name__ == "__main__":
+    nums = [2,2,2,2,2]
+    target = 8
+    result = Solution().fourSum(nums, target)
+    print(result)
 ```
 
