@@ -102,3 +102,93 @@ if __name__ == "__main__":
     print(result)
 ```
 
+##### 2.4 0151
+
+反转字符串中的单词：单词用空格间隔隔开，但空格间隔有可能不仅仅只有一个空格，另外字符串左右两端有可能存在空格，需要去除掉
+
+```python
+# 2022/6/29  author:WH
+class Solution:
+    # 考虑使用双指针（左右指针）去除两端多余空格
+    def removeExtraSpace(self, s):
+        l, r = 0, len(s)-1
+        while l <= r and s[l] == " ":
+            l += 1
+        while l <= r and s[r] == " ":
+            r -= 1
+        ans = []
+        while l <= r:
+            if s[l] != " ":
+                ans.append(s[l])
+            elif ans[-1] != " ":
+                ans.append(s[l])
+            l += 1
+        return ans
+    
+    def reverseString(self, s, l, r):
+        while l <= r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+        return None
+    
+    def reverseEachWords(self, s):
+        start, end = 0, 0
+        while start < len(s):
+            while end < n and s[end] != " ":
+                end += 1
+            self.reverseString(s, start, end-1)
+            start = end+1
+            end += 1
+        return None
+    
+    def reverseWords(self, s):
+        s = self.removeExtraSpace(s)
+        self.reverseString(s, 0, len(s)-1)
+        self.reverseEachWords(s)
+        return ''.join(s)
+        
+        
+# 2022/6/29  method2:代码随想录
+class Solution:
+    def reverseWords(self, s):
+        s_list = [i for i in s.split(" ") if len(i) > 0]
+        return " ".join(s_list[::-1])
+        
+if __name__ == "__main__":
+    s = " the  sky  is    blue"
+    result = Solution().reverseWords(s)
+    pritn(result)
+```
+
+##### 2.5 剑指offer58-II 左旋字符串
+
+```python
+# 2022/6/29  author:WH
+class Solution:
+    def reverseLeftWords(self, s, n):
+        return s[n:] + s[:n]
+    
+# 不允许使用切片以及反转
+class Solution:
+    def reverseLeftWords(self, s):
+        def reverse_Sub(s, l, r):
+            while l < r:
+                s[l], s[r] = s[r], s[l]
+                l += 1
+                r -= 1
+        ans = list(s)
+        end = len(ans)-1
+        reverse_Sub(ans, 0, n-1)
+        reverse_sub(ans, n, end)
+        reserse_Sub(ans, 0, end)
+        return ''.join(ans)
+
+if __name__ == "__main__":
+    s = "abcdefg"
+    n = 2
+    result = Solution().reverseLeftWords(s, n)
+    print(result)
+```
+
+关于字符串、数组等反转操作，优先考虑使用双指针（左右指针）
