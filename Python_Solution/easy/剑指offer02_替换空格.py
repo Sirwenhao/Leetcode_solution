@@ -38,8 +38,10 @@ class Solution:
     def replaceSpace(self, s):
         counter = s.count(' ')
         res = list(s)
+        print(res)
         # 每碰到一个空格就多拓展出两个新的空格用于存储
         res.extend([' '] * counter * 2)
+        print(res)
         # 原始字符串的末尾，拓展后字符串的末尾
         left, right = len(s)-1, len(res)-1
         while left >= 0:
