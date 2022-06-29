@@ -29,9 +29,29 @@
 #     print(result)
 
 
+# class Solution:
+#     def replaceSpace(self, s):
+#         return "%20".join(s.split(" "))
+
+# 2022/6/29  author:代码随想录
 class Solution:
     def replaceSpace(self, s):
-        return "%20".join(s.split(" "))
+        counter = s.count(' ')
+        res = list(s)
+        # 每碰到一个空格就多拓展出两个新的空格用于存储
+        res.extend([' '] * counter * 2)
+        # 原始字符串的末尾，拓展后字符串的末尾
+        left, right = len(s)-1, len(res)-1
+        while left >= 0:
+            if res[left] != ' ':
+                res[right] = res[left]
+                right -= 1
+            else:
+                res[right - 2: right + 1] = '%20'
+                right -= 3
+            left -= 1
+        return ''.join(res)
+
     
 if __name__ == "__main__":
     s = "we are the world!"
