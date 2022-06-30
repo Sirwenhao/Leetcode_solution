@@ -195,6 +195,22 @@ if __name__ == "__main__":
 
 KMP算法专题：
 
+KMP算法中需要明确的一些知识点：
+
+- KMP算法解决的问题：主要解决字符串匹配问题，通过使用前缀表进行回退，从而减小匹配计算量
+- KMP算法中的前缀表：其作用是用于回退，前缀表中记录了模式串与文本串不匹配的时候，模式串应该从哪里开始重新匹配
+- 前缀表的定义：记录下表i（包括i）之前的字符串中有多长的相同前后缀
+- 字符串前缀：<font color=red>指不包含最后一个字符</font>的<font color=red>所有以第一个字符开头</font>的连续字符串
+- 字符串后缀：<font color=red>指不包含第一个字符</font>的<font color=red>所有以最后一个字符结尾</font>的连续字符串
+- 难点：KMP算法中计算前缀表的代码实现
+- 求解next数组有几个步骤：
+  1. 初始化，初始化next数组以及各个变量
+  2. 处理前后缀不相同的情况
+  3. 处理前后缀相同的情况
+  4. 更新next数组
+
+KMP算法相关习题
+
 - 0028实现strStr
 - 0459重复的子字符串
 
@@ -246,5 +262,36 @@ if __name__ == "__main__":
     needle = "bba"
     result = Solution().strStr(haystack, needle)
     print(needle)
+```
+
+##### 2.7 0459
+
+KMP算法之二
+
+```python
+# 2022/6/30  author:代码随想录
+class Solution:
+    def repeatedSubstringPattern(self, s):
+        if len(s) == 0:
+            return False
+        next = [0] * len(s)
+        next.getNext(next, s)
+        if next[-1] != 0 and len(s) % (len(s) - next[-1]) == 0:
+            return True
+        return False
+    def getNext(self, next, s):
+        next[0] = 0
+        j = 0
+        for i in range(1, len(s)):
+            while j > 0 and s[i] != s[j]:
+                j = next[j-1]
+            if s[i] == s[j]:
+                j += 1
+            next[i] = j
+        return next
+if __name__ == "__main__":
+    s = "ababab"
+    result = Solution().repeatedSubstringPattern(s)
+    print(result)
 ```
 
