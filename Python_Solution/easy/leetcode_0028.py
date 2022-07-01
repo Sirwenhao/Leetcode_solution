@@ -14,6 +14,7 @@
 #         return -1
 
 # 使用KMP算法
+
 class Solution:
     def strStr(self, haystack, needle):
         a = len(haystack)
