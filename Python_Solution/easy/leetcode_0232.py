@@ -66,6 +66,12 @@ class MyQueue:
                 self.stack_out.append(self.stack_in.pop())
             return self.stack_out.pop()
 
+    def peek(self):
+        # 获取队头元素
+        ans = self.pop()
+        self.stack_out.append(ans)
+        return ans
+
     def empty(self):
         # 只要stack_in或者stack_out中有元素就表示不为空
         # if self.stack_in or self.stack_out:
