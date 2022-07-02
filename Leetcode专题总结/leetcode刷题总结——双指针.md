@@ -113,3 +113,60 @@ if __name__ == "__main__":
     print(result)
 ```
 
+##### 2.3 0151反转字符串里面的单词
+
+```python
+# 2022/7/2  author:WH
+# 不使用双指针
+class Solution:
+    def reverseWord(self, s):
+        return ''.join(i[::-1] for i in s.split(" ") len(i) > 0)
+    
+# 使用双指针：左右指针，快慢指针
+class Solution:
+    # 左右指针
+    def removeExtraSpace(self, s):
+        left, right = 0, len(s)-1
+        while left <= right and s[left] == " ":
+            left += 1
+        while left <= right and s[right] == " ":
+            right -= 1
+        temp = []
+        while left <= right:
+            if s[left] != " ":
+                temp.append(s[left])
+            elif temp[-1] != " ":
+                temp.append(s[left])
+            left += 1
+    # 左右指针
+    def reverseString(self, s, l, r):
+        while l <= r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+        return None
+    
+    # 快慢指针
+    def reverseEachWord(self, s):
+        slow = fast = 0
+        temp = []
+        while slow < len(s):
+            while fast < len(s) and s[fast] != " ":
+                fast += 1
+            self.reverseString(s, slow, fast-1)
+            slow = fast+1
+            fast += 1
+        return None
+    
+    def reverseWords(self, s):
+        l = self.removeExtraSpace(s)
+        self.reverseString(l)
+        self.reverseEachWord(l)
+        return ''.join(l)
+        
+if __name__ == "__main__":
+    s = "  the   sky is    blue  "
+    result = Solution().reverseWords(s)
+    print(resule)
+```
+
