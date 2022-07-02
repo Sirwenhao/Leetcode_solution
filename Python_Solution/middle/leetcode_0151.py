@@ -89,10 +89,60 @@
 #         return ''.join(s)
 
 # 2022/6/29  author:代码随想录
+# class Solution:
+#     def reverseWords(self, s):
+#         s_list = [i for i in s.split(" ") if len(i) > 0]
+#         return " ".join(s_list[::-1])
+
+# 2022/7/2  author:WH
+# 不使用双指针
+# class Solution:
+#     def reverseWords(self, s):
+#         return ' '.join([i for i in s.split(' ') if len(i) > 0][::-1])
+
+# 使用双指针：左右指针
 class Solution:
+    # 删除多余空格, 使用左右指针
+    def removeExtraspace(self, s):
+        left, right = 0, len(s)-1
+        while left <= right and s[left] == " ":
+            left += 1
+        while left <= right and s[right] == " ":
+            right -= 1
+        temp = []
+        while left <= right:
+            if s[left] != " ":
+                temp.append(s[left])
+            elif temp[-1] != " ":
+                temp.append(s[left])
+            left += 1
+        return temp
+
+    # 双指针：左右指针反转字符串
+    def reverseString(self, s, l, r):
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+        return None
+
+    # 双指针：快慢指针反转字符串
+    def reverseEachWord(self, s):
+        slow = fast = 0
+        while slow <= len(s)-1:
+            while fast < len(s) and s[fast] != " ":
+                fast += 1
+            self.reverseString(s, slow, fast-1)
+            slow = fast+1
+            fast += 1
+        return None
+
     def reverseWords(self, s):
-        s_list = [i for i in s.split(" ") if len(i) > 0]
-        return " ".join(s_list[::-1])
+        l = self.removeExtraspace(s)
+        self.reverseString(l, 0, len(l)-1)
+        self.reverseEachWord(l)
+        return ''.join(l)
+
 
 if __name__ == "__main__":
     s = " the sky is  blue "
