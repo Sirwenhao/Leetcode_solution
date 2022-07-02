@@ -170,3 +170,22 @@ if __name__ == "__main__":
     print(resule)
 ```
 
+##### 3.1 0206反转链表
+
+```python
+# 2022/7/2  author:WH
+class Solution:
+    def reverseList(self, head):
+        pre = None
+        cur = head
+        while(cur != None):
+            # 把cur.next用temp保存
+            temp = cur.next
+            # 把当前节点的下一个指向改为指向前一个节点
+            cur.next = pre
+            # 把前一个节点改为指向当前节点
+            pre = cur
+            cur = temp
+        return pre    
+```
+
