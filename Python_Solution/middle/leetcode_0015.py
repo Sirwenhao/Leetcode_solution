@@ -121,26 +121,26 @@
 #         return ans
 
 # 2022/6/16  author:代码随想录  双指针法
-# class Solution:
-#     def threeSum(self, nums):
-#         if len(nums) < 3: return []
-#         nums, res = sorted(nums), []
-#         for i in range(len(nums) - 2):
-#             cur, l, r = nums[i], i + 1, len(nums) - 1
-#             if res != [] and res[-1][0] == cur: continue  # 去重
+class Solution:
+    def threeSum(self, nums):
+        if len(nums) < 3: return []
+        nums, res = sorted(nums), []
+        for i in range(len(nums) - 2):
+            cur, l, r = nums[i], i + 1, len(nums) - 1
+            if res != [] and res[-1][0] == cur: continue  # 去重
 
-#             while l < r:
-#                 if cur + nums[l] + nums[r] == 0:
-#                     res.append([cur, nums[l], nums[r]])
-#                     while l < r - 1 and nums[l] == nums[l + 1]:
-#                         l += 1
-#                     while r > l and nums[r] == nums[r - 1]:
-#                         r -= 1
-#                 if cur + nums[l] + nums[r] > 0:
-#                     r -= 1
-#                 else:
-#                     l += 1
-#         return res
+            while l < r:
+                if cur + nums[l] + nums[r] == 0:
+                    res.append([cur, nums[l], nums[r]])
+                    while l < r - 1 and nums[l] == nums[l + 1]:
+                        l += 1
+                    while r > l and nums[r] == nums[r - 1]:
+                        r -= 1
+                if cur + nums[l] + nums[r] > 0:
+                    r -= 1
+                else:
+                    l += 1
+        return res
 
 # 2022/6/22  author:WH
 # 双指针法，初步想法：左右指针相对比较好固定，但是中间指针需要单独的遍历
@@ -173,22 +173,22 @@
 
 # 2022/7/3  author:WH
 # 这个版本的解答有些问题，并不能完全返回全部解集
-class Solution:
-    def threeSum(self, nums):
-        nums.sort()
-        # 此处使用哈希表是为了去重
-        ans = set()
-        for i in range(len(nums)-2):
-            left, right = i+1, len(nums)-1
-            while left < right:
-                if nums[i] + nums[left] + nums[right] == 0:
-                    ans.add((nums[i], nums[left], nums[right]))  # 这一步是重点
-                if nums[i] + nums[left] + nums[right] < 0:
-                    left += 1
-                else:
-                    right -= 1
-        # map函数将哈希集合ans映射成为list
-        return list(map(list, ans))
+# class Solution:
+#     def threeSum(self, nums):
+#         nums.sort()
+#         # 此处使用哈希表是为了去重
+#         ans = set()
+#         for i in range(len(nums)-2):
+#             left, right = i+1, len(nums)-1
+#             while left < right:
+#                 if nums[i] + nums[left] + nums[right] == 0:
+#                     ans.add((nums[i], nums[left], nums[right]))  # 这一步是重点
+#                 if nums[i] + nums[left] + nums[right] < 0:
+#                     left += 1
+#                 else:
+#                     right -= 1
+#         # map函数将哈希集合ans映射成为list
+#         return list(map(list, ans))
 
 
 if __name__ == '__main__':
