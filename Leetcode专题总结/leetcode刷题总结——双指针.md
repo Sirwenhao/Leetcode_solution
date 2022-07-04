@@ -294,3 +294,15 @@ if __name__ == '__main__':
     print(result)
 ```
 
+##### 4.2 0018四数之和
+
+相比于三数之和，实际上多了一层循环。先通过两侧循环固定两个数字，然后使用左右指针计算对应的四个数字之和。相比于三数之和，此例中的target是不固定的，因此剪枝的情况更应该仔细考虑下。还有个关键点在于如何去重，去重的逻辑要搞清楚。
+
+```python
+# 2022/7/4 author:WH
+class Solution:
+    def fourSum(self, nums, target):
+        nums.sort()
+        
+```
+
