@@ -240,7 +240,57 @@ class Solution:
             if slow == fast:
                 p = head
                 q = slow
-                while 
-        
+                while p != q:
+                    p = p.next
+                    q = q.next
+                return p
+        return None
+```
+
+##### 4.1 0015三数之和
+
+```python
+# 2022/7/3  author:WH
+class Solution:
+    def threeSum(self, nums):
+        nums.sort()
+        ans = set()
+        for i in range(len(nums)-2):
+            left, right = i+1, len(nums)-1
+            while left < right:
+                if nums[i] + nums[left] + nums[right] == 0:
+                    ans.add((nums[i], nums[left], nums[right]))
+                if nums[i] + nums[left] + nums[right] > 0:
+                    right -= 1
+                else:
+                    left += 1
+        return list(map(list, ans))
+    
+# 方法二：重点在于去重的逻辑
+class Solution:
+    def threeSum(self, nums):
+    nums.sort()
+    ans = []
+    for i in range(len(nums)-2):
+        left, right = i+1, len(num)-1
+        if ans != [] and ans[-1][0] == nums[i]: continue
+        while left < right:
+            total = nums[i] + nums[left] + nums[right]
+            if total == 0:
+                ans.append([nums[i], nums[left], nums[right]])
+                while l < r+1 and nums[l] == nums[l+1]:
+                    l += 1
+                while r > l and nums[r] == nums[r-1]:
+                    r -= 1
+            if total < 0:
+                left += 1
+            else:
+                right -= 1         
+        return ans
+  
+if __name__ == '__main__':
+    nums = [-1, 0, 1, 2, -1, -4]
+    result = Solution().threeSum(nums)
+    print(result)
 ```
 
