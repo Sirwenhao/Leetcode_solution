@@ -83,25 +83,44 @@
 #         return 
 
 # 2022/6/8  author:WH
+# class ListNode:
+#     def __init__(self, val=0, next = None):
+#         self.val = val
+#         self.next = None
+# class Solution:
+#     def removeNthFromEnd(self, head, n):
+#         # 添加虚拟头节点
+#         dummy_node = ListNode(0)
+#         dummy_node.next = head
+
+#         # 设置快慢两个指针，其间距为n，则当快指针走到尾部时，慢指针所在位置即为需要删除的位置
+#         slow, fast = dummy_node, dummy_node
+#         while(n!=0):
+#             fast = fast.next
+#             n -= 1
+#         while(fast != None):
+#             slow = slow.next
+#             fast = fast.next
+
+#         # fast走到最后时，slow刚好在倒数第n个节点
+#         slow.next = slow.next.next # 删除倒数第n个节点
+#         return dummy_node.next
+
+# 2022/7/3  author:WH
 class ListNode:
-    def __init__(self, val=0, next = None):
+    def __init__(self, val=0, next=None):
         self.val = val
-        self.next = None
+        self.next = next
 class Solution:
     def removeNthFromEnd(self, head, n):
-        # 添加虚拟头节点
-        dummy_node = ListNode(0)
-        dummy_node.next = head
-
-        # 设置快慢两个指针，其间距为n，则当快指针走到尾部时，慢指针所在位置即为需要删除的位置
-        slow, fast = dummy_node, dummy_node
-        while(n!=0):
-            fast = fast.next
+        dummyNode = ListNode()
+        dummyNode.next = head
+        cur = head
+        while n != 0:
+            cur = cur.next
             n -= 1
-        while(fast != None):
-            slow = slow.next
-            fast = fast.next
-
-        # fast走到最后时，slow刚好在倒数第n个节点
-        slow.next = slow.next.next # 删除倒数第n个节点
-        return dummy_node.next
+        while cur != None:
+            dummyNode = dumyNode.next
+            cur = cur.next
+        dummyNode.next = dumyNode.next.next
+        return dummyNode.next

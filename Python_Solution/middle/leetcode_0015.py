@@ -146,30 +146,49 @@
 # 双指针法，初步想法：左右指针相对比较好固定，但是中间指针需要单独的遍历
 # 情况考虑不清楚
 
+# class Solution:
+#     def threeSum(self, nums):
+#         # 漏掉了一种情况
+#         if len(nums) < 3: return []
+#         # 先排序
+#         nums.sort()
+#         ans = []
+#         # 设置中间数
+#         for i in range(1, len(nums) - 2):
+#             # 定义左右指针
+#             left, right = i+1, len(nums) - 1
+#             if ans != [] and ans[-1][0] == nums[i]: continue   # 去重
+#             while left < right:
+#                 if nums[i] + nums[left] + nums[right] == 0:
+#                     ans.append([nums[i], nums[left], nums[right]])
+#                     while left < right - 1 and nums[left] == nums[left+1]:
+#                         left += 1
+#                     while right > left and nums[right] == nums[right-1]:
+#                         right -= 1
+#                 if nums[i] + nums[left] + nums[right] > 0:
+#                     right -= 1
+#                 else:
+#                     left += 1
+#         return ans
+
+# 2022/7/3  author:WH
+# 这个版本的解答有些问题，并不能完全返回全部解集
 class Solution:
     def threeSum(self, nums):
-        # 漏掉了一种情况
-        if len(nums) < 3: return []
-        # 先排序
         nums.sort()
-        ans = []
-        # 设置中间数
-        for i in range(1, len(nums) - 2):
-            # 定义左右指针
-            left, right = i+1, len(nums) - 1
-            if ans != [] and ans[-1][0] == nums[i]: continue   # 去重
+        # 此处使用哈希表是为了去重
+        ans = set()
+        for i in range(len(nums)-2):
+            left, right = i+1, len(nums)-1
             while left < right:
                 if nums[i] + nums[left] + nums[right] == 0:
-                    ans.append([nums[i], nums[left], nums[right]])
-                    while left < right - 1 and nums[left] == nums[left+1]:
-                        left += 1
-                    while right > left and nums[right] == nums[right-1]:
-                        right -= 1
-                if nums[i] + nums[left] + nums[right] > 0:
-                    right -= 1
-                else:
+                    ans.add((nums[i], nums[left], nums[right]))  # 这一步是重点
+                if nums[i] + nums[left] + nums[right] < 0:
                     left += 1
-        return ans
+                else:
+                    right -= 1
+        # map函数将哈希集合ans映射成为list
+        return list(map(list, ans))
 
 
 if __name__ == '__main__':

@@ -174,6 +174,7 @@ if __name__ == "__main__":
 
 ```python
 # 2022/7/2  author:WH
+# 双指针：快慢指针
 class Solution:
     def reverseList(self, head):
         pre = None
@@ -187,5 +188,59 @@ class Solution:
             pre = cur
             cur = temp
         return pre    
+```
+
+##### 3.2 0019删除链表的倒数第N个节点
+
+```python
+# 2022/7/2  author:WH
+# 双指针：快慢指针
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        dummyNode = ListNode()
+        dummyNode.next = head
+        cur = head
+        while n != 0:
+            cur = cur.next
+            n -= 1
+        while cur != None:
+            dummyNode = dumyNode.next
+            cur = cur.next
+        dummyNode.next = dumyNode.next.next
+        return dummyNode.next
+```
+
+##### <font color=red>3.3 0142环形链表</font>
+
+- 难点一：判断是否有环（使用快慢指针，如果有环，快指针一定会赶上慢指针）
+- 难点二：判断何处相遇（难点）
+
+![image-20220703201600230](https://gitee.com/sirwenhao/images/raw/master/image-20220703201600230.png)
+
+几个关键问题：
+
+- 使用双指针：快慢指针解决此问题
+- fast指针每次移动两步，slow指针每次移动一步。即相当于slow以相对速度每一次一个指针不断靠近fast指针，最终相遇
+- 快慢指针的相遇一定是在环内，fast指针至少要多走一圈才能个slow指针相遇
+- 具体入环的位置分析，代码随想录的版本就很清晰。注意最重要返回的是开始入环的第一个节点。
+
+```python
+# 2022/7/3  author:代码随想录
+class Solution:
+    def detectCycle(self, head):
+        slow, fast = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            # 如果相遇
+            if slow == fast:
+                p = head
+                q = slow
+                while 
+        
 ```
 
