@@ -302,7 +302,27 @@ if __name__ == '__main__':
 # 2022/7/4 author:WH
 class Solution:
     def fourSum(self, nums, target):
+        if len(nums) < 4: return []
         nums.sort()
-        
+        ans = set()
+        for i in range(len(nums)-3):
+            for j in range(i+1, len(nums)-2):
+                left, right = j+1, len(nums)-1
+                while left < right:
+                    total = nums[i] + nums[j] + nums[left] + nums[right] 
+                    if total == target:
+                        ans.add((nums[i], nums[j], nums[left], nums[right]))
+                    if total < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(map(list, ans))
+    
+if __name__ == "__main__":
+    nums = [1, 0, -1, 0, -2, 2]
+    target = 0
+    result = Solution().fourSum(nums, target)
+    print(result)
 ```
 
+总结：双指针部分习题主要使用的指针类型基本为：左右指针、快慢指针两种类型。左右指针需确定好指针的更新规律，快慢指针要特别注意慢指针的更新逻辑。此外xx之和问题中，使用哈希表去重的思想以及map()函数的用法值得注意。
