@@ -82,6 +82,38 @@
 # 2022/7/6  author:WH
 # 使用两个栈实现队列，队列是双端结构，一端进入、一端输出
 # 栈是单端结构，只能从一端进入然后从同一端输出，故为先进后出
+# class MyQueue:
+#     def __init__(self):
+#         self.stack_in = []
+#         self.stack_out = []
+
+#     def push(self, x):
+#         self.stack_in.append(x)
+
+#     def pop(self):
+#         # 先判断是否为空
+#         if self.empty():
+#             return None
+#         # 如果不为空，可以直接从out中pop元素
+#         if self.stack_out:
+#             self.stack_out.pop()
+#         else:
+#             for i in range(len(self.stack_in)):
+#                 self.stack_out.append(self.stack_in.pop())
+#             return self.stack_out.pop()
+
+#     def peek(self):
+#         # 直接执行pop出栈的是从stack_out中输出的最外侧元素，即stack_in的最内侧元素
+#         ans = self.pop()
+#         # 还要重新添加回来
+#         self.stack_out.append(ans)
+#         return ans
+
+#     def empty(self):
+#         # 若为空，则stack_in和stack_out均为空
+#         return not (self.stack_in or self.stack_out)
+
+# 2022/7/15  author:WH
 class MyQueue:
     def __init__(self):
         self.stack_in = []
@@ -91,28 +123,21 @@ class MyQueue:
         self.stack_in.append(x)
 
     def pop(self):
-        # 先判断是否为空
         if self.empty():
             return None
-        # 如果不为空，可以直接从out中pop元素
+
+        # pop之前需要先判断是否为空
         if self.stack_out:
-            self.stack_out.pop()
+            return self.stack_out.pop()
         else:
             for i in range(len(self.stack_in)):
                 self.stack_out.append(self.stack_in.pop())
             return self.stack_out.pop()
 
     def peek(self):
-        # 直接执行pop出栈的是从stack_out中输出的最外侧元素，即stack_in的最内侧元素
         ans = self.pop()
-        # 还要重新添加回来
-        self.stack_out.pop()
+        self.stack_out.append(ans)
         return ans
 
     def empty(self):
-        # 若为空，则stack_in和stack_out均为空
-        return not (self.stack_in or self.stack_out)
-
-
-        
-
+        return (self.stack_in and self.stack_out)
