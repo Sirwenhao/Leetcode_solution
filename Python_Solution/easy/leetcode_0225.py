@@ -50,26 +50,53 @@ from collections import deque
 #         return len(self.queue_in) == 0
 
 # 2022/7/7 author:WH  单队列版本
+# class MyStack:
+#     def __init__(self):
+#         self.queue = deque()
+
+#     def push(self, x):
+#         self.queue.append(x)
+
+#     def pop(self):
+#         if self.empty():
+#             return None
+#         for i in range(len(self.queue)-1):
+#             self.queue.append(self.queue.popleft())
+#         return self.queue.popleft()
+    
+#     def top(self):
+#         if self.empty():
+#             return None
+#         return self.queue[-1]
+
+#     def empty(self):
+#         return len(self.queue) == 0
+#         # 或者使用
+#         # return not self.queue 
+
+# 2022/7/15  author:WH
 class MyStack:
     def __init__(self):
-        self.queue = deque()
+        self.que = deque()
 
     def push(self, x):
-        self.queue.append(x)
+        self.que.append(x)
 
     def pop(self):
+        # 先判断是否为空，不为空弹出最后一个进入deque的元素
         if self.empty():
             return None
-        for i in range(len(self.queue)-1):
-            self.queue.append(self.queue.popleft())
-        return self.queue.popleft()
-    
+        # 这一步牛，通过最内层的self.que.popleft()先把最左边元素移除掉一个
+        # 然后在此基础上再把这个元素给添加到最右端，一直循环到原最右侧元素迭换至最左端
+        for i in range(len(self.que)-1):
+            self.que.append(self.que.popleft())
+        return self.que.popleft()
+
     def top(self):
         if self.empty():
             return None
-        return self.queue[-1]
+        else:
+            return self.que[-1]
 
     def empty(self):
-        return len(self.queue) == 0
-        # 或者使用
-        # return not self.queue 
+        return len(self.que) == 0
