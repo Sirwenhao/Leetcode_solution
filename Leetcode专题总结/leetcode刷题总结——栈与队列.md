@@ -47,3 +47,34 @@ class MyQueue:
         return not (self.stack_in or self.stack_out)
 ```
 
+#### 2.2 0225用队列实现栈
+
+以对列实现栈有两种方式：单队列和双队列。
+
+```python
+# 2022/7/15  author:WH
+from collections import deque
+class MyStack:
+    def __init__(self):
+        self.que = deque()
+        
+    def push(self, x):
+        self.que.append(x)
+       
+    def pop(self):
+        if self.empty():
+            return None
+        for i in range(len(self.que)):
+            self.que.append(self.que.popleft())
+        return self.que.popleft()
+    
+    def top(self):
+        if self.empty():
+            return None
+        else:
+            return self.que[-1]
+        
+    def empty(self):
+        return len(self.que) == 0
+```
+
