@@ -51,7 +51,7 @@ class MyQueue:
 
 以对列实现栈有两种方式：单队列和双队列。
 
-Python中的queue和simpleQueue没有类似于peek的功能，也无法用索引访问
+Python中的queue和SimpleQueue没有类似于peek的功能，也无法用索引访问
 
 单队列版本
 
@@ -140,5 +140,29 @@ if __name__ == "__main__":
     s = "({[]})"
     result = Solution().isValid(s)
     print(result)
+```
+
+#### 2.4 逆波兰表达式求值
+
+逆波兰表达式是一种后缀表达式，及后缀表达式转中缀表达式计算求值。应该是使用栈把数字先压栈，遇到运算符时把栈顶两个元素出栈进行计算，然后再把计算结果压栈。
+
+```python
+# 2022/7/16  author:WH
+class Solution:
+    def evalRPN(self, tokens):
+        # 创建栈，用于将非运算符元素压栈
+        stack = []
+        for item in tokens:
+            if item not in {"+", "-", "*", "/"}:
+                stack.append(item)
+            else:
+                f_ele, s_ele = stack.pop(), stack.pop()
+                stack.append(int(eval(f"{s_ele} {item} {f_ele}")))
+        return int(stack.pop())
+    
+if __name__ == "__main__":
+    tokens = ["2", "1", "+", "3", "*"]
+    result = Solution().evalRPN(tokens)
+    print(result) 
 ```
 
