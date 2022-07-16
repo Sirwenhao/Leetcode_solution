@@ -75,28 +75,54 @@ from collections import deque
 #         # return not self.queue 
 
 # 2022/7/15  author:WH
+# class MyStack:
+#     def __init__(self):
+#         self.que = deque()
+
+#     def push(self, x):
+#         self.que.append(x)
+
+#     def pop(self):
+#         # 先判断是否为空，不为空弹出最后一个进入deque的元素
+#         if self.empty():
+#             return None
+#         # 这一步牛，通过最内层的self.que.popleft()先把最左边元素移除掉一个
+#         # 然后在此基础上再把这个元素给添加到最右端，一直循环到原最右侧元素迭换至最左端
+#         for i in range(len(self.que)-1):
+#             self.que.append(self.que.popleft())
+#         return self.que.popleft()
+
+#     def top(self):
+#         if self.empty():
+#             return None
+#         else:
+#             return self.que[-1]
+
+#     def empty(self):
+#         return len(self.que) == 0
+
+# 2022/7/16  author:WH
+from collections import deque
 class MyStack:
     def __init__(self):
-        self.que = deque()
+        self.que_in = deque()
+        self.que_out = deque()
 
     def push(self, x):
-        self.que.append(x)
+        self.que_in.append(x)
 
     def pop(self):
-        # 先判断是否为空，不为空弹出最后一个进入deque的元素
         if self.empty():
             return None
-        # 这一步牛，通过最内层的self.que.popleft()先把最左边元素移除掉一个
-        # 然后在此基础上再把这个元素给添加到最右端，一直循环到原最右侧元素迭换至最左端
-        for i in range(len(self.que)-1):
-            self.que.append(self.que.popleft())
-        return self.que.popleft()
+        for i in range(len(self.que_in)-1):
+            self.que_out.append(self.que_in.popleft())
+        self.que_in, self.que_out = self.que_out, self.que_in
+        return self.que_out.popleft()
 
     def top(self):
         if self.empty():
-            return None
-        else:
-            return self.que[-1]
+            return None    
+        return self.que_in[-1]
 
     def empty(self):
-        return len(self.que) == 0
+        return len(self.que_in) == 0
