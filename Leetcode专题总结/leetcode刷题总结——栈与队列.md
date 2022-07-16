@@ -51,6 +51,10 @@ class MyQueue:
 
 以对列实现栈有两种方式：单队列和双队列。
 
+Python中的queue和simpleQueue没有类似于peek的功能，也无法用索引访问
+
+单队列版本
+
 ```python
 # 2022/7/15  author:WH
 from collections import deque
@@ -76,5 +80,65 @@ class MyStack:
         
     def empty(self):
         return len(self.que) == 0
+```
+
+双队列版本
+
+```python
+# 2022/7/16  author:WH
+from collections import deque
+class MyStack:
+    def __init__(self):
+        self.que_in = deque()
+        self.que_out = deque()
+        
+    def push(self, x):
+        self.que_in.append(x)
+    
+    def pop(self):
+        if self.empty():
+            return None
+        for i in range(len(self.que_in)-1):
+            self.que_out.append(self.que_in.popleft())
+        self.que_in, self.que_out = self.que_out, self.que_in
+        return self.que_out.popleft()
+    
+    def top(self):
+        if self.empty():
+            return None
+        return self.que_in[-1]
+    
+    def empty(self):
+        return len(self.que_in) == 0
+```
+
+#### 2.3 0020有效的括号
+
+```python
+# 2022/7/16  author:WH
+class Solution:
+    def isValid(self, s):
+        dict = {
+            "(": ")",
+            "[": "]",
+            "{": "}",
+        }
+        stack = []
+        if len(s) == 0:
+            return False
+        for i in s:
+            if i in dict:
+                stack.append(i)
+            else:
+                if i != dict[stack.pop()]:
+                    return Fasle
+                else:
+                    continue
+        return len(stack) == 0
+    
+if __name__ == "__main__":
+    s = "({[]})"
+    result = Solution().isValid(s)
+    print(result)
 ```
 
