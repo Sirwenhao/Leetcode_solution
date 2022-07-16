@@ -115,29 +115,52 @@
 #         return len(strList) == 0
 
 # 2022/7/8  author:WH
+# class Solution:
+#     def isValid(self, s):
+#         dict = {
+#             "{": "}",
+#             "(": ")",
+#             "[": "]",
+#         }
+#         stack = []
+#         for i in s:
+#             if i in dict:
+#                 stack.append(i)
+#             else:
+#                 if len(stack) != 0:
+#                     if dict[stack.pop()] != i:
+#                         return False
+#                     else:
+#                         continue
+#                 else:
+#                     return False
+#         return len(stack) == 0
+
+# 2022/7/16  author:WH
 class Solution:
     def isValid(self, s):
         dict = {
-            "{": "}",
             "(": ")",
+            "{": "}",
             "[": "]",
         }
         stack = []
+        if len(s) == 0:
+            return False
         for i in s:
             if i in dict:
                 stack.append(i)
             else:
-                if len(stack) != 0:
-                    if dict[stack.pop()] != i:
-                        return False
-                    else:
-                        continue
-                else:
+                if i != dict[stack.pop()]:
                     return False
+                else:
+                    continue
+
         return len(stack) == 0
+
 if __name__ == "__main__":
-    # s = "{[()]}"
-    s = "["
+    s = "{[()]}"
+    # s = "["
     result = Solution().isValid(s)
     print(result)
 
