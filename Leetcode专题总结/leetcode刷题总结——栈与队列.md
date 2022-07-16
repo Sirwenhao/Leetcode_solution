@@ -166,3 +166,113 @@ if __name__ == "__main__":
     print(result) 
 ```
 
+#### 2.5 0239滑动窗口求最大值
+
+```python
+# 2022/7/16  author:https://github.com/doocs/leetcode/tree/main/solution/0200-0299/0239.Sliding%20Window%20Maximum
+# 单调队列常见模型：找出滑动窗口中的最大值/最小值，模板
+q = deque()
+for i in range(n):
+    # 判断队头是否滑出窗口
+    while q and check_out(q[0]):
+        q.popleft()
+    while q and check(q[-1]):
+        q.pop()
+    q.append(i)
+        
+class Solution:
+    def maxSlindingWindow(self, nums):
+        for i, v in enumerate(nums):
+            if q and i-k+1 > q[0]:
+                q.popleft()
+            while q and nums[q[-q]] <= v:
+                q.pop()
+            q.append(i)
+            if i >= k - 1:
+                ans.append(nums[q[0]])
+        return ans
+    
+# 2022/7/16  author:代码随想录
+# 定义单调队列（从大到小）
+class MyQueue:
+    def __init__(self):
+        # 用list实现单调队列
+        self.queue = []
+    # 每次弹出的时候，比较当前要弹出的数值是否等于队列出口元素的数值，如果相等则弹出
+    # pop之前判断队列是否为空
+    def pop(self, value):
+        if self.queue and value == self.queue[0]:
+            self.queue.pop(0)
+    # 如果push的数值大于入口元素的数值，那么就将队列后端的数值弹出
+    # 直到push的数值小于等于队列入口元素的数值为止
+    # 这样就保持了队列里的元素是单调从大到小的
+    def push(self, value):
+        while self.queue and value > self.queue[-1]:
+            self.queue.pop()
+        self.queue.append(value)
+        
+    def front(self):
+        return self.queue[0]
+    
+class Solution:
+    def maxSlindingWindow(self, nums, k):
+        que = MyQueue()
+        ans = []
+        for i in range(k):
+            que.push(nums[i])
+        ans.append(que.front())
+        for i in range(k, len(nums)):
+            que.pop(nums[i-k])
+            que.push(nums[i])
+            ans.append(que.front())
+        return ans
+    
+if __name__ == "__main__":
+    nums = [1,3,-1,-3,5,3,6,7]
+    k = 3
+    result = Solution().maxSlindingWindow(nums, k)
+    print(result)
+```
+
+#### 2.6 0347前k个高频元素
+
+top K问题可以用堆解决
+
+```python
+# 2022/7/16  author:https://github.com/doocs/leetcode/tree/main/solution/0300-0399/0347.Top%20K%20Frequent%20Elements
+class Solution:
+    def topKFrequent(self, nums, k):
+        counter = Counter(nums)
+        hp = []
+        for num, freq in counter.items():
+            if len(hp) == k:
+                heappush(hp, (freq, num))
+                heappop(hp)
+            else:
+                heappush(hp, (freq, num))
+        return [t[1] for t in hp]
+    
+# 2022/7/16  author:代码随想录
+import heapq
+class Solution:
+    def topKFrequent(self, nums, k):
+        map_ = {}
+        for i in range(len(nums)):
+            map_[nums[i]] = map_.get(nums[i], 0) + 1
+        pri_que = []
+        for key, freq in map_.items():
+            heapq.heappush(pri_que, (freq, key))
+            if len(pri_que) > k:
+                heapq.heappop(pri_que)
+       result = [0] * k
+       for i in range(k-1, -1, -1):
+            result[i] heapq.heappop(pri_que)[1]
+       return result           
+    
+if __name__ == "__main__":
+    nums = [1,1,1,2,2,3]
+    k = 2
+    result = Solution().topKFrequent(nums, k)
+    print(result)
+```
+
