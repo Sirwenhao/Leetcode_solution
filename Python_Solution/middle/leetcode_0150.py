@@ -11,17 +11,43 @@
     输出结果：n=21,m=6
     """
 # 2022/7/9  author:WH
+# class Solution:
+#     def evalRPN(self, tokens):
+#         # 用于遍历元素并将元素压栈
+#         stack = []
+#         for item in tokens:
+#             if item not in {"+", "-", "*", "/"}:
+#                 stack.append(item)
+#             else:
+#                 # 这一步没有想到再把操作之后的元素重新入栈
+#                 first_num, second_num = stack.pop(), stack.pop()
+#                 stack.append(int(eval(f'{second_num} {item} {first_num}')))
+#         return int(stack.pop())
+
+# 2022/7/16  author:WH
+# class Solution:
+#     def evalRPN(self, tokens):
+#         stack = []
+#         for i in range(len(tokens)):
+#             if tokens[i] not in {"+", "-", "*", "/"}:
+#                 stack.append(tokens[i])
+#             else:
+#                 f_ele, s_ele = stack.pop(), stack.pop()
+#                 result = int(eval(f"{s_ele} {tokens[i]} {f_ele}"))
+#                 # print(f"{s_ele} {tokens[i]} {f_ele}")
+#                 stack.append(result)
+#         return int(stack.pop())
+
+# 改进版
 class Solution:
     def evalRPN(self, tokens):
-        # 用于遍历元素并将元素压栈
         stack = []
         for item in tokens:
             if item not in {"+", "-", "*", "/"}:
                 stack.append(item)
             else:
-                # 这一步没有想到再把操作之后的元素重新入栈
-                first_num, second_num = stack.pop(), stack.pop()
-                stack.append(int(eval(f'{second_num} {item} {first_num}')))
+                f_ele, s_ele = stack.pop(), stack.pop()
+                stack.append(int(eval(f"{s_ele} {item} {f_ele}")))
         return int(stack.pop())
 
 if __name__ == "__main__":
