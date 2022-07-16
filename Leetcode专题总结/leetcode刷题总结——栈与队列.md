@@ -276,3 +276,55 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.7 0042接雨水
+
+同面试题17.21 直方图的水量。核心：双指针，两种计算方法：单独一列的计算和单独一行的计算。
+
+![image-20220716172619780](https://gitee.com/sirwenhao/images/raw/master/image-20220716172619780.png)
+
+动态规划思想：对于位置i，此处最大水量取决于<font color=yellow>下标i左右两侧最大高度的最小值，再减去`height[i]`即为当前位置所对应的水量</font>
+
+```python
+# 2022/7/16  author:WH
+# 双指针：左右指针
+class Solution:
+    def trap(self, height):
+        ans = []
+        leftMax = rightMax = 0
+        left, right = 0, len(height)-1
+        while left < right:
+            leftMax = max(leftMax, height[left])
+            rightMax = max(rightMax, height[right])
+            if height[left] < height[right]:
+                ans += leftMax - height[left]
+                left += 1
+            else:
+                ans += rightMax - height[right]
+                right -= 1
+        return ans
+    
+# 2022/7/16  author:同上链接
+class Solution:
+    def trap(self, height):
+        n = len(height)
+        if n < 3:
+            return 0
+        left_max = [height[0]] * n
+        for i in range(1, n):
+            left_max[i] = max(left_max[i - 1], height[i])
+            
+        right_max = [height[n - 1]] * n
+        for i in range(n - 2, -1, -1):
+            right_max[i] = max(right_max[i + 1], height[i])
+            
+        res = 0
+        for i in range(n):
+            res += min(left_max[i], right_max[i]) - height[i]
+        return res
+  
+if __name__ == "__name__":
+    height = [0,1,0,2,1,0,1,3,2,1,2,1]
+    result = Solution().trap(height)
+    print(result)
+```
+
