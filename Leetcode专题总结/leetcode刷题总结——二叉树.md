@@ -81,6 +81,72 @@ class TreeNode:
 - 确定递归终止条件，每一次递归的结果使用递归栈结构保存的，终止条件不正确会导致递归站溢出
 - 确定单层递归逻辑，即确定调用自己的那一步的写法
 
+```python
+# 2022/7/18  author:WH
+# 二叉树前序遍历
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.right = None
+        self.left = None
+        
+class Solution:
+    def preorderTraversal(self, root):
+        ans = []
+        def traversal(root):
+            if root == None:
+                return
+            ans.append(root.value)
+            traversal(root.left)
+            traversal(root.right)
+        traversal(root)
+        return ans
+```
+
+```python
+# 2022/7/18  author:WH
+# 二叉树中序遍历
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.right = None
+        self.left = None
+        
+class Solution:
+    def inorderTraversal(self, root):
+        ans = []
+        def traversal(root):
+            if root == None:
+                return
+            traversal(root.left)
+            ans.append(root.value)
+            traversal(root.right)
+        traversal(root)
+        return ans
+```
+
+```python
+# 2022/7/18  author:WH
+# 二叉树后续遍历
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.right = None
+        self.left = None
+        
+class Solution:
+    def postorderTraversal(self, root):
+        ans = []
+        def traversal(root):
+            if root == None:
+                return
+            traversal(root.left)
+            traversal(root.right)
+            ans.append(root.value)
+        traversal(root)
+        return ans
+```
+
 
 
 #### 二叉树的属性
