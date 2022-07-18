@@ -81,9 +81,11 @@ class TreeNode:
 - 确定递归终止条件，每一次递归的结果使用递归栈结构保存的，终止条件不正确会导致递归站溢出
 - 确定单层递归逻辑，即确定调用自己的那一步的写法
 
+二叉树的前后中序遍历，递归写法
+
 ```python
 # 2022/7/18  author:WH
-# 二叉树前序遍历
+# 二叉树前序遍历(递归写法)
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -105,7 +107,7 @@ class Solution:
 
 ```python
 # 2022/7/18  author:WH
-# 二叉树中序遍历
+# 二叉树中序遍历(递归写法)
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -127,7 +129,7 @@ class Solution:
 
 ```python
 # 2022/7/18  author:WH
-# 二叉树后续遍历
+# 二叉树后续遍历(递归写法)
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -147,7 +149,66 @@ class Solution:
         return ans
 ```
 
+二叉树的前后中序遍历，非递归写法
 
+```python
+# 2022/7/18  author:WH
+# 前序遍历(迭代法)
+class Solution:
+    def preorderTraversal(self, root):
+        if not root:
+            return []
+        stack = [root]
+        ans = []
+        while stack:
+            node = stack.pop() # 中，先入栈，先出栈
+            ans.append(node.value)
+            if node.right:
+                stack.append(node.right) # 右，先入栈，后出栈
+            if node.left:
+                stack.append(node.left) # 左，后入栈，先出栈
+        return result
+```
+
+```python
+# 2022/7/18  author:WH
+# 中序遍历(迭代法)
+class Solution:
+    def preorderTraversal(self, root):
+        if not root:
+            return []
+        ans = []
+        stack = []
+        cur = root
+        while stack or root:
+            if cur:
+                stack.append(cur) # 左
+                cur = cur.left
+            else:
+                cur = stack.pop()
+                ans.append(cur.value) # 中
+                cur = cur.right # 右
+        return ans
+```
+
+```python
+# 2022/7/18  author:WH
+# 后序遍历(迭代法)
+class Solution:
+    def postorderTraversal(self, root):
+        if not root:
+            return []
+        ans = []
+        stack = [root]
+        while stack:
+            node = stack.pop() # 中先入栈，先出栈
+            ans.append(node.val)
+            if node.left:
+                stack.append(node.left) # 左先入栈，后出栈
+            if node.right:
+                stack.append(node.right) # 右后入栈，先出栈
+        return ans[::-1]
+```
 
 #### 二叉树的属性
 
