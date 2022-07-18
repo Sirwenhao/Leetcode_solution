@@ -10,14 +10,35 @@ class TreeNode:
         self.left = None
         self.right = None
 
+# class Solution:
+#     def preorderTraversal(self, root):
+#         result = []
+#         def traversal(root):
+#             if root == None:
+#                 return
+#             result.append(root.val) # 中
+#             traversal.append(root.left) # 左
+#             traversal.append(root.right) # 右
+#         traversal(root)
+#         return result
+
+
+# 2022/7/18  author:WH
+# 迭代法  前序：中左右
 class Solution:
     def preorderTraversal(self, root):
-        result = []
-        def traversal(root):
-            if root == None:
-                return
-            result.append(root.val) # 中
-            traversal.append(root.left) # 左
-            traversal.append(root.right) # 右
-        traversal(root)
-        return result
+        if not root:
+            return []
+        stack = [root]
+        ans = []
+        while stack:
+            node = stack.pop()
+            # 中
+            ans.append(node.val)
+            # 右孩子先入栈
+            if node.right:
+                stack.append(node.right)
+            # 左孩子后入站
+            if node.left:
+                stack.append(node.left)
+        return ans
