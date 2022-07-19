@@ -281,7 +281,7 @@ class Solution:
             if root.right:
                 helper(root.right, depth+1)
         helper(root, 0)
-       	return ans
+       	return ans[::-1]
 ```
 
 
