@@ -78,7 +78,7 @@ class TreeNode:
 首先写递归算法时，要明确递归结构写法的三要素：
 
 - 确定递归函数的参数和返回值，要搞清楚哪些参数是递归函数要处理的，还要搞明白递归函数的返回值是什么
-- 确定递归终止条件，每一次递归的结果使用递归栈结构保存的，终止条件不正确会导致递归站溢出
+- 确定递归终止条件，每一次递归的结果使用递归栈结构保存的，终止条件不正确会导致递归栈溢出
 - 确定单层递归逻辑，即确定调用自己的那一步的写法
 
 二叉树的前后中序遍历，递归写法
@@ -209,6 +209,82 @@ class Solution:
                 stack.append(node.right) # 右后入栈，先出栈
         return ans[::-1]
 ```
+
+二叉树的层序遍历
+
+所谓层序遍历一个二叉树，即从左到右一层一层的去遍历。需要借助一个辅助数据结构队列来实现，队列先进先出，符合一层一层遍历的逻辑，这种层序遍历实质上就是图论中的广度优先遍历。
+
+```python
+# 2022/7/19  author:WH
+# 二叉树层序遍历的递归解法
+class Solution:
+    def levelOrder(self, root):
+        res = []
+        def helper(root, depth):
+            if not root: return []
+        	if len(res) == depth: res.append([])
+            res[depth].append(root.val)
+            if root.left: helper(root.left, depth + 1)
+            if root.right: helper(root.right, depth + 1)
+        helper(root, 0)
+        return res
+```
+
+```python
+# 2022/7/19  author:WH
+# 二叉树层序遍历的迭代解法
+class Solution:
+    def levelOrder(self, root):
+        ans = []
+        if not root:
+            return ans
+        from collections import deque
+        que = deque([root])
+        while que:
+            size = len(que)
+            result = []
+            for _ in range(size):
+                cur = que.popleft()
+                result.append(cur.val)
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+            ans.append(result)
+        return ans
+```
+
+与二叉树的层序遍历相关的leetcode习题
+
+- 0107二叉树的层次遍历II
+- 0199二叉树的右视图
+- 0637二叉树的层平均值
+- 0429N叉树的层序遍历
+- 0515在每个上中寻找最大值
+- 0116填充每个结点的下一个右侧节点指针
+- 0117填充每个结点的下一个右侧节点指针II
+- 0104二叉树的最大深度
+- 0111二叉树的最小深度
+
+```python
+# 0107二叉树的层次遍历II
+# 2022/7/18  author:WH
+class Solution:
+    def levelOrderBottom(self, root):
+        ans = []
+        def helper(root, depth):
+            if not root: return
+        	if len(ans) == depth: ans.append([])
+            ans[depth].append(root.val)
+            if root.left:
+                helper(root.left, depth+1)
+            if root.right:
+                helper(root.right, depth+1)
+        helper(root, 0)
+       	return ans
+```
+
+
 
 #### 二叉树的属性
 
