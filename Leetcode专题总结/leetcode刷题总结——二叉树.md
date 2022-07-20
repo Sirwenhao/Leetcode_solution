@@ -349,7 +349,70 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def largestValues(self, root):
-        
+        if not root: return []
+        ans = []
+        que = deque([root])
+        while que:
+            result = []
+            for _ in range(len(que)):
+                cur = que.popleft()
+                result.append(cur.val)
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+            ans.append(max(result))
+        return ans
+```
+
+```python
+# 0116填充每个结点的下一个右侧节点指针
+# 2022/7/20  后期补充~
+```
+
+```python
+# 0117填充每个结点的下一个右侧节点指针II
+# 2022/7/20  后期补充~
+```
+
+```python
+# 0104二叉树的最大深度
+# 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+# 2022/7/20  author:WH
+class Solution:
+    def maxDepth(self, root):
+        if not root: return 0
+        ans = []
+        que = [root]
+        while que:
+            result = 0
+            for _ in range(len(que)):
+                # 这个地方必须是pop(0)出最左侧元素
+                cur = que.pop(0)
+                result.append(cur.val)
+                if cur.left: que.append(cur.left)
+                if cur.right: que.append(cur.right)
+            ans.append(result)
+        return len(ans)
+```
+
+```python
+# 0111二叉树的最小深度
+# 最小深度是从根节点到最近叶子节点的最短路径上的节点数量
+# 2022/7/20  author:WH
+class Solution:
+    def minDepth(self, root):
+        if not root: return 0
+    	que = [(root, 1)]
+        while que:
+            cur, depth = que.pop(0)
+            # 一个节点的左右子节点都不存在，即为叶子节点
+            if cur.left == None and cur.right == None: return depth
+        	if cur.left:
+                que.append((cur.left, depth+1))
+            if cur.right:
+                que.append((cur.right, depth+1))
+       return 0
 ```
 
 
