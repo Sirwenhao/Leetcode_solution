@@ -260,7 +260,7 @@ class Solution:
 - 0199二叉树的右视图
 - 0637二叉树的层平均值
 - 0429N叉树的层序遍历
-- 0515在每个上中寻找最大值
+- 0515在每个树行中寻找最大值
 - 0116填充每个结点的下一个右侧节点指针
 - 0117填充每个结点的下一个右侧节点指针II
 - 0104二叉树的最大深度
@@ -282,6 +282,74 @@ class Solution:
                 helper(root.right, depth+1)
         helper(root, 0)
        	return ans[::-1]
+```
+
+```python
+# 0199二叉树的右视图
+# 2022/7/20  author:WH
+class Solution:
+    def rightSideView(self, root):
+        ans = []
+        que = deque([root])
+        if not root: return []
+    	while que:
+            cur = que[-1]
+            ans.append(cur.val)
+            for _ in range(len(que)):
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+        return ans 
+```
+
+```python
+# 0637二叉树的树层平均值
+# 2022/7/20  author:WH
+class Solution:
+    def averageOfLevels(self, root):
+        if not root: return []
+    	ans = []
+        que = deque([root])
+        while que:
+            size = len(que)
+            total = 0
+            for _ in range(size):
+                cur = que.popleft()
+            	total += cur.val
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+            ans.append(total / size)
+        return ans         
+```
+
+```python
+# 0429N叉树的层序遍历
+# 2022/7/20  author:WH
+class Solution:
+    def levelOrder(self, root):
+        if not root: return []
+    	que = deque([root])
+        ans = []
+        while que:
+            result = []
+            for _ in range(len(que)):
+            	cur = que.popleft()
+            	result.append(cur.val)
+                if cur.children:
+                    que.extend(cur.children)
+            ans.append(result)
+        return ans
+```
+
+```python
+# 0515在每个树行中寻找最大值
+# 2022/7/20  author:WH
+class Solution:
+    def largestValues(self, root):
+        
 ```
 
 
