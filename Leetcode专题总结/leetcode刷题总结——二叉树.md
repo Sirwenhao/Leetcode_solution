@@ -408,7 +408,7 @@ class Solution:
             cur, depth = que.pop(0)
             # 一个节点的左右子节点都不存在，即为叶子节点
             if cur.left == None and cur.right == None: return depth
-        	if cur.left:
+            if cur.left:
                 que.append((cur.left, depth+1))
             if cur.right:
                 que.append((cur.right, depth+1))
