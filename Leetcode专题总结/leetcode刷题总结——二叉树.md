@@ -460,7 +460,53 @@ class Solution:
          return root
 ```
 
+```python
+# 下述版本，可以判断每一层中的节点是否满足数值层面的对称，但是无法判断位置是否对称
+# class Solution:
+#     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+#         def symmetric(candidate_list):
+#             left, right = 0, len(candidate_list)-1
+#             while left <= right:
+#                 if candidate_list[left] != candidate_list[right]:
+#                     return False
+#                 left += 1
+#                 right -= 1
+#             return True
 
+#         if not root: return False
+#         que = deque([root])
+#         while que:
+#             result = []
+#             for _ in range(len(que)):
+#                 node = que.popleft()
+#                 result.append(node.val)
+#                 if node.left: que.append(node.left)
+#                 if node.right: que.append(node.right)
+#             # print(result)
+#             ans = symmetric(result)
+#             # print(ans)
+#         return ans
+
+# 0101对称二叉树
+# 2022/7/21  author:WH
+# 迭代法，使用队列
+class Solution:
+    def isSymmetric(self, root):
+        if not root: return False
+    	que = deque()
+        que.append(root.left)
+        que.append(root.right)
+        while que:
+            leftNode = que.popleft()
+            rightNode = que.popright()
+            if not leftNode and not rightNode: continue
+            if not leftNode or not rightNode or leftNode.val != rightNode.val: return False
+        	que.append(leftNode.left) # 左节点的左子树
+            que.append(rightNode.right) # 右节点的右子树
+            que.append(leftNode.right) # 左节点的右子树
+            que.append(rightNode.right) # 右节点的左子树
+        return True
+```
 
 
 
