@@ -71,7 +71,7 @@ class TreeNode:
 
 按照代码随想录分类
 
-#### 二叉树的遍历方式
+#### 1.二叉树的遍历方式
 
 递归遍历相关：前序、中序、后序
 
@@ -417,7 +417,56 @@ class Solution:
 
 
 
+翻转二叉树，看似简单，但是要清晰理解其内部的逻辑。反转的原则：交换每一个树节点的左右孩子。其遍历方式可能涉及到前中后序和层序，但中序遍历是不行的。中序遍历的顺序为左中右，在执行中序之前已经进行过左子节点的交换操作了，中序遍历会导致子节点被反转两次。
+
+```python
+# 0226翻转二叉树
+# 2022/7/21  author:WH
+# 前序遍历，递归版本
+class Solution:
+    def invertTree(self, root):
+        if not root: return None
+    	root.left, root.right = root.right, root.left
+        self.invertTree(root.left) # 左节点
+        self.invertTree(root.right) # 右节点
+        return root
+# 前序遍历，迭代版本
+# 深度优先DFS（前序遍历）
+class Solution:
+    def invertTree(self, root):
+        if not root: return None
+    	ans = [root]
+        while ans:
+            node = ans.pop()
+            node.left, node.right = node.right, node.left # 中
+            if node.left: ans.append(node.left)  # 左
+            if node.right: ans.append(node.right) # 右
+        return root
+    
+# 层序遍历，迭代版本
+# 广度优先BFS（层序遍历）
+from collections import deque
+class Solution:
+    def invertTree(self, root):
+        if not root: return None
+    	que = deaue([root])
+        while que:
+            size = len(que)
+            for _ in range(size):
+                node = que.popleft()
+                node.left, node.right = node.right, node.left
+                if node.left: que.append(node.left)
+                if node.right: que.append(node.right)
+         return root
+```
+
+
+
+
+
 #### 二叉树的属性
+
+
 
 #### 二叉树的修改与改造
 
