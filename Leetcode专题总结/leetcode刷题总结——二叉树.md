@@ -506,6 +506,21 @@ class Solution:
             que.append(leftNode.right) # 左节点的右子树
             que.append(rightNode.right) # 右节点的左子树
         return True
+    
+class Solution:
+    def isSymmetric(self, root):
+        if not root: return False
+    	return self.compare(root.left, root.right)
+    def compare(self, left, right):
+        if left == None and right != None: return False
+    	elif left != None and right == None: return False
+    	elif  left == None and right == None: return True
+    	elif left.val != right.val: return False
+   		# 单层递归逻辑
+        outside = self.compare(left.left, right.right)
+        inside = self.compare(left.right, right.left)
+        ans = outside and inside
+        return ans
 ```
 
 
