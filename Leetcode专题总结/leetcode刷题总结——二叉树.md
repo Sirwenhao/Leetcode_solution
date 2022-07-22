@@ -615,11 +615,27 @@ class Solution:
         return root1
 ```
 
+```python
+# 0543二叉树的直径
+# 2022/7/22  author:力扣官解
+class Solution:
+    def diameterOfBinaryTree(self, root):
+        self.ans = 1
+        def depth(node):
+            if not node: return 0
+        	l_depth = depth(node.left)
+            r_depth = depth(node.right)
+            self.ans = max(self.ans, l_depth + r_depth + 1)
+            return max(l_depth, r_depth) + 1
+        depth(root)
+        return self.ans - 1
+```
+
+
+
 
 
 #### 二叉树的属性
-
-
 
 #### 二叉树的修改与改造
 
