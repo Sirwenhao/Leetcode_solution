@@ -19,11 +19,11 @@
 
 完全二叉树：（理解相对有难度）在完全二叉树中，除了最底层的节点可能没填满之外，其余每层节点数都达到了最大值，并且最下面一层的节点都集中在该层的最左边若干位置。假设最底层是第i层，则该层对应的节点数为：$1—2^{i-1}$
 
-二叉搜索树：节点存储数值，是一种有序树。
+二叉搜索树（二叉排序树）：节点存储数值，是一种有序树。
 
 - 如左子树不为空，则左子树上所有节点的值均小于它的根节点的值
 - 如右子树不为空，则右子树上所有节点的值均大于它的根节点的值
-- 它的左右子树分别为二叉排序树
+- 它的左右子树分别为二叉搜索树
 
 平衡二叉搜索树，又被称为AVL（Adelson-Velsky and Landis）树，有以下性质：
 
@@ -667,6 +667,71 @@ class Solution:
         if abs(left_height - right_height) > 1: return -1
         else: return 1 + max(left_height, right_height)
 ```
+
+```python
+# 0257二叉树的所有路径
+# 2022/7/24  author:WH
+# 迭代法
+class Solution:
+    def binaryTreePaths(self, root):
+        stack, path_st, result = deque([root]),  deque(), []
+        path_st.append(str(root.val))
+        
+        while stack:
+            cur = stack.pop()
+            path = path_st.pop()
+            if not (cur.left or cur.right): result.append(path)
+            if cur.left:
+                stack.append(cur.left)
+                path_st.append(path + '->' + str(cur.left.val))
+            if cur.right:
+                stack.append(cur.right)
+                path_st.append(path + '->' + str(cur.right.val))
+        return result
+```
+
+```python
+# 0257二叉树的所有路径
+# 2022/7/24  author:WH
+# 递归法
+class Soution:
+    def binaryTreePaths(self, root):
+        path = ''
+        result = []
+        if not root: return result
+    	self.traversal(root, path, result)
+        return result
+    
+    def traversal(self, cur, path, result):
+        path += str(cur.val)
+        if not cur.left and not cur.right:
+            result.append(path)
+        if cur.left:
+            self.traversal(cur.left, path + '->', result)
+        if cur.right:
+            self.traversal(cur.right, path + '->', result)
+```
+
+```python
+# 不同的二叉搜索树
+# 2022/7/24  author:WH
+# 二叉搜索树的概念：若左子树不为空，左子树所有结点的值小于根节点。若右子树不为空，右子树所有结点的值大于根节点。七左右子树也为二叉搜索树
+
+class Solution:
+    def numTrees(self, n):
+        dp = [0] * (n+1)
+        dp[0] = 1
+        for i in range(1, n+1):
+            for j in range(i):
+                dp[i] += dp[j] * dp[i-j-1]
+        return dp[-1]
+```
+
+
+
+
+
+
 
 
 
