@@ -727,9 +727,69 @@ class Solution:
         return dp[-1]
 ```
 
+```python
+# 验证二叉搜索树
+# 2022/7/25  author:WH
+# 迭代 中序遍历
+class Solution:
+    def isValidBST(self, root):
+        stack = []
+        cur = root
+        pre = None
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+                if pre and cur.val <= pre.val: return False
+            	pre = cur
+                cur = cur.right
+        return True
+    
+# 递归，中序遍历
+class Solution:
+    def isValidBST(self, root):
+        def dfs(root):
+            if not root: return True
+        	if not dfs(root.left): return False # 左
+        	if prev >= root.val: return False  # 中
+        	prev = root.val
+            if not dfs(root.right): return False # 右
+        	return True
+        prev = float('-inf')
+        return dfs(root)
+```
 
-
-
+```python
+# 105从前序与中序遍历构造二叉树
+# 2022/7/25  author:WH
+# 递归
+class Solution:
+    def buildTree(self, preorder, inorder):
+        # 第一步：空树以及递归终止的条件
+        if not preorder: return None
+    	# 第二步：前序遍历的第一个元素，就是中间节点
+    	root_val = preorder[0]
+        root = TreeNode(root_val)
+        # 第三步：根据中间节点，找分割点
+        seperator_idx = inorder.index(root_val)
+        
+        # 第四步：切割inorder数组，并计算左、右部分
+        inorder_left = inorder[:seperator_idx]
+        inorder_right = inorder[seperator_idx + 1]
+        
+        # 第五步：切割preorder数组，得到preorder的左右部分
+        # 这一步借助了无论是中序还是前序，数组大小相等的概念，直接利用中序找到的左右部分长度对前序进行分割
+        preorder_left = preorder[1:1 + len(inorder_left)]
+        preorder_right = preorder[1 + len(inorder_left):]
+        
+        # 第六步：递归
+        root.left = self.buildTree(preorder_left, inorder_left)
+        root.right = self.buildTree(preorder_right, inorder_right)
+        
+        return root
+```
 
 
 
