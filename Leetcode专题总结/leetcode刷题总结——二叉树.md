@@ -804,7 +804,7 @@ class Solution:
         separator_idx = inorder.index(root_val)
         
         inorder_left = inorder[:separator_idx]
-        inorder_right = inorder[separator_idx + 1]
+        inorder_right = inorder[separator_idx + 1:]
         
         postorder_left = postorder[:len(inorder_left)]
         postorder_right = postorder[len(inorder_left) + 1:len(postorder) - 1]
@@ -815,7 +815,24 @@ class Solution:
         return root
 ```
 
-
+```python
+# 0114二叉树展开成链表
+# 2022/7/25  author:github
+class Solution:
+    def flatten(self, root):
+        while root:
+            if root.left:
+                pre = root.left
+                # 如果right不为空就一直遍历到最后
+                while pre.right:
+                    pre = pre.right
+                # right遍历到最后之后，把原来root的right的部分接到最后面
+                pre.right = root.right
+                # 再把原来root的左侧部分接到其右侧
+                root.right = root.left
+                root.left = None
+            root = root.right
+```
 
 
 
