@@ -827,16 +827,69 @@ class Solution:
                 while pre.right:
                     pre = pre.right
                 # right遍历到最后之后，把原来root的right的部分接到最后面
-                pre.right = root.right
+               pre.right = root.right
                 # 再把原来root的左侧部分接到其右侧
                 root.right = root.left
                 root.left = None
             root = root.right
 ```
 
+0236二叉树中的最近公共祖先
 
+递归法，根据“最近公共祖先”的定义，若root是p，q的最近公共祖先，则只可能为以下情况之一：
 
+- 如果p和q分别是root左右节点 ，那么root就是我们要找的最近公共祖先
+- 如果p和q都是root的左节点，那么返回`lowestCommonAncestor(root.left, p, q)`
+- 如果p和q都是root的右节点，那么返回`lowestCommonAncestor(root.right, p, q)`
 
+边界情况讨论：
+
+- 如果 root 为 null，则说明我们已经找到最底了，返回 null 表示没找到；
+- 如果 root 与 p 相等或者与 q 相等，则返回 root；
+- 如果左子树没找到，递归函数返回 null，证明 p 和 q 同在 root 的右侧，那么最终的公共祖先就是右子树找到的结点；
+- 如果右子树没找到，递归函数返回 null，证明 p 和 q 同在 root 的左侧，那么最终的公共祖先就是左子树找到的结点。
+
+```python
+# 0236二叉树中的最近公共祖先
+# 2022/7/26  author:github
+# 递归
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root is None or root == p or root == q:
+            return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        return root if left and right else (left or right)
+```
+
+```python
+# 0337打家劫舍III
+# 2022/7/26  author:github
+# 递归
+class Solution:
+    def rob(self, root):
+        @cache
+        def dfs(root):
+            if not root: 
+                return 0
+            if root.left is None and root.right is None:
+                return root.val
+            a = dfs(root.left) + dfs(root.right)
+            b = root.val
+            if root.left:
+                b += dfs(root.left.left) + dfs(root.left.right)
+            if root.right:
+                b += dfs(root.right.left) + dfs(root.right.right)
+            return max(a, b)
+        return dfs(root)
+```
 
 
 
