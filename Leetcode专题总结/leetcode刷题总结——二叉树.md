@@ -891,16 +891,80 @@ class Solution:
         return dfs(root)
 ```
 
-
+```python
+# 0538把二叉搜索树转化为累加树
+# 从右侧叶子节点向左遍历，顺序：右中左，倒中序
+# 迭代
+# 2022/7/26  author:WH
+class Solution:
+    def convertBST(self, root):
+        if not root:
+            return None
+        pre = 0
+        stack = []
+        cur = root
+        while cur or root:
+            if cur:
+                stack.append(cur)
+                cur = cur.right # 右
+            else:
+                node = stack.pop()
+                cur.val += pre  # 中
+                pre = cur.val
+                cur = cur.left  # 左
+        return root
+    
+# 递归
+class Solution:
+    v = 0
+    def convertBST(self, root):
+        if not root:
+            return None
+        self.convertBST(root.right) # 右
+        root.val += self.v
+        self.v = root.val
+        self.convertBST(root.left)
+        return root
+```
 
 
 
 #### 二叉树的属性
 
+- 101对称二叉树&#10004;
+- 104二叉树的最大深度&#10004;
+- 110平衡二叉树&#10004;
+- 111二叉树的最小深度
+- 112路经总和&#10004;
+- 222完全二叉树的节点个数&#10004;
+- 257二叉树的所有路径&#10004;
+- 404左叶子之和
+- 513找树左下角的值
+
 #### 二叉树的修改与改造
+
+- 106从中序与后序遍历构造二叉树&#10004;
+- 226翻转二叉树&#10004;
+- 617合并二叉树&#10004;
+- 654最大二叉树
 
 #### 求二叉树的属性
 
+- 98验证二叉搜索树&#10004;
+- 501二叉搜索树中的众数
+- 530二叉搜索树的最小绝对差
+- 538把二叉搜索树转换为累加树&#10004;
+- 700二叉搜索树中的搜索
+
 #### 二叉树公共祖先问题
 
+- 0235二叉树的最近公共祖先&#10004;
+- 0236二叉树搜索树的最近公共祖先&#10004;
+
 #### 二叉搜索树的修改与改造
+
+- 108将有序数组转换为二叉搜索树&#10004;
+- 450删除二叉搜索树中的节点
+- 669丢件二叉搜索树
+- 701二叉搜索树中的插入操作
+
