@@ -442,8 +442,6 @@ class Solution:
        return 0
 ```
 
-
-
 翻转二叉树，看似简单，但是要清晰理解其内部的逻辑。反转的原则：交换每一个树节点的左右孩子。其遍历方式可能涉及到前中后序和层序，但中序遍历是不行的。中序遍历的顺序为左中右，在执行中序之前已经进行过左子节点的交换操作了，中序遍历会导致子节点被反转两次。
 
 ```python
@@ -462,11 +460,12 @@ class Solution:
 # 深度优先DFS（前序遍历）
 class Solution:
     def invertTree(self, root):
-        if not root: return None
-    	ans = [root]
+        if not root:
+            return None
+        ans = [root]
         while ans:
-            node = ans.pop()
-            node.left, node.right = node.right, node.left # 中
+            node = ans.pop() # 中
+            node.left, node.right = node.right, node.left
             if node.left: ans.append(node.left)  # 左
             if node.right: ans.append(node.right) # 右
         return root
