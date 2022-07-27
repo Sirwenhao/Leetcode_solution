@@ -387,7 +387,8 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def maxDepth(self, root):
-        if not root: return 0
+        if not root:
+            return 0
         ans = []
         que = [root]
         while que:
