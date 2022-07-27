@@ -516,7 +516,7 @@ class Solution:
 #         return ans
 
 # 0101对称二叉树
-# 2022/7/21  author:WH
+# 2022/7/21  author:W
 # 迭代法，使用队列
 class Solution:
     def isSymmetric(self, root):
@@ -529,22 +529,27 @@ class Solution:
             leftNode = que.popleft()
             rightNode = que.popright()
             if not leftNode and not rightNode: continue
-            if not leftNode or not rightNode or leftNode.val != rightNode.val: return False
-        	que.append(leftNode.left) # 左节点的左子树
+            if not leftNode or not rightNode or leftNode.val != rightNode.val:
+                return False
+            que.append(leftNode.left) # 左节点的左子树
             que.append(rightNode.right) # 右节点的右子树
             que.append(leftNode.right) # 左节点的右子树
             que.append(rightNode.right) # 右节点的左子树
         return True
-    
+   
+# 递归法
 class Solution:
     def isSymmetric(self, root):
         if not root: return False
     	return self.compare(root.left, root.right)
     def compare(self, left, right):
-        if left == None and right != None: return False
-    	elif left != None and right == None: return False
-    	elif  left == None and right == None: return True
-    	elif left.val != right.val: return False
+        if left == None and right != None:
+            return False
+        elif left != None and right == None:
+            return False
+        elif  left == None and right == None:
+            return True
+        elif left.val != right.val: return False
    		# 单层递归逻辑
         outside = self.compare(left.left, right.right)
         inside = self.compare(left.right, right.left)
@@ -558,8 +563,9 @@ class Solution:
 # 迭代法
 class Solution:
     def countNode(self, root):
-        if not root: return 0
-    	ans = 0
+        if not root:
+            return 0
+        ans = 0
         que = deque([root])
         while que:
             result = 0
@@ -576,8 +582,9 @@ class Solution:
     def countNod(self, root):
         return self.getNodeNum(root)
     def getNodeNum(self, root):
-        if not root: return 0
-    	leftNum = self.getNodeNum(root.left) # 左
+        if not root:
+            return 0
+        leftNum = self.getNodeNum(root.left) # 左
         rightNum = self.getNodeNum(root.right) # 右
         totalNum = leftNum + rightNum + 1 # 中
         return totalNum
