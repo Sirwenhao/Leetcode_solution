@@ -475,8 +475,9 @@ class Solution:
 from collections import deque
 class Solution:
     def invertTree(self, root):
-        if not root: return None
-    	que = deaue([root])
+        if not root:
+            return None
+        que = deque([root])
         while que:
             size = len(que)
             for _ in range(size):
@@ -519,8 +520,9 @@ class Solution:
 # 迭代法，使用队列
 class Solution:
     def isSymmetric(self, root):
-        if not root: return False
-    	que = deque()
+        if not root:
+            return False
+        que = deque()
         que.append(root.left)
         que.append(root.right)
         while que:
