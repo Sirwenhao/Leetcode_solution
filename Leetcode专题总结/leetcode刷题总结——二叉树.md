@@ -427,12 +427,14 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def minDepth(self, root):
-        if not root: return 0
-    	que = [(root, 1)]
+        if not root:
+            return 0
+        que = [(root, 1)]
         while que:
             cur, depth = que.pop(0)
             # 一个节点的左右子节点都不存在，即为叶子节点
-            if cur.left == None and cur.right == None: return depth
+            if cur.left == None and cur.right == None:
+                return depth
             if cur.left:
                 que.append((cur.left, depth+1))
             if cur.right:
@@ -450,8 +452,9 @@ class Solution:
 # 前序遍历，递归版本
 class Solution:
     def invertTree(self, root):
-        if not root: return None
-    	root.left, root.right = root.right, root.left
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
         self.invertTree(root.left) # 左节点
         self.invertTree(root.right) # 右节点
         return root
