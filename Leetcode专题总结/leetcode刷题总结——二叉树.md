@@ -401,6 +401,24 @@ class Solution:
                 if cur.right: que.append(cur.right)
             ans.append(result)
         return len(ans)
+    
+# 2022/7/27  author:WH
+from collections import deque
+class Solution:
+    def maxDepth(self, root):
+        if not root:
+            return 0
+        ans = []
+        que = deque([root])
+        while que:
+            result = 0
+            for _ in range(len(que)):
+                cur = que.popleft()
+                result.append(cur.val)
+                if cur.left: que.append(cur.left)
+                if cur.right: que.append(cur.right)
+            ans.append(result)
+        return len(ans)
 ```
 
 ```python
