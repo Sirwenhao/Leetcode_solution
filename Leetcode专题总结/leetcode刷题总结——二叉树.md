@@ -221,8 +221,9 @@ class Solution:
     def levelOrder(self, root):
         res = []
         def helper(root, depth):
-            if not root: return []
-        	if len(res) == depth: res.append([])
+            if not root:
+                return []
+            if len(res) == depth: res.append([])
             res[depth].append(root.val)
             if root.left: helper(root.left, depth + 1)
             if root.right: helper(root.right, depth + 1)
@@ -273,8 +274,10 @@ class Solution:
     def levelOrderBottom(self, root):
         ans = []
         def helper(root, depth):
-            if not root: return
-        	if len(ans) == depth: ans.append([])
+            if not root:
+                return
+            if len(ans) == depth:
+                ans.append([])
             ans[depth].append(root.val)
             if root.left:
                 helper(root.left, depth+1)
@@ -308,8 +311,9 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def averageOfLevels(self, root):
-        if not root: return []
-    	ans = []
+        if not root:
+            return []
+        ans = []
         que = deque([root])
         while que:
             size = len(que)
