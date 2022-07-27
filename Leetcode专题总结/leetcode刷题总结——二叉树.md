@@ -334,8 +334,9 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def levelOrder(self, root):
-        if not root: return []
-    	que = deque([root])
+        if not root:
+            return []
+        que = deque([root])
         ans = []
         while que:
             result = []
@@ -353,7 +354,8 @@ class Solution:
 # 2022/7/20  author:WH
 class Solution:
     def largestValues(self, root):
-        if not root: return []
+        if not root:
+            return []
         ans = []
         que = deque([root])
         while que:
