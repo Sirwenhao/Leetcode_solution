@@ -699,7 +699,8 @@ class Solution:
         else:
             return False
     def get_height(self, root):
-        if not root: return 0
+        if not root:
+            return 0
         if (left_height == self.get_height(root.left)) == -1: return -1
         if (right_height == self.get_height(root.right)) == -1: return -1
         if abs(left_height - right_height) > 1: return -1
@@ -765,8 +766,7 @@ class Soution:
 ```python
 # 不同的二叉搜索树
 # 2022/7/24  author:WH
-# 二叉搜索树的概念：若左子树不为空，左子树所有结点的值小于根节点。若右子树不为空，右子树所有结点的值大于根节点。七左右子树也为二叉搜索树
-
+# 二叉搜索树的概念：若左子树不为空，左子树所有结点的值小于根节点。若右子树不为空，右子树所有结点的值大于根节点。其左右子树也为二叉搜索树
 class Solution:
     def numTrees(self, n):
         dp = [0] * (n+1)
@@ -792,8 +792,9 @@ class Solution:
                 cur = cur.left
             else:
                 cur = stack.pop()
-                if pre and cur.val <= pre.val: return False
-            	pre = cur
+                if pre and cur.val <= pre.val:
+                    return False
+                pre = cur
                 cur = cur.right
         return True
     
@@ -801,12 +802,16 @@ class Solution:
 class Solution:
     def isValidBST(self, root):
         def dfs(root):
-            if not root: return True
-        	if not dfs(root.left): return False # 左
-        	if prev >= root.val: return False  # 中
-        	prev = root.val
-            if not dfs(root.right): return False # 右
-        	return True
+            if not root:
+                return True
+        	if not dfs(root.left):
+                return False # 左
+        	if prev >= root.val:
+                return False  # 中
+            prev = root.val
+            if not dfs(root.right):
+                return False # 右
+            return True
         prev = float('-inf')
         return dfs(root)
 ```
@@ -818,16 +823,17 @@ class Solution:
 class Solution:
     def buildTree(self, preorder, inorder):
         # 第一步：空树以及递归终止的条件
-        if not preorder: return None
-    	# 第二步：前序遍历的第一个元素，就是中间节点
-    	root_val = preorder[0]
+        if not preorder:
+            return None
+        # 第二步：前序遍历的第一个元素，就是中间节点
+        root_val = preorder[0]
         root = TreeNode(root_val)
         # 第三步：根据中间节点，找分割点
         seperator_idx = inorder.index(root_val)
         
         # 第四步：切割inorder数组，并计算左、右部分
         inorder_left = inorder[:seperator_idx]
-        inorder_right = inorder[seperator_idx + 1]
+        inorder_right = inorder[seperator_idx + 1:]
         
         # 第五步：切割preorder数组，得到preorder的左右部分
         # 这一步借助了无论是中序还是前序，数组大小相等的概念，直接利用中序找到的左右部分长度对前序进行分割
@@ -847,8 +853,9 @@ class Solution:
 # 递归
 class Solution:
     def buildTree(self, inorder, postorder):
-        if not postorder: return None
-    	root_val = postorder[-1]
+        if not postorder:
+            return None
+        root_val = postorder[-1]
         root = TreeNode(root_val)
         
         separator_idx = inorder.index(root_val)
