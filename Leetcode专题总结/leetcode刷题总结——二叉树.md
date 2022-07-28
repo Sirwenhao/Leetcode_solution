@@ -597,9 +597,11 @@ class Solution:
     def mergeTrees(self, root1, root2):
         return self.addTrees(root1, root2)
     def addTrees(self, tree1, tree2):
-        if not tree1: return tree2
-    	if not tree2: return tree1
-    	que1 = deque([tree1])
+        if not tree1:
+            return tree2
+        if not tree2:
+            return tree1
+        que1 = deque([tree1])
         que2 = deque([tree2])
         while que1 or que2:
             node1 = que1.popleft()
@@ -623,7 +625,6 @@ class Solution:
             return root2
         if not root2: 
             return root1
-
         queue = deque()
         queue.append(root1)
         queue.append(root2)
@@ -640,14 +641,12 @@ class Solution:
             if node1.right and node2.right: 
                 queue.append(node1.right)
                 queue.append(node2.right)
-
             # 更新当前节点. 同时改变当前节点的左右孩子. 
             node1.val += node2.val
             if not node1.left and node2.left: 
                 node1.left = node2.left
             if not node1.right and node2.right: 
                 node1.right = node2.right
-
         return root1
 ```
 
@@ -658,8 +657,9 @@ class Solution:
     def diameterOfBinaryTree(self, root):
         self.ans = 1
         def depth(node):
-            if not node: return 0
-        	l_depth = depth(node.left)
+            if not node:
+                return 0
+            l_depth = depth(node.left)
             r_depth = depth(node.right)
             self.ans = max(self.ans, l_depth + r_depth + 1)
             return max(l_depth, r_depth) + 1
@@ -673,7 +673,8 @@ class Solution:
 # 迭代解法
 class Solution:
     def isBalanced(self, root):
-        if not root: return True
+        if not root:
+            return True
         height_map = {}
         stack = [root]
         while stack:
@@ -693,15 +694,29 @@ class Solution:
 # 递归解法
 class Solution:
     def isBalanced(self, root):
-        if self.get_height(root) != -1: return True
-        else: return False
-
+        if self.get_height(root) != -1:
+            return True
+        else:
+            return False
     def get_height(self, root):
         if not root: return 0
         if (left_height == self.get_height(root.left)) == -1: return -1
         if (right_height == self.get_height(root.right)) == -1: return -1
         if abs(left_height - right_height) > 1: return -1
         else: return 1 + max(left_height, right_height)
+    
+# 2022/7/27  author:github
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        def height(root):
+            if root is None:
+                return 0
+            l, r = height(root.left), height(root.right)
+            if l == -1 or r == -1 or abs(l - r) > 1:
+                return -1
+            return 1 + max(l, r)
+
+        return height(root) >= 0
 ```
 
 ```python
@@ -712,7 +727,6 @@ class Solution:
     def binaryTreePaths(self, root):
         stack, path_st, result = deque([root]),  deque(), []
         path_st.append(str(root.val))
-        
         while stack:
             cur = stack.pop()
             path = path_st.pop()
