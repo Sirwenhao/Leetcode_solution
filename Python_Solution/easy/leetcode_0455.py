@@ -3,28 +3,51 @@
 """
 
 # 解法一，有参考力扣加加
-def findContentChildren(g: list, s: list):
-    g.sort()
-    s.sort()
-    cnt = 0
-    student = biscuits = 0
-    while student < len(g) and biscuits < len(s):
-        if s[biscuits] >= g[student]:
-            student+=1
-            cnt += 1
-        biscuits += 1
+# class Solution:
+#     def findContentChildren(g: list, s: list):
+#         g.sort()
+#         s.sort()
+#         cnt = 0
+#         student = biscuits = 0
+#         while student < len(g) and biscuits < len(s):
+#             if s[biscuits] >= g[student]:
+#                 student+=1
+#                 cnt += 1
+#             biscuits += 1
+#         return cnt
 
-    return cnt
+# 2022/7/29  author:WH
+# 优先考虑饼干
+# class Solution:
+#     def findContentChildren(self, g, s):
+#         g.sort()
+#         s.sort()
+#         res = 0
+#         for i in range(len(s)):
+#             if res < len(g) and s[i] >= g[res]:
+#                 res += 1
+#         return res
 
+# 优先考虑胃口大小
+class Solution:
+    def findContentChildren(self, g, s):
+        g.sort()
+        s.sort()
+        start, res = len(s)-1, 0
+        for i in range(len(g)-1, -1, -1):
+            if start >= 0 and g[i] <= s[start]:
+                start -= 1
+                res += 1
+        return res
 
 
 g = [1,4,3,5,3]
 s = [1,2,2]
-result = findContentChildren(g, s)
+result = Solution().findContentChildren(g, s)
 print(result)
         
 
 g = [1,4,3,5,3]
 s = [1,2,2]
-result = findContentChildren(g, s)
+result = Solution().findContentChildren(g, s)
 print(result)
