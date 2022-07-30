@@ -6,15 +6,16 @@
 
 
 # 此算法应该有问题，奇怪的是竟然通过了leetcode的提交
-def maxProfits(prices):
-    res = 0
-    for i in range(len(prices)-1):
-        if prices[i+1] > prices[i]:
-            res += prices[i+1]-prices[i]
-    return res
+class Solution:
+    def maxProfits(self, prices):
+        res = 0
+        for i in range(len(prices)-1):
+            if prices[i+1] > prices[i]:
+                res += prices[i+1]-prices[i]
+        return res
 
 
 # prices = [7,1,5,3,6,4,10,8,9,1,9]
 prices = [1,3,6,7,10]
-result = maxProfits(prices)
+result = Solution().maxProfits(prices)
 print(result)
