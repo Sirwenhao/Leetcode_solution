@@ -125,28 +125,29 @@
 #         return maxSum
 
 # 2022/7/29  author:WH
-# class Solution:
-#     def maxSubArray(self, nums):
-#         minSum = sum = 0
-#         maxSum = nums[0]
-#         for i in range(len(nums)):
-#             sum += nums[i]
-#             maxSum = max(maxSum, sum-minSum)
-#             minSum = min(minSum, sum)
-#         return maxSum
-
-# 2022/7/29  author:代码随想录
 class Solution:
     def maxSubArray(self, nums):
-        result = -float('inf')
-        count = 0
+        minSum = sum = 0
+        maxSum = nums[0]
         for i in range(len(nums)):
-            count += nums[i]
-            if count > result:
-                result = count
-            if count <= 0:
-                count = 0
-        return result
+            sum += nums[i]
+            # 由于序列中的元素有正有负，因此sum-minSum的值不一定小于maxSum
+            maxSum = max(maxSum, sum-minSum)
+            minSum = min(minSum, sum)
+        return maxSum
+
+# 2022/7/29  author:代码随想录
+# class Solution:
+#     def maxSubArray(self, nums):
+#         result = -float('inf')
+#         count = 0
+#         for i in range(len(nums)):
+#             count += nums[i]
+#             if count > result:
+#                 result = count
+#             if count <= 0:
+#                 count = 0
+#         return result
 
 
 nums = [-2,1,-3,4,-1,2,1,-5,4]
