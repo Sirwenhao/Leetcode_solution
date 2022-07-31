@@ -19,17 +19,39 @@
 
 # 2022/7/31  author:代码随想录
 # 核心思想是一样的
+# class Solution:
+#     def largestSumAfterKNegations(self, nums, k):
+#         nums = sorted(nums, key=abs, reverse=True)
+#         print('nums:', nums)
+#         for i in range(len(nums)):
+#             if k > 0 and nums[i] < 0:
+#                 nums[i] *= -1
+#                 k -= 1
+#         if k > 0:
+#             nums[-1] *= (-1)**k
+#         return sum(nums)
+
+# 2022/7/31  author:github
+from collections import Counter
 class Solution:
     def largestSumAfterKNegations(self, nums, k):
-        nums = sorted(nums, key=abs, reverse=True)
-        print('nums:', nums)
-        for i in range(len(nums)):
-            if k > 0 and nums[i] < 0:
-                nums[i] *= -1
-                k -= 1
-        if k > 0:
-            nums[-1] *= (-1)**k
-        return sum(nums)
+        counter = Counter(nums)
+        ans = sum(nums)
+        for i in range(-100, 0):
+            if counter[i]:
+                ops = min(counter[i], k)
+                ans -= (i * ops * 2)
+                counter[i] -= ops
+                counter[i] += ops
+                k -= ops
+                if k == 0:
+                    break
+        if k > 0 and k % 2 == 1 and not counter[0]:
+            for i in range(1, 101):
+                if counter[i]:
+                    ans -= 2 * i
+                    break
+        return ans
 
 
 if __name__ == "__main__":
