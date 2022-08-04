@@ -56,6 +56,20 @@
 #                 continue
 #         return ans
 
+# 2022/8/4  author:WH
+# 优先考虑胃口，遍历顺序要反过来
+class Solution:
+    def findContentChildren(self, g, s):
+        g.sort()
+        s.sort()
+        ans = 0
+        start = len(s)-1
+        for i in range(len(g)-1, -1, -1):
+            if start >= 0 and g[i] <= s[start]:
+                start -= 1
+                ans += 1
+        return ans
+
 
 if __name__ == "__main__":
     g = [1,4,3,5,3]
