@@ -30,7 +30,7 @@
 
 ### 2、代码实现
 
-#### 0455分发饼干
+#### 2.1 0455分发饼干
 
 两种思路：一种是以胃口为准，满足胃口大小；另一种是以饼干为准，满足饼干分发
 
@@ -95,3 +95,49 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.2 0376摆动序列
+
+摆动序列，相邻两个数字的差是正负交替出现的，返回值是这段子序列的长度
+
+```python
+# 2022/8/4  author:WH
+# 此解有问题，preC的处理有问题
+class Solution:
+    def wiggleMaxLength(self, nums: List[int]) -> int:
+        ans = 1
+        preC = curC = 0
+        for i in range(1, len(nums)-1):
+            preC = nums[i] - nums[i-1]
+            curC = nums[i+1] - nums[i]
+            if preC * curC < 0:
+                preC = curC
+                ans += 1
+        return ans
+    
+# 正确解
+class Solution:
+    def wiggleMaxLength(self, nums):
+        ans = 1
+        preC = curC = 0
+        for i in range(1, len(nums)):
+            if preC * curC <= 0 and curC != 0:
+                ans += 1
+                preC = curC
+        return ans
+if __name__ == "__main__":
+    nums = [1,7,4,9,2,5]
+    result = Solution().wiggleMaxLength(nums)
+    print(result)
+```
+
+
+
+#### 2.3 0053最大子序和
+
+
+
+#### 2.4 0122买卖股票的最佳时机II
+
+
+
+#### 2.5 0055跳跃游戏
