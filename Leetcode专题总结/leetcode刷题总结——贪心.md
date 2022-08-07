@@ -132,6 +132,26 @@ if __name__ == "__main__":
 
 #### 2.3 0053最大子序和
 
+连续数组和，没想出来。。。
+
+```python
+# 2022/8/7  author:WH
+class Solution:
+    def maxSubArray(self, nums):
+        minSum = sum = 0
+        maxSum = nums[0]
+        for i in range(len(nums)):
+            sum += nums[i]
+            maxSum = max(maxSum, sum-minSum)
+            minSum = min(minSum, sum)
+        return maxSum
+    
+if __name__ == "__main__":
+    nums = [-2,1,-3,4,-1,2,1,-5,4]
+    result = Solution().maxSubArray(nums)
+    print(result)
+```
+
 
 
 #### 2.4 0122买卖股票的最佳时机II
