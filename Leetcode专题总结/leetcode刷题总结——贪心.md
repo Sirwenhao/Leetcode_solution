@@ -141,8 +141,11 @@ class Solution:
         minSum = sum = 0
         maxSum = nums[0]
         for i in range(len(nums)):
+            # sum求和是从头到当前位置的所有数值之和
             sum += nums[i]
+            # 最大和是当前最大和与总和减掉前面的最小和之后的结果中的较大者
             maxSum = max(maxSum, sum-minSum)
+            # 最小值是当前最小值和总和中的较小者
             minSum = min(minSum, sum)
         return maxSum
     
