@@ -150,18 +150,29 @@
 #         return result
 
 # 2022/8/4  author:WH
+# class Solution:
+#     def maxSubArray(self, nums):
+#         start = end = ans = 0
+#         for i in range(len(nums)):
+#             if sum(nums[start:end]) < sum(nums[start:i]):
+#                 end = i
+#                 ans = max(ans, sum(nums[start:end]))
+#             else:
+#                 start = end = i
+#         return ans
+
+# 2022/8/7  author:WH
+# 没想出来。。。
 class Solution:
     def maxSubArray(self, nums):
-        start = end = ans = 0
+        minSum = sum = 0
+        maxSum = nums[0]
         for i in range(len(nums)):
-            if sum(nums[start:end]) < sum(nums[start:i]):
-                end = i
-                ans = max(ans, sum(nums[start:end]))
-            else:
-                start = end = i
-        return ans
-
-
-nums = [-2,1,-3,4,-1,2,1,-5,4]
-result = Solution().maxSubArray(nums)
-print(result)
+            sum += nums[i]
+            maxSum = max(maxSum, sum - minSum)
+            minSum = min(minSum, sum)
+        return maxSum
+if __name__ == "__main__":
+    nums = [-2,1,-3,4,-1,2,1,-5,4]
+    result = Solution().maxSubArray(nums)
+    print(result)
