@@ -155,9 +155,25 @@ if __name__ == "__main__":
     print(result)
 ```
 
-
-
 #### 2.4 0122买卖股票的最佳时机II
+
+只计算利润值正值之和，所有利润值正值之和即为最大利润
+
+```python
+# 2022/8/12  author:WH
+class Solution:
+    def maxProfits(self, prices):
+        res = 0
+        for i in range(len(prices)-1):
+            # 统计利润，正值即加入到结果中
+            res += max(0, prices[i+1] - prices[i])
+        return res
+    
+if __name__ == "__main__":
+    prices = [7,1,5,3,6,4,10,8,9,1,9]
+    result = Solution().maxProfits(prices)
+    print(result)
+```
 
 
 
