@@ -17,15 +17,26 @@
 
 # 2022/7/31  author:github
 
+# class Solution:
+#     def canJump(self, nums):
+#         Coverage = 0
+#         for i,num in enumerate(nums):
+#             print('i:', i)
+#             print('Coverage:', Coverage)
+#             if i > Coverage:
+#                 return False
+#             Coverage = max(Coverage, i + num)
+#         return True
+
+# 2022/8/17  author:WH
+# 贪心算法，每次取最大跳跃步数作为范围，看所覆盖的范围能不能到终点
 class Solution:
     def canJump(self, nums):
-        Coverage = 0
-        for i,num in enumerate(nums):
-            print('i:', i)
-            print('Coverage:', Coverage)
-            if i > Coverage:
+        cover = 0
+        for i, num in enumerate(nums):
+            cover = max(cover, i+num)
+            if i > cover:
                 return False
-            Coverage = max(Coverage, i + num)
         return True
 
 if __name__ == "__main__":
