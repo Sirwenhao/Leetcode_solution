@@ -177,3 +177,22 @@ if __name__ == "__main__":
 
 #### 2.5 0055跳跃游戏
 
+贪心的关键点在于，每次取最大步数，查看其最大覆盖范围能不能包含终点
+
+```python
+# 2022/8/17  author:WH
+class Solution:
+    def canJump(self, nums):
+        cover = 0
+        if i > cover:
+            return False
+        for i, num in enumerate(nums):
+            cover = max(cover, i+num)
+        return True
+    
+if __name__ == "__main__":
+    nums = [3, 2, 1, 0, 4]
+    result = Solution().canJump(nums)
+    print(result)
+```
+
