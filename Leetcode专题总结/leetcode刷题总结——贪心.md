@@ -196,3 +196,27 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.6 0045跳跃游戏II
+
+两个条件：第一个要达到最后一位，第二个步数最少。核心还是要看最大覆盖范围，但是还要要求跳跃的步数最少
+
+```python
+# 2022/8/19  author:代码随想录
+# 没有弄明白
+class Solution:
+    def jump(self, nums):
+        if len(nums) == 1:
+            return 0
+        ans = 0
+        curDistance = nextDistance = 0
+        for i in range(len(nums)):
+            nextDistance = max(i+nums[i], nextDistance)
+            if i == curDistance:
+                if curDistance != len(nums)-1:
+                    ans += 1
+                    curDistance = nexDistance
+                    if nextDistance >= len(nums)-1:
+                        break
+            return ans
+```
+
