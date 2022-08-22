@@ -19,40 +19,52 @@
 
 # 2022/7/31  author:代码随想录
 # 核心思想是一样的
-# class Solution:
-#     def largestSumAfterKNegations(self, nums, k):
-#         nums = sorted(nums, key=abs, reverse=True)
-#         print('nums:', nums)
-#         for i in range(len(nums)):
-#             if k > 0 and nums[i] < 0:
-#                 nums[i] *= -1
-#                 k -= 1
-#         if k > 0:
-#             nums[-1] *= (-1)**k
-#         return sum(nums)
-
-# 2022/7/31  author:github
-from collections import Counter
 class Solution:
     def largestSumAfterKNegations(self, nums, k):
-        counter = Counter(nums)
-        ans = sum(nums)
-        for i in range(-100, 0):
-            if counter[i]:
-                ops = min(counter[i], k)
-                ans -= (i * ops * 2)
-                counter[i] -= ops
-                counter[i] += ops
-                k -= ops
-                if k == 0:
-                    break
-        if k > 0 and k % 2 == 1 and not counter[0]:
-            for i in range(1, 101):
-                if counter[i]:
-                    ans -= 2 * i
-                    break
-        return ans
+        nums = sorted(nums, key=abs, reverse=True)
+        print('nums:', nums)
+        for i in range(len(nums)):
+            if k > 0 and nums[i] < 0:
+                nums[i] *= -1
+                k -= 1
+        if k > 0:
+            nums[-1] *= (-1)**k
+        return sum(nums)
 
+# 2022/7/31  author:github
+# from collections import Counter
+# class Solution:
+#     def largestSumAfterKNegations(self, nums, k):
+#         counter = Counter(nums)
+#         ans = sum(nums)
+#         for i in range(-100, 0):
+#             if counter[i]:
+#                 ops = min(counter[i], k)
+#                 ans -= (i * ops * 2)
+#                 counter[i] -= ops
+#                 counter[i] += ops
+#                 k -= ops
+#                 if k == 0:
+#                     break
+#         if k > 0 and k % 2 == 1 and not counter[0]:
+#             for i in range(1, 101):
+#                 if counter[i]:
+#                     ans -= 2 * i
+#                     break
+#         return ans
+
+# 2022/8/20  author:WH
+# 我的做法：递归
+# class Solution:
+#     def largestSumAfterNegations(self, nums, k):
+#         nums.sort()
+#         flag = 0
+#         if flag < k:
+#             # 这一步厉害，如果是正值就只变第一个；如果是负值，重新排列之后再变第一个
+#             nums[0] = -nums[0]
+#             flag += 1
+#             self.largestSumAfterNegations(nums, k)
+#         return sum(nums)
 
 if __name__ == "__main__":
     # nums = [2, -3, -1, 5, -4]
