@@ -220,3 +220,39 @@ class Solution:
             return ans
 ```
 
+#### 2.7 1005 K次取反后最大化的数组和
+
+贪心：只修改最小值，若都为正值，怎每次仅将最小正值的符号进行改变，累计至K次；如果有负值，那就先让赋值变正值，然后再按照前述逻辑进行运算
+
+```python
+# 2022/8/22  author:WH
+class Solution:
+    def largestSumAfterNegations(self, nums, k):
+        nums.sort()
+        flag = 0
+        if flag < k:
+            nums[0] = -nums[0]
+            flag += 1
+            self.largestSumAfterNegations(nums, k)
+        return sum(nums)
+    
+# 2022/8/22  author:代码随想录
+class Solution:
+    def largestSumAfterNegations(self, nums, k):
+        # 以绝对值进行从大到小的排序，倒序
+        nums = sorted(nums, key=abs, reverse=True)
+        for i in range(len(nums)):
+            if k > 0 and nums[i] < 0:
+                nums[i] *= -1
+                k -= 1
+            if k > 0:
+                nums[-1] *= (-1)**k
+            return sum(nums)
+    
+if __name__ == "__main__":
+    nums = [2, -3, -1, 5, -4]
+    k = 1
+    result = Solution().largestSumAfterNegations(nums, k)
+    print(result)
+```
+
