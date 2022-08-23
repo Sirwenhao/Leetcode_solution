@@ -256,3 +256,55 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.8 0134 加油站
+
+贪心算法的关键点：从开始节点出发到当前节点如果rest[i]之和小于0那么肯定不能实现遍历过程，只能往i之后进行查找
+
+```python
+# 2022/8/23  author:WH
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        start = 0
+        curSum = totalSum = 0
+        for i in range(len(gas)):
+            curSum += gas[i] - cost[i]
+            totalSum += gas[i] - cost[i]
+            if curSum < 0:
+                curSum = 0
+                start = i + 1
+        if totalSum < 0:
+            return -1
+        return start
+    
+if __name__ == "__main__":
+    gas = [1,2,3,4,5]
+    cost = [3,4,5,1,2]
+    result = Solution().canCompleteCircuits(gas, cost)
+    print(result)
+```
+
+github:使用$i$和$j$分表标记起始点，$rest$用于表示当前剩余的汽油量，$cnt$表示当前行驶过的加油站数量，可以从任意起点开始判断位置。如在最后一个位置$i=n-1$处进行判断，起始时移动$j$，当$s$小于0时表示当前起始位置不满足要求，循环左移进行更新
+
+```python
+# 2022/8/23  author:github
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        n = len(gas)
+        i = j = n - 1
+        cnt = rest = 0
+        while cnt < n:
+            rest += gas[i] - cost[i]
+            cnt += 1
+            j = (j+1) % n # 循环移位
+            while rest < 0 and cnt < n:
+                i -= 1
+                s += gas[i] - cost[i]
+                cnt += 1
+        return -1 if s < 0 else i
+if __name__ == "__main__":
+    gas = [1,2,3,4,5]
+    cost = [3,4,5,1,2]
+    result = Solution().canCompleteCircuits(gas, cost)
+    print(result)
+```
+
