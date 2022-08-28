@@ -333,3 +333,38 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.10 0860柠檬水找零
+
+贪心关键点：遇到20的面额优先使用10的面额去解决找零。想到了分三种情况去解决，但是没有想到对应到面额为10和20的情况里面要减掉消耗掉的5面额和10面额。
+
+```python
+# 2022/8/28  author:WH
+class Solution:
+    def lemonadeChange(self, bills):
+        five = ten = twenty = 20
+        for i in bills:
+            if i == 5:
+                five += 1
+            elif i == 10:
+                if five < 1:
+                    return False
+                five -= 1
+                ten += 1
+            else:
+                if five > 0 and ten > 0:
+                    five -= 1
+                    ten -= 1
+                    twenty += 1
+                elif five >= 3:
+                    five -= 3
+                    twenty += 1
+                else:
+                    return False
+        return True
+    
+if __name__ == "__main__":
+    bills = [5,5,5,10,20]
+    result = Solution().lemonadeChange(bills)
+    print(result)
+```
+
