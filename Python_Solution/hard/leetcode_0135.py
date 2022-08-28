@@ -20,6 +20,7 @@ class Solution:
         print('candyVec:', candyVec)
         return sum(candyVec)
 
+
 if __name__ == "__main__":
     ratings = [1,2,2,5,4,3,2]
     result = Solution().candy(ratings)
