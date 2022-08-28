@@ -298,13 +298,38 @@ class Solution:
             j = (j+1) % n # 循环移位
             while rest < 0 and cnt < n:
                 i -= 1
-                s += gas[i] - cost[i]
+                rest += gas[i] - cost[i]
                 cnt += 1
-        return -1 if s < 0 else i
+        return -1 if rest < 0 else i
 if __name__ == "__main__":
     gas = [1,2,3,4,5]
     cost = [3,4,5,1,2]
     result = Solution().canCompleteCircuits(gas, cost)
+    print(result)
+```
+
+#### 2.9 0135分发糖果
+
+每个孩子至少分到一个糖果，评分高的孩子需要多分配糖果。两边遍历，第一遍从左到右；第二遍从右到左。从右到左遍历时，需要考虑第i个小孩的糖果数量要大于左边的也大于右边的。
+
+```python
+# 2022/8/28  author:WH
+class Solution:
+    def candy(self, ratings):
+        # 每个孩子至少要一个分一个糖果，因此有如下命令
+        candyList = [1] * len(ratings)
+        for i in range(1, len(ratings)):
+            if ratings[i] > ratings[i-1]:
+                candyList[i] = candyList[i-1] + 1
+        for j in range(len(ratings)-2, -1, -1):
+            if ratings[j] > ratings[j+1]:
+                # 此条命令
+                candyList[j] = max(candyList[j], candyList[j+1]+1)
+        return sum(candyList)
+    
+if __name__ == "__main__":
+    ratings = [1, 0, 2]
+    result = Solution().candy(ratings)
     print(result)
 ```
 
