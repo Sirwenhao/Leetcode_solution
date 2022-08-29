@@ -368,3 +368,59 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.11 0406根据身高重建队列
+
+本题难点在于：每一个元素都对应于两个维度。一般遇到两个维度进行权衡的问题，需要先确定一个维度，再确定另一个。两种维度先确定那个也需要考虑，此题目中，按照身高进行排列的话，一定可以确定一个顺序就是身高是从大到小进行排列的
+
+```python
+# 2022/8/29  author:WH
+class Solution:
+    def reconstructQueue(self, people):
+        # sort命令默认从小到大进行排序，lambda语句首先按照第一维度进行排序
+        people.sort(key=lambda x: (-x[0], x[1]))
+        ans = []
+        for p in people:
+            ans.insert(p[1], p)
+        return ans
+    
+if __name__ == "__main__":
+    people = [[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]]
+    result = Solution().reconstructQueue(people)
+    print(result)
+```
+
+#### 2.12 0452用最少的箭引爆气球
+
+最少的箭意味着如果存在重叠情况，则重叠情况最好用一只箭解决掉尽量多的气球。
+
+```python
+# 2022/8/29  author:WH
+class Solution:
+    def findMinArrowShots(self, points):
+        points.sort(key=lambda x:x[0])
+        ans = 1
+        for i in range(1, len(points)):
+            if points[i][0] > points[i-1][1]:
+                ans += 1
+            else:
+                points[i][1] = min(points[i-1][1], points[i][1])
+        return ans
+    
+# 2022/8/29  author:github
+class Solution:
+    def findMinArrowShots(self, points):
+        points.sort(key=lambda x:x[1])
+        ans = 1
+        x = points[0][1]
+        for a,b in points:
+            if a > x:
+                ans += 1
+                x = b
+        return ans
+    
+if __name__ == "__main__":
+    points = [[10, 16], [2, 8], [1, 6], [7, 12]]
+    result = Solution().findMinArrayShots(points)
+    print(result)
+```
+
