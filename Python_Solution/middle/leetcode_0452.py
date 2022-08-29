@@ -49,7 +49,6 @@ class Solution:
         return ans
 
 
-
 if __name__ == "__main__":
     points = [[10,16],[2,8],[1,6],[7,12]]
     result = Solution().findMinArrowShots(points)
