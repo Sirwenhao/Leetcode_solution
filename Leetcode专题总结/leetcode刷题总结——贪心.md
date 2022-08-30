@@ -341,7 +341,7 @@ if __name__ == "__main__":
 # 2022/8/28  author:WH
 class Solution:
     def lemonadeChange(self, bills):
-        five = ten = twenty = 20
+        five = ten = twenty = 0
         for i in bills:
             if i == 5:
                 five += 1
