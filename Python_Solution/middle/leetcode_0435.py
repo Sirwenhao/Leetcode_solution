@@ -49,6 +49,7 @@ class Solution:
 
 # 2022/8/31  author:WH
 # 尝试换一种排序重新做一下
+# 错解，不能AC
 # class Solution:
 #     def eraseOverlapIntervals(self, intervals):
 #         # 按照左侧边界排序
