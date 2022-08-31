@@ -424,3 +424,35 @@ if __name__ == "__main__":
     print(result)
 ```
 
+#### 2.13 0435无重叠区间
+
+完全没有想法。。。要知道的是需要移除的区间的个数，可以反过来考虑不需要移除的区间个数，用总数减掉就行。四个难点：
+
+- 难点一：排序的顺序，是按照左边边界排序还是按照右边边界排序
+- 难点二：排序后的遍历，从左遍历还是从右遍历
+- 难点三：直接求重复区间较为复杂，转而求非重复区间的个数
+- 难点四：求最大非重复区间的个数时，需要一个分割点来做标记
+
+```python
+# 2022/8/30  author:WH
+class Solution:
+    def eraseOverlapIntervals(self, intervals):
+        # 按照右侧边界排序，从左到右遍历
+        intervals.sort(key=lambda x:x[1])
+        ans = 1
+        currentEnd = intervals[0][1]
+        for i in range(1, len(intervals)):
+            if intervals[i][0] >= currentEnd:
+                ans += 1
+                # 更新终点，为下一次判断做准备
+                currentEnd = intervals[i][1]
+        return len(intervals) - ans
+    
+    
+    
+if __name__ == "__main__":
+    intervals = [[1,2],[2,3],[3,4],[1,3]]
+    result = Solution().eraseOverlapInterval(self, intervals)
+    print(result)
+```
+
