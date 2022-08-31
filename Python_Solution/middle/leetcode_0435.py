@@ -47,9 +47,25 @@ class Solution:
                 currentEnd = intervals[i][1]
         return len(intervals) - ans
 
+# 2022/8/31  author:WH
+# 尝试换一种排序重新做一下
+# class Solution:
+#     def eraseOverlapIntervals(self, intervals):
+#         # 按照左侧边界排序
+#         intervals.sort(key=lambda x:x[0])
+#         ans = 1
+#         currentEnd = intervals[0][1]
+#         # 从左往右遍历
+#         for i in range(1, len(intervals)):
+#             if intervals[i][0] >= currentEnd:
+#                 ans += 1
+#                 currentEnd = intervals[i][1]
+#         return len(intervals) - ans
+
 
 if __name__ == "__main__":
     # intervals = [[1,2],[2,3],[3,4],[1,3]]
-    intervals = [[1,2],[1,2],[1,2]]
+    # intervals = [[1,2],[1,2],[1,2]]
+    intervals = [[1,100],[11,22],[1,11],[2,12]]
     result = Solution().eraseOverlapIntervals(intervals)
     print(result)
