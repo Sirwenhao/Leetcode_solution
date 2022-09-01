@@ -449,10 +449,88 @@ class Solution:
         return len(intervals) - ans
     
     
-    
 if __name__ == "__main__":
     intervals = [[1,2],[2,3],[3,4],[1,3]]
     result = Solution().eraseOverlapInterval(self, intervals)
     print(result)
+```
+
+#### 2.14 0763划分字母区间
+
+关键点：统计每个元素最后一次的出现位置，然后从头遍历字符，更新当前字符的最远下标，若最远下标等于当前下标，则就表示找到了分割点
+
+```python
+# 2022/9/1  author:WH
+class Solution:
+    def partitionLabels(self, s):
+        # 统计字符串s中每个字符出现的最远位置
+        lastPosition = [0] * 26
+        for i,j in enumerate(s):
+            # 记录并更新对应元素出现的最远位置
+            lastPosition[ord(j) - ord('a')] = i
+        ans = []
+        # 设置两个变量记录当前分割字符串的左右位置
+        left = right = 0
+        for i,j in enumerate(s):
+            # 计算并更新左右边界
+            right = max(right, lastPosition[ord(j) - ord('a')])
+            # 当当前元素位置等于其最远位置时，找到分割位置
+            if right == i:
+                ans.append(right - left + 1)
+                left = right + 1
+         return ans
+    
+if __name__ == "__main__":
+    s = 'abcabcbacadefegdehijhklij'
+    result = Solution().partitionLabesls(s)
+    print(result)
+```
+
+#### 2.15 0056合并区间
+
+先按照一个维度（如左侧）进行排序，再根据右侧是否重叠变更右边界值。贪心：先按照左边界排序，每次合并都取最大的右边界
+
+```python
+# 2022/9/1  author:WH
+class Solution:
+    def merge(self, intervals):
+        # 先按照左边区间排序
+        intervals.sort(key=lambda x:x[0])
+        ans = []
+        # 维持两个变量left和right记录区间左右边界
+        left = intervals[0][0]
+        right = intervals[0][1]
+        for i in range(1, len(intervals)):
+            if intervals[i][0] > intervals[i-1][1]:
+                ans.append([left, right])
+                # 需要更新左右边界
+                left, right = intervals[i][0], intervals[i][1]
+            else:
+                right = max(right, intervals[i][1])
+        ans.append([left, right])
+        return ans
+    
+if __name__ == "__main__":
+    intervals = [[1,6],[8,10],[2,6],[15,18]]
+    result = Solution().merge(intervals)
+    print(result)
+```
+
+合并区间问题的模板
+
+```python
+# 区间合并的模板
+def merge(intervals):
+    ans = []
+    intervals.sort()
+    st, ed = intervals[0]
+    for s, e in intervals[1:]:
+        if ed < s:
+            ans.append([st, ed])
+            st, ed = s, e
+        else:
+            ed = max(ed, e)
+    ans.append([st, ed])
+    return ans
 ```
 
