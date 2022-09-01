@@ -39,19 +39,44 @@
 #         return ans
 
 # 2022/8/2  author:github
+# class Solution:
+#     def partitionLabels(self, s):
+#         last = [0] * 26
+#         for i, c in enumerate(s):
+#             last[ord(c)-ord('a')] = i
+#         ans = []
+#         left = right = 0
+#         for i, c in enumerate(s):
+#             right = max(right, last[ord(c) - ord('a')])
+#             if i == right:
+#                 ans.append(right - left + 1)
+#                 left = right+1
+#         return ans
+
+# 2022/9/1  author:WH
+# ord()函数返回的是字符对应的ASCII值，如ord('a')=97
 class Solution:
     def partitionLabels(self, s):
-        last = [0] * 26
-        for i, c in enumerate(s):
-            last[ord(c)-ord('a')] = i
+        # 统计每个元素最后一次出现的位置
+        lastPosition = [0] * 26
+        for i,j in enumerate(s):
+            # 通过下述命令记录并更新元素出现的最后位置
+            lastPosition[ord(j)-ord('a')] = i
+        print('lastPosition:',lastPosition)
+        # 找到最后出现的位置之后，开始分割字符串
         ans = []
+        # 记录需要分割的字符串的左右边界
         left = right = 0
-        for i, c in enumerate(s):
-            right = max(right, last[ord(c) - ord('a')])
+        for i,j in enumerate(s):
+            # 判断右边界是不是等于最远出现的位置
+            right = max(right, lastPosition[ord(j)-ord('a')])
+            # 当当前位置等于字符出现的最远位置时，更新左边界，同时更新结果
             if i == right:
                 ans.append(right - left + 1)
                 left = right+1
         return ans
+
+
 
 
 if __name__ == "__main__":
