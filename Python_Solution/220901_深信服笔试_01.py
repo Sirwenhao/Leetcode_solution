@@ -21,7 +21,8 @@ while True:
         list1 = []
         for i in range(int(l[0])):
             list1.append(list(map(int, input().strip().split(" "))))
-        list1.sort(key=lambda x:(x[0], x[1]))
+        # list1.sort(key=lambda x:(x[0], x[1]))
+        list1.sort()
         ans = 1
         maxCount = 1
         list2 = []
