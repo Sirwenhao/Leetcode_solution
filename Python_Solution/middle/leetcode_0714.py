@@ -9,10 +9,8 @@
 #         for i in range(1, len(prices)):
 #             if prices[i] < minPrice:
 #                 minPrice = prices[i]
-
 #             if prices[i] >= minPrice and prices[i] <= minPrice+fee:
 #                 continue
-
 #             if prices[i] > minPrice+fee:
 #                 ans += prices[i] - minPrice - fee
 #                 minPrice = prices[i] - fee
@@ -28,13 +26,22 @@
 # 若没持有，则可能是前一天持有，今天卖出；也可能是前一天没没有，今天继续没持有，f2 = max(f2, f1 + price - fee)。
 # 最后返回 f2 即可。
 
+# class Solution:
+#     def maxProfit(self, prices, fee):
+#         f1, f2 = -prices[0], 0
+#         for price in prices[1:]:
+#             f1 = max(f1, f2-price)
+#             f2 = max(f2, f1+price-fee)
+#         return f2
+
+# 2022/9/2  author:WH
 class Solution:
-    def maxProfit(self, prices, fee):
-        f1, f2 = -prices[0], 0
-        for price in prices[1:]:
-            f1 = max(f1, f2-price)
-            f2 = max(f2, f1+price-fee)
-        return f2
+    def maxProfits(self, prices, fee):
+        ans = 0
+        minPrice = prices[0]
+        
+
+
 
 if __name__ == "__main__":
     prices = [1,3,2,8,4,9]

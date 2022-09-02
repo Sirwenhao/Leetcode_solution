@@ -4,7 +4,6 @@
     3、与leetcode121和leetcode309为同一类型的题目
 """
 
-
 # 此算法应该有问题，奇怪的是竟然通过了leetcode的提交
 # class Solution:
 #     def maxProfits(self, prices):
