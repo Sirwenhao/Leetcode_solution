@@ -39,8 +39,22 @@ class Solution:
     def maxProfits(self, prices, fee):
         ans = 0
         minPrice = prices[0]
-        
-
+        for i in range(1, len(prices)):
+            # 情况二：相当于买入
+            if prices[i] < minPrice:
+                minPrice = prices[i]
+            # 情况三：保持原有状态（因为此时买则不便宜，卖则亏本）
+            if prices[i] >= minPrice and prices[i] <= minPrice + fee:
+                continue
+            # 情况一：可以售卖
+            if prices[i] > minPrice + fee:
+                # 累加每天的收益
+                ans += prices[i] - minPrice - fee
+                # 更新最小值（如果还在收获利润的去建立，表示并不是真正的卖出。
+                # 而计算利润每次都要减掉手续费，所以要minPrice = prices[i] - fee
+                # 这样在明天收获利润的时候，才不会多减一次手续费）
+                minPrice = prices[i] - fee
+        return ans
 
 
 if __name__ == "__main__":
