@@ -157,7 +157,10 @@ if __name__ == "__main__":
 
 #### 2.4 0122买卖股票的最佳时机II
 
-只计算利润值正值之和，所有利润值正值之和即为最大利润
+只计算利润值正值之和，所有利润值正值之和即为最大利润。求利润的公式转换，举栗子：加入第0天买入，第3天卖出，则利润为：prices[3]-prices[0]，相当于：
+$$
+prices[3]-prices[2]+prices[2]-prices[1]+prices[1]-prices[0]
+$$
 
 ```python
 # 2022/8/12  author:WH
@@ -532,5 +535,58 @@ def merge(intervals):
             ed = max(ed, e)
     ans.append([st, ed])
     return ans
+```
+
+#### 2.16 0738单调递增的数字
+
+贪心：局部最优解遇到nums[i-1]>nums[i]，让nums[i-1]--，同时nums[i]==9。
+
+```python
+# 2022/9/4  author:WH
+class Solution:
+    def monotoneIncreasingDigits(self, n):
+        a = list(str(n))
+        for i in range(len(a), 0, -1):
+            if int(a[i]) < int(a[i-1]):
+                a[i-1] = str(int(a[i-1])-1)
+                a[i:] = '9' * (len(a)-i)
+        return int("".join(a))
+if __name__ == "__main__":
+    n = 3324
+    result = Solution().monotonIncreasingDigits(n)
+    print(result)
+```
+
+#### 2.17 0714买卖股票的最佳时机含手续费
+
+不同于0122买卖股票的最佳时机II，此时需要考虑卖出的时机（需要考虑买卖的利润能否满足手续费的问题）。贪心策略：最低值买，最高值卖。分三种情况：
+
+- 可以收获利润，但不是能够收获利润的区间中的最后一天，相当于持有股票
+- 前一天是收获利润的区间中的最后一天，卖出之后就要重新记录最小价格
+- 不做操作，保持原有状态
+
+```python
+# 2022/9/5 author:WH
+class Solution:
+    def maxProfits(self, prices, fee):
+        ans = 0
+        minPrice = prices[0]
+        for i in range(1, len(prices)):
+            # 记录最低价格
+            if prices[i] < minPrice:
+                minPrice = prices[i]
+            # 保持原有状态，不能卖掉，不够弥补手续费
+            elif prices[i] >= minPrice and prices[i] <= minPrice + fee:
+                continue
+            else:
+                ans += prices[i] - minPrice - fee
+                minPrice = prices[i] - fee
+        return ans
+
+if __name__ == "__main__":
+    prices = [1,3,2,8,4,9]
+    fee = 2
+    result = Solution().maxProfits(prices, fee)
+    print(result)
 ```
 
