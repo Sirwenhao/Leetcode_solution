@@ -1,5 +1,5 @@
 """
-    1、不同路径II，由障碍
+    1、不同路径II，有障碍
 """
 # 2022/9/7  author:WH
 class Solution:
