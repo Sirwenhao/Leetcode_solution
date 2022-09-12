@@ -31,10 +31,34 @@
 
 # 版本2
 # 主要是利用nums[fast] != val进行判断
+# class Solution:
+#     def removeElement(self, nums, val):
+#         slow, fast = 0, 0
+#         while fast < len(nums):
+#             if nums[fast] != val:
+#                 nums[slow], nums[fast] = nums[fast], nums[slow]
+#                 slow += 1
+#             fast += 1
+#         return slow
+
+# 2022/09/11  
+# 没写出来。。。。。。
+# class Solution:
+#     def removeElement(self, nums, val):
+#         slow = fast = 0
+#         for fast in range(len(nums)):
+#             if nums[fast] != val:
+#                 nums[slow], nums[fast] = nums[fast], nums[slow]
+#                 slow += 1
+#             # fast += 1
+#         return slow
+
+# author:WH
 class Solution:
     def removeElement(self, nums, val):
-        slow, fast = 0, 0
+        slow = fast = 0
         while fast < len(nums):
+            # 一步一步把每一个不等于val的值送到前面去
             if nums[fast] != val:
                 nums[slow], nums[fast] = nums[fast], nums[slow]
                 slow += 1
