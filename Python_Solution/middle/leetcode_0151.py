@@ -168,11 +168,11 @@ class Solution:
             left += 1
         return tmp
     # 翻转整个字符串
-    def reverseString(self, s, l, r):
-        while l < r:
-            s[l], s[r] = s[r], s[l]
-            l += 1
-            r -= 1
+    def reverseString(self, nums, left, right):
+        while left < right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
         return None
     # 翻转每个单词
     def reverseEachWords(self, nums):
