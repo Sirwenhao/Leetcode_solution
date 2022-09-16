@@ -149,7 +149,6 @@ class Solution:
     # 快慢指针
     def reverseEachWord(self, s):
         slow = fast = 0
-        temp = []
         while slow < len(s):
             while fast < len(s) and s[fast] != " ":
                 fast += 1
