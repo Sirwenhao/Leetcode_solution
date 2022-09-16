@@ -101,36 +101,85 @@
 #         return ' '.join([i for i in s.split(' ') if len(i) > 0][::-1])
 
 # 使用双指针：左右指针
-class Solution:
-    # 删除多余空格, 使用左右指针
-    def removeExtraspace(self, s):
-        left, right = 0, len(s)-1
-        while left <= right and s[left] == " ":
-            left += 1
-        while left <= right and s[right] == " ":
-            right -= 1
-        temp = []
-        while left <= right:
-            if s[left] != " ":
-                temp.append(s[left])
-            elif temp[-1] != " ":
-                temp.append(s[left])
-            left += 1
-        return temp
+# class Solution:
+#     # 删除多余空格, 使用左右指针
+#     def removeExtraspace(self, s):
+#         left, right = 0, len(s)-1
+#         while left <= right and s[left] == " ":
+#             left += 1
+#         while left <= right and s[right] == " ":
+#             right -= 1
+#         temp = []
+#         while left <= right:
+#             if s[left] != " ":
+#                 temp.append(s[left])
+#             elif temp[-1] != " ":
+#                 temp.append(s[left])
+#             left += 1
+#         return temp
 
     # 双指针：左右指针反转字符串
+    # def reverseString(self, s, l, r):
+    #     while l < r:
+    #         s[l], s[r] = s[r], s[l]
+    #         l += 1
+    #         r -= 1
+    #     return None
+
+#     # 双指针：快慢指针反转字符串
+#     def reverseEachWord(self, s):
+#         slow = fast = 0
+#         while slow <= len(s)-1:
+#             while fast < len(s) and s[fast] != " ":
+#                 fast += 1
+#             self.reverseString(s, slow, fast-1)
+#             slow = fast+1
+#             fast += 1
+#         return None
+
+#     def reverseWords(self, s):
+#         l = self.removeExtraspace(s)
+#         self.reverseString(l, 0, len(l)-1)
+#         self.reverseEachWord(l)
+#         return ''.join(l)
+
+# 2022/09/16  author:WH
+# class Solution:
+#     def reverseWords(self, s):
+#         sList = list(i for i in s.split(" ") if len(i) >= 1)
+#         print(sList)
+#         return ' '.join(sList[::-1])
+
+# 2022/09/16  author:WH
+class Solution:
+    def removeExtraspace(self, s):
+        left, right = 0, len(s)-1
+        while s[left] == ' ' and left <= right:
+            left += 1
+        while s[right] == ' ' and left <= right:
+            right -= 1
+        tmp = []
+        # 删除内部多余空格
+        while left <= right:
+            if s[left] != ' ':
+                tmp.append(s[left])
+            elif tmp[-1] != ' ':
+                tmp.append(s[left])
+            left += 1
+        return tmp
+    # 翻转整个字符串
     def reverseString(self, s, l, r):
         while l < r:
             s[l], s[r] = s[r], s[l]
             l += 1
             r -= 1
         return None
-
-    # 双指针：快慢指针反转字符串
-    def reverseEachWord(self, s):
+    # 翻转每个单词
+    def reverseEachWords(self, nums):
         slow = fast = 0
-        while slow <= len(s)-1:
-            while fast < len(s) and s[fast] != " ":
+        n = len(nums)
+        while slow < n:
+            while fast != ' ' and fast < n:
                 fast += 1
             self.reverseString(s, slow, fast-1)
             slow = fast+1
@@ -138,9 +187,10 @@ class Solution:
         return None
 
     def reverseWords(self, s):
+        # 删除左右两侧多余的空格和内部多余空格
         l = self.removeExtraspace(s)
         self.reverseString(l, 0, len(l)-1)
-        self.reverseEachWord(l)
+        self.reverseEachWords(l)
         return ''.join(l)
 
 
