@@ -12,10 +12,10 @@
 
 # 2022/6/8  author:WH
 # 双指针法
-class ListNode():
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+# class ListNode():
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
     
 # class Solution:
 #     def reverseList(self, head):
@@ -31,15 +31,27 @@ class ListNode():
 #         return prev
 
 # 递归法
+# class Solution:
+#     def reverseList(self, head):
+
+#         def reverse(pre, cur):
+#             if not cur:
+#                 return pre
+#             temp = cur.next
+#             cur.next = pre
+#             return reverse(cur, temp)
+
+#         return reverse(None, head)
+
+
+# 2022/09/19  author:WH
 class Solution:
     def reverseList(self, head):
-
-        def reverse(pre, cur):
-            if not cur:
-                return pre
+        cur = head
+        pre = None
+        while cur:
             temp = cur.next
             cur.next = pre
-            return reverse(cur, temp)
-
-        return reverse(None, head)
-
+            pre = cur
+            cur = temp
+        return pre
