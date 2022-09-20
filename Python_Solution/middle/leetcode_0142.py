@@ -10,18 +10,36 @@ class ListNode:
         self.val = x
         self.next = None
 
+# class Solution:
+#     def detectCycle(self, head):
+#         slow, fast = head, head
+#         while fast and fast.next:
+#             slow = slow.next
+#             fast = fast.next.next
+#             # 如果相遇
+#             if slow == fast:
+#                 p = head
+#                 q = slow
+#                 while p != q:
+#                     p = p.next
+#                     q = q.next
+#                 return p
+#         return None
+
+
+# 2022/09/20  author:WH
+# 难点一是否有环可以判断出，难点二何处重叠判断不出来
 class Solution:
     def detectCycle(self, head):
-        slow, fast = head, head
+        slow = fast = head
         while fast and fast.next:
-            slow = slow.next
             fast = fast.next.next
-            # 如果相遇
+            slow = slow.next
             if slow == fast:
-                p = head
-                q = slow
-                while p != q:
-                    p = p.next
-                    q = q.next
-                return p
+                index1 = slow
+                index2 = head
+                while index1 != index2:
+                    index1 = index1.next
+                    index2 = index2.next
+                return index1
         return None
