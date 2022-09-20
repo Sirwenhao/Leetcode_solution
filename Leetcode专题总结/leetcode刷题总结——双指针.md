@@ -178,7 +178,7 @@ class Solution:
     def reverseList(self, head):
         pre = None
         cur = head
-        while(cur != None):
+        while cur:
             # 把cur.next用temp保存
             temp = cur.next
             # 把当前节点的下一个指向改为指向前一个节点
