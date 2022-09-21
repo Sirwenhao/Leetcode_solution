@@ -168,6 +168,50 @@ class MyLinkedList:
             node = self.get_node(index)
             self.count -= 1
             node.prev.next, node.next.prev = node.next, node.prev
+            
+
+# 2022/09/21 author:WH
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+        
+class MyLinkedList:
+    def __init__(self):
+        self.dummy = ListNode()
+        self.count = 0
+        
+    def get(self, index):
+        if index < 0 or index >= self.count:
+            return -1
+        cur = self.dummy.next
+        for _ in range(index):
+            cur = cur.next
+        return cur.val
+    
+    def addAtHead(self, val):
+        
+        
+    def addAtTail(self, val):
+        
+        
+    def addAtIndex(self, index, val):
+        if index > self.count:
+            return
+        pre = self.cummy
+        for _ in range(index):
+            pre = pre.next
+        pre.next = ListNode(val, pre.next)
+        self.count += 1
+        
+    def deleteAtIndex(self, index):
+        if index < 0 or index >= self.count:
+            return
+        pre = self.dummy
+        for _ in range(index):
+            pre = pre.next
+        pre.next = pre.next.next
+        self.count -= 1
 ```
 
 #### 2.3. 0206
