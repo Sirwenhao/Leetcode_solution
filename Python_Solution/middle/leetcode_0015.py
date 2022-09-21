@@ -121,26 +121,26 @@
 #         return ans
 
 # 2022/6/16  author:代码随想录  双指针法
-class Solution:
-    def threeSum(self, nums):
-        if len(nums) < 3: return []
-        nums, res = sorted(nums), []
-        for i in range(len(nums) - 2):
-            cur, l, r = nums[i], i + 1, len(nums) - 1
-            if res != [] and res[-1][0] == cur: continue  # 去重
+# class Solution:
+#     def threeSum(self, nums):
+#         if len(nums) < 3: return []
+#         nums, res = sorted(nums), []
+#         for i in range(len(nums) - 2):
+#             cur, l, r = nums[i], i + 1, len(nums) - 1
+#             if res != [] and res[-1][0] == cur: continue  # 去重
 
-            while l < r:
-                if cur + nums[l] + nums[r] == 0:
-                    res.append([cur, nums[l], nums[r]])
-                    while l < r - 1 and nums[l] == nums[l + 1]:
-                        l += 1
-                    while r > l and nums[r] == nums[r - 1]:
-                        r -= 1
-                if cur + nums[l] + nums[r] > 0:
-                    r -= 1
-                else:
-                    l += 1
-        return res
+#             while l < r:
+#                 if cur + nums[l] + nums[r] == 0:
+#                     res.append([cur, nums[l], nums[r]])
+#                     while l < r - 1 and nums[l] == nums[l + 1]:
+#                         l += 1
+#                     while r > l and nums[r] == nums[r - 1]:
+#                         r -= 1
+#                 if cur + nums[l] + nums[r] > 0:
+#                     r -= 1
+#                 else:
+#                     l += 1
+#         return res
 
 # 2022/6/22  author:WH
 # 双指针法，初步想法：左右指针相对比较好固定，但是中间指针需要单独的遍历
@@ -189,6 +189,33 @@ class Solution:
 #                     right -= 1
 #         # map函数将哈希集合ans映射成为list
 #         return list(map(list, ans))
+
+# 2022/09/20  author:WH
+class Solution:
+    def threeSum(self, nums):
+        # 又一次忘掉排序
+        nums.sort()
+        ans = []
+        for i in range(len(nums)):
+            left, right = i+1, len(nums)-1
+            # 排序之后的nums前面一定有元素值为负数
+            if nums[i] > 0:
+                break
+            if i >= 1 and nums[i] == nums[i-1]:
+                continue
+            while left < right:
+                if nums[i] + nums[left] + nums[right] < 0:
+                    left += 1
+                elif nums[i] + nums[left] + nums[right] > 0:
+                    right -= 1
+                else:
+                    ans.append([nums[i], nums[left], nums[right]])
+                    # 对left和right的去重逻辑
+                    while left != right and nums[left] == nums[left+1]: left += 1
+                    while left != right and nums[right] == nums[right-1]: right -= 1
+                    left += 1
+                    right -= 1
+        return ans
 
 
 if __name__ == '__main__':
