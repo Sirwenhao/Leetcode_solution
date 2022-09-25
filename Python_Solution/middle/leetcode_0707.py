@@ -169,4 +169,4 @@ class MyLinkedList:
             pre = pre.next
         pre.next = pre.next.next
         self.count -= 1
-            
+        
