@@ -190,10 +190,10 @@ class MyLinkedList:
         return cur.val
     
     def addAtHead(self, val):
-        
+        self.addAtIndex(0, val)
         
     def addAtTail(self, val):
-        
+        self.addAtIndex(self.count, val)
         
     def addAtIndex(self, index, val):
         if index > self.count:
