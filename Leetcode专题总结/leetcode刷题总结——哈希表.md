@@ -31,6 +31,22 @@ class Solution:
                 return False
             	break
         return True
+    
+class Solution:
+    def isAnagram(self, s, t):
+        if len(s) != len(t):
+            return False
+        r = [0] * 26
+        for i in range(len(s)):
+            r[ord(s[i]) - ord('a')] += 1
+            r [ord(t[i]) - ord('a')] -= 1
+        return all(c==0 for c in r)
+    
+if __name__ == "__main__":
+    s = 'recordsdss'
+    t = 'recordsdss'
+    result = Solution().isAnagram(s, t)
+    print(result)
 ```
 
 #### 2.2 0349
