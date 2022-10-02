@@ -98,6 +98,21 @@ class Solution:
                 return False
             else:
                 record.add(n)
+                
+class Solution:
+    def isHappy(self, n):
+        def get_next(n):
+            ans = 0
+            while n > 0:
+                n, digit = divmod(n, 10)
+                ans += digit ** 2
+            return ans
+        visited = set()
+        while n != 1 and n not in visited:
+            visited.add(n)
+            n = get_next(n)
+        return n==1
+                
 if __name__ == "__main__":
     n = 19
     result = Solution().isHappy(n)
