@@ -5,18 +5,6 @@
     4、Python3使用map函数返回的是一个迭代器，使用方法为：map(function, iterable,...)
     5、根据函数function对指定序列元素做映射
 """
-# 排序之后，使用指针的做法
-# def threeSum(nums):
-#     nums.sort()
-#     ans = []
-#     for i in range(len(nums)):
-#         left = i+1
-#         right = len(nums)-1
-#         for j in range(left+1, right):
-#             if nums[i]+nums[left]+nums[j] == 0:
-#                 ans.append([nums[i], nums[left], nums[j]])
-#     return ans
-
 
 # def threeSum(nums):
 #     n = len(nums)
@@ -191,34 +179,51 @@
 #         return list(map(list, ans))
 
 # 2022/09/20  author:WH
+# class Solution:
+#     def threeSum(self, nums):
+#         # 又一次忘掉排序
+#         nums.sort()
+#         ans = []
+#         for i in range(len(nums)):
+#             left, right = i+1, len(nums)-1
+#             # 排序之后的nums前面一定有元素值为负数
+#             if nums[i] > 0:
+#                 break
+#             if i >= 1 and nums[i] == nums[i-1]:
+#                 continue
+#             while left < right:
+#                 if nums[i] + nums[left] + nums[right] < 0:
+#                     left += 1
+#                 elif nums[i] + nums[left] + nums[right] > 0:
+#                     right -= 1
+#                 else:
+#                     ans.append([nums[i], nums[left], nums[right]])
+#                     # 对left和right的去重逻辑
+#                     while left != right and nums[left] == nums[left+1]: left += 1
+#                     while left != right and nums[right] == nums[right-1]: right -= 1
+#                     left += 1
+#                     right -= 1
+#         return ans
+
+
+# 2022/10/01  author:WH
 class Solution:
     def threeSum(self, nums):
-        # 又一次忘掉排序
         nums.sort()
-        ans = []
+        ans = set()
         for i in range(len(nums)):
             left, right = i+1, len(nums)-1
-            # 排序之后的nums前面一定有元素值为负数
-            if nums[i] > 0:
-                break
-            if i >= 1 and nums[i] == nums[i-1]:
-                continue
             while left < right:
-                if nums[i] + nums[left] + nums[right] < 0:
-                    left += 1
-                elif nums[i] + nums[left] + nums[right] > 0:
+                if nums[i] + nums[left] + nums[right] == 0:
+                    ans.add((nums[i], nums[left], nums[right]))
+                if nums[i] + nums[left] + nums[right] > 0:
                     right -= 1
                 else:
-                    ans.append([nums[i], nums[left], nums[right]])
-                    # 对left和right的去重逻辑
-                    while left != right and nums[left] == nums[left+1]: left += 1
-                    while left != right and nums[right] == nums[right-1]: right -= 1
                     left += 1
-                    right -= 1
-        return ans
-
-
+        return list(map(list, ans))
+    
 if __name__ == '__main__':
-    nums = [-1, 0, 1, 2, -1, -4]
+    # nums = [-1, 0, 1, 2, -1, -4]
+    nums = [0, 0, 0]
     result = Solution().threeSum(nums)
     print(result)
