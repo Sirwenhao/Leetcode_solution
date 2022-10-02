@@ -122,16 +122,6 @@ if __name__ == "__main__":
 #### 2.4 0001
 
 ```python
-# 2022/6/19  author:WH  存在问题，有些案例不能通过，出现索引值相同的情况
-class Solution:
-    def twoSum(self, nums, target):
-        dic = {}
-        for i, j in enumerate(nums):
-            dic[j] = i
-        if target-k in dic:
-            return [dic[i], dic[target-k]]
-        return 0
-    
 # 2022/6/19  author:代码随想录
 class Solution:
     def twoSum(self, nums, target):
@@ -140,10 +130,21 @@ class Solution:
             if target - val not in record:
                 record[val] = idx
             else:
-                return [record[target - val], idx]            
+                return [record[target - val], idx]
+            
+# 2022/10/01
+class Solution:
+    def twoSum(self, nums, target):	
+        dic = {}
+        for idx, val in enumerate(nums):
+            m = target - val
+            if m in dic:
+                return [dic[m], idx]
+            dic[val] = idx
+            
 if __name__ == "__main__":
     nums = [2, 7, 11, 15]
-    target = 9
+    target = 9	
     result = Solution().twoSum(nums, target)
     print(result)
 ```
@@ -169,6 +170,23 @@ class Solution:
                 if key in dic1:
                     cnt += dic1[key]
         return cnt
+    
+# 2022/10/01  author:WH
+# 漏解，但具体原因不清楚
+# 感觉应该是有些索引顺序不同的重复解没有计入
+class Solution:
+    def fourSumCount(self, nums1, nums2, nums3, nums4):
+        ans = []
+        for i in range(len(nums1)):
+            for j in range(len(nums2)):
+                k = 0
+                while k < len(nums3):
+                    if 0-(nums1[i]+nums2[j]+nums3[k]) in nums4:
+                        l = nums4.index(0-(nums1[i]+nums2[j]+nums3[k]))
+                        ans.append([i,j,k,l])
+                    k += 1
+        return len(ans)
+    
 if __name__ == "__main__":
     nums1 = [1, 2]
     nums2 = [-2, -1]
@@ -181,7 +199,6 @@ if __name__ == "__main__":
 
 ```python
 # 2022/6/22  author:WH
-# 2022/5/1日解法  author:WH
 class Solution:
     def threeSum(self, nums):
         nums.sort()
@@ -226,7 +243,7 @@ if __name__ == "__main__":
     print(result)
 ```
 
-2.6 0018
+#### 2.6 0018
 
 ```python
 # 2022/6/22  author:WH  使用哈希表去重
