@@ -43,24 +43,41 @@
 #                 record.add(n)
 
 # 2022/6/19  author:WH
+# class Solution:
+#     def calculate(self, num):
+#         sum = 0
+#         while num:
+#             i = num % 10
+#             sum += i**2
+#             num = num // 10
+#         return sum
+#     def isHappy(self, n):
+#         record = set()   # 用于记录已经出现过的情况，防止再次出现，陷入死循环
+#         while True:
+#             n = self.calculate(n)
+#             if n == 1:
+#                 return True
+#             if n in record:
+#                 return False
+#             else:
+#                 record.add(n)
+
+# 2022/10/01  author:WH
+# 关键点在使用set进行去重，因为又可能出现的数字通过下属运算后进入死循环
 class Solution:
-    def calculate(self, num):
-        sum = 0
-        while num:
-            i = num % 10
-            sum += i**2
-            num = num // 10
-        return sum
     def isHappy(self, n):
-        record = set()   # 用于记录已经出现过的情况，防止再次出现，陷入死循环
-        while True:
-            n = self.calculate(n)
-            if n == 1:
-                return True
-            if n in record:
-                return False
-            else:
-                record.add(n)
+        def get_next(n):
+            ans = 0
+            while n > 0:
+                n, digit = divmod(n, 10)
+                ans += digit ** 2
+            return ans
+        visited = set()
+        while n != 1 and n not in visited:
+            visited.add(n)
+            n = get_next(n)
+        return n==1
+
 
 if __name__ == "__main__":
     n = 19
