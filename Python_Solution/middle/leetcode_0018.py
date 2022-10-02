@@ -67,23 +67,23 @@
 
 # 2022/7/6 0:28  author:WH
 # 关键逻辑在于去重，使用哈希集合去重
-# class Solution:
-#     def fourSum(self, nums, target):
-#         if len(nums) < 4: return []
-#         nums.sort()
-#         ans = set()
-#         for i in range(len(nums)-3):
-#             for j in range(i+1, len(nums)-2):
-#                 left, right = j+1, len(nums)-1
-#                 while left < right:
-#                     total = nums[i] + nums[j] + nums[left] + nums[right] 
-#                     if total == target:
-#                         ans.add((nums[i], nums[j], nums[left], nums[right]))
-#                     if total < target:
-#                         left += 1
-#                     else:
-#                         right -= 1
-#         return list(map(list, ans))
+class Solution:
+    def fourSum(self, nums, target):
+        if len(nums) < 4: return []
+        nums.sort()
+        ans = set()
+        for i in range(len(nums)-3):
+            for j in range(i+1, len(nums)-2):
+                left, right = j+1, len(nums)-1
+                while left < right:
+                    total = nums[i] + nums[j] + nums[left] + nums[right] 
+                    if total == target:
+                        ans.add((nums[i], nums[j], nums[left], nums[right]))
+                    if total < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(map(list, ans))
 
 # 2022/09/21 author:WH
 # 感觉代码没有问题，但没能AC
@@ -120,29 +120,29 @@
 #                         right -= 1
 #         return ans
 
-class Solution:
-    def fourSum(self, nums, target):
-        nums.sort()
-        n = len(nums)
-        res = []
-        for i in range(n):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            for k in range(i+1, n):
-                if k > i + 1 and nums[k] == nums[k-1]:
-                    continue
-                p = k + 1
-                q = n - 1
-                while p < q:
-                    if nums[i] + nums[k] + nums[p] + nums[q] > target: q -= 1
-                    elif nums[i] + nums[k] + nums[p] + nums[q] < target: p += 1
-                    else:
-                        res.append([nums[i], nums[k], nums[p], nums[q]])
-                        while p < q and nums[p] == nums[p + 1]: p += 1
-                        while p < q and nums[q] == nums[q - 1]: q -= 1
-                        p += 1
-                        q -= 1
-        return res
+# class Solution:
+#     def fourSum(self, nums, target):
+#         nums.sort()
+#         n = len(nums)
+#         res = []
+#         for i in range(n):
+#             if i > 0 and nums[i] == nums[i - 1]:
+#                 continue
+#             for k in range(i+1, n):
+#                 if k > i + 1 and nums[k] == nums[k-1]:
+#                     continue
+#                 p = k + 1
+#                 q = n - 1
+#                 while p < q:
+#                     if nums[i] + nums[k] + nums[p] + nums[q] > target: q -= 1
+#                     elif nums[i] + nums[k] + nums[p] + nums[q] < target: p += 1
+#                     else:
+#                         res.append([nums[i], nums[k], nums[p], nums[q]])
+#                         while p < q and nums[p] == nums[p + 1]: p += 1
+#                         while p < q and nums[q] == nums[q - 1]: q -= 1
+#                         p += 1
+#                         q -= 1
+#         return res
 
 
 
