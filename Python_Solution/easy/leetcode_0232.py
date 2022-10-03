@@ -114,6 +114,37 @@
 #         return not (self.stack_in or self.stack_out)
 
 # 2022/7/15  author:WH
+# class MyQueue:
+#     def __init__(self):
+#         self.stack_in = []
+#         self.stack_out = []
+
+#     def push(self, x):
+#         self.stack_in.append(x)
+
+#     def pop(self):
+#         if self.empty():
+#             return None
+
+#         # pop之前需要先判断是否为空
+#         if self.stack_out:
+#             return self.stack_out.pop()
+#         else:
+#             for i in range(len(self.stack_in)):
+#                 self.stack_out.append(self.stack_in.pop())
+#             return self.stack_out.pop()
+
+#     def peek(self):
+#         ans = self.pop()
+#         self.stack_out.append(ans)
+#         return ans
+
+#     def empty(self):
+#         return (self.stack_in and self.stack_out)
+
+
+# 2022/10/03  author:WH
+# 队列是双端数据
 class MyQueue:
     def __init__(self):
         self.stack_in = []
@@ -121,12 +152,11 @@ class MyQueue:
 
     def push(self, x):
         self.stack_in.append(x)
-
+        
     def pop(self):
         if self.empty():
             return None
 
-        # pop之前需要先判断是否为空
         if self.stack_out:
             return self.stack_out.pop()
         else:
