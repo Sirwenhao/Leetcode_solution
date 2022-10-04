@@ -63,7 +63,10 @@ class MyStack:
         self.que = deque()
         
     def push(self, x):
+        n = len(self.que)
         self.que.append(x)
+        for _ in range(n):
+            self.que.append(self.que.popleft())
        
     def pop(self):
         if self.empty():
@@ -80,6 +83,27 @@ class MyStack:
         
     def empty(self):
         return len(self.que) == 0
+    
+# 这个版本竟然也能AC
+class MyStack:
+    def __init__(self):
+        self.queue = deque()
+
+    def push(self, x: int) -> None:
+        self.queue.append(x)
+
+    def pop(self) -> int:
+        if self.empty():
+            return None
+        return self.queue.pop()
+
+    def top(self) -> int:
+        if self.empty():
+            return None
+        return self.queue[-1]
+
+    def empty(self) -> bool:
+        return not self.queue
 ```
 
 双队列版本
