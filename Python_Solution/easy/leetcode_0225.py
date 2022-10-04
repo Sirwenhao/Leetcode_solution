@@ -3,7 +3,6 @@
     2、包含两个版本：使用一个队列实现和使用两个队列实现
     3、使用两个队列的版本原理类似于汉诺塔
 """
-from collections import deque
 # # 2022/7/7  author:代码随想录
 # """
 #     Python中的queue没有类似于peek的功能，也无法用索引访问
@@ -102,27 +101,75 @@ from collections import deque
 #         return len(self.que) == 0
 
 # 2022/7/16  author:WH
+# from collections import deque
+# class MyStack:
+#     def __init__(self):
+#         self.que_in = deque()
+#         self.que_out = deque()
+
+#     def push(self, x):
+#         self.que_in.append(x)
+
+#     def pop(self):
+#         if self.empty():
+#             return None
+#         for i in range(len(self.que_in)-1):
+#             self.que_out.append(self.que_in.popleft())
+#         self.que_in, self.que_out = self.que_out, self.que_in
+#         return self.que_out.popleft()
+
+#     def top(self):
+#         if self.empty():
+#             return None    
+#         return self.que_in[-1]
+
+#     def empty(self):
+#         return len(self.que_in) == 0
+
+# 2022/10/04  author:WH
+# 使用两个队列实现栈的操作
+# Python双端队列的pop操作默认弹出右侧元素，popleft才是弹出左侧元素
 from collections import deque
 class MyStack:
     def __init__(self):
-        self.que_in = deque()
-        self.que_out = deque()
+        self.queue_in = deque()
+        self.queue_out = deque()
 
     def push(self, x):
-        self.que_in.append(x)
+        self.queue_in.append(x)
 
     def pop(self):
         if self.empty():
             return None
-        for i in range(len(self.que_in)-1):
-            self.que_out.append(self.que_in.popleft())
-        self.que_in, self.que_out = self.que_out, self.que_in
-        return self.que_out.popleft()
+        # 此处使用self.queue_out的作用就只是为了输出第一个进栈的元素
+        # 把第一个进栈的元素与其后续的元素分开，
+        if self.queue_in:
+            for i in range(len(self.queue_in)-1):
+                self.queue_out.append(self.queue_in.popleft())
+        self.queue_in, self.queue_out = self.queue_out, self.queue_in
+        return self.queue_out.popleft()
 
     def top(self):
-        if self.empty():
-            return None    
-        return self.que_in[-1]
+        return self.queue_in[-1]
 
     def empty(self):
-        return len(self.que_in) == 0
+        return not self.queue_in
+
+# 使用一个deque的写法
+class MyStack:
+    def __init__(self):
+        self.queue = deque()
+
+    def push(self, x):
+        self.queue.append(x)
+
+    def pop(self):
+        if self.empty():
+            return None
+        return self.queue.popleft()
+
+    def top(self):
+        return self.queue[-1]
+
+    def empty(self):
+        return not self.queue
