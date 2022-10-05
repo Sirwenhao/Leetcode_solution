@@ -156,6 +156,7 @@ class MyStack:
         return not self.queue_in
 
 # 使用一个deque的写法
+# 这个写法竟然也能AC
 class MyStack:
     def __init__(self):
         self.queue = deque()
@@ -166,7 +167,7 @@ class MyStack:
     def pop(self):
         if self.empty():
             return None
-        return self.queue.popleft()
+        return self.queue.pop()
 
     def top(self):
         return self.queue[-1]
