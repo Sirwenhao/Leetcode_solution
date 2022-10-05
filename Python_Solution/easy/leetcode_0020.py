@@ -5,51 +5,6 @@
 # """
 
 
-# def isValid(s):
-#     stack = []
-#     map = {
-#         "{": "}",
-#         "[": "]",
-#         "(": ")",
-#     }
-#     for x in s:
-#         print('x1:', x)
-#         if x in map:
-#             stack.append(map[x])  #此处map[x]表示键对应的值
-#             print('stack:', stack)
-#         else:
-#             if len(stack) != 0:
-#                 top_element = stack.pop()
-#                 if x != top_element:
-#                     return False
-#                 else:
-#                     continue
-#             else:
-#                 return False
-#     return len(stack) == 0
-
-# # def isValid(s: str) -> bool:
-# #     if len(s) % 2 == 1:
-# #         return False
-# #     dic = {
-# #         "}": "{",
-# #         ")": "(",
-# #         "]": "[",
-# #     }
-# #
-# #     stack = list()
-# #     for i in s:
-# #         if i in dic:
-# #             if not stack or stack[-1] != dic[i]:
-# #                 return False
-# #             stack.pop()
-# #         else:
-# #             stack.append(i)
-# #     return not stack
-# #
-# #
-# # s = "({[]})"
-
 
 # 2022/3/26 复习
 
@@ -137,30 +92,47 @@
 #         return len(stack) == 0
 
 # 2022/7/16  author:WH
+# class Solution:
+#     def isValid(self, s):
+#         dict = {
+#             "(": ")",
+#             "{": "}",
+#             "[": "]",
+#         }
+#         stack = []
+#         if len(s) == 0:
+#             return False
+#         for i in s:
+#             if i in dict:
+#                 stack.append(i)
+#             else:
+#                 if i != dict[stack.pop()]:
+#                     return False
+#                 else:
+#                     continue
+
+#         return len(stack) == 0
+
+# 2022/10/05  author:WH
 class Solution:
     def isValid(self, s):
-        dict = {
-            "(": ")",
-            "{": "}",
-            "[": "]",
-        }
-        stack = []
-        if len(s) == 0:
+        if len(s) % 2 != 0:
             return False
+        l = []
+        dic = {
+            '(':')',
+            '[':']',
+            '{':'}'}
         for i in s:
-            if i in dict:
-                stack.append(i)
+            if i in dic:
+                l.append(i)
             else:
-                if i != dict[stack.pop()]:
+                if i != dic[l.pop()]:
                     return False
-                else:
-                    continue
-
-        return len(stack) == 0
+        return len(l) == 0
 
 if __name__ == "__main__":
-    s = "{[()]}"
-    # s = "["
+    # s = "{[()]}"
+    s = "[["
     result = Solution().isValid(s)
     print(result)
-
