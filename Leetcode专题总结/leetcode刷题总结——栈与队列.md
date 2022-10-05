@@ -148,17 +148,32 @@ class Solution:
             "{": "}",
         }
         stack = []
-        if len(s) == 0:
+        if len(s) % 2 != 0:
             return False
         for i in s:
             if i in dict:
                 stack.append(i)
             else:
-                if i != dict[stack.pop()]:
-                    return Fasle
+                # 先确保stack不为空才可以pop
+                if len(stack) != 0:
+                	if i != dict[stack.pop()]:
+                    	return Fasle
+                	else:
+                    	continue
                 else:
-                    continue
+                    return False             
         return len(stack) == 0
+    
+class Solution:
+    def isValid(self, s):
+        l = []
+        dic = {'()', '{}', '[]'}
+        for i in s:
+            if i in '({[':
+                l.append(i)
+            elif not l or l.pop()+i not in dic:
+                return False
+        return not l
     
 if __name__ == "__main__":
     s = "({[]})"
@@ -166,9 +181,9 @@ if __name__ == "__main__":
     print(result)
 ```
 
-#### 2.4 逆波兰表达式求值
+#### 2.4 0150逆波兰表达式求值
 
-逆波兰表达式是一种后缀表达式，及后缀表达式转中缀表达式计算求值。应该是使用栈把数字先压栈，遇到运算符时把栈顶两个元素出栈进行计算，然后再把计算结果压栈。
+逆波兰表达式是一种后缀表达式，及后缀表达式转中缀表达式计算求值。应该是使用栈把数字先压栈，遇到运算符时把栈顶两个元素出栈进行计算，然后再把计算结果压栈。两个考点：eval()函数和f"{}"表达式用法
 
 ```python
 # 2022/7/16  author:WH
@@ -183,7 +198,43 @@ class Solution:
                 f_ele, s_ele = stack.pop(), stack.pop()
                 stack.append(int(eval(f"{s_ele} {item} {f_ele}")))
         return int(stack.pop())
+
+# 2022/10/05 author:github
+import operator
+class Solution:
+    def evalRPN(self, tokens):
+        opt = {
+            "+":operator.add,
+            "-":operator.sub,
+            "*":operator.mul,
+            "/":operator.truediv}
+    s = []
+    for i in tokens:
+        if i in opt:
+            s.append(int(opt[i](s.pop(-2), s.pop(-1))))
+        else:
+            s.append(int(i))
+    return s[0]
     
+# 2022/10/05  author:github
+class Solution:
+    def evalRPN(self, tokens):
+        nums = []
+        for i in tokens:
+            if len(i) > 1 or i.isdigit():
+                nums.append(int(i))
+            else:
+                if i == "+":
+                    nums[-2] += nums[-1]
+                elif i == "-":
+                    nums[-2] -= nums[-1]
+                elif i == "*":
+                    nums[-2] *= nums[-1]
+                else:
+                    nums[-2] = int(nums[-2] / nums[-1])
+                nums.pop()
+        return nums[0]
+
 if __name__ == "__main__":
     tokens = ["2", "1", "+", "3", "*"]
     result = Solution().evalRPN(tokens)
