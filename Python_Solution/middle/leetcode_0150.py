@@ -39,16 +39,31 @@
 #         return int(stack.pop())
 
 # 改进版
+# class Solution:
+#     def evalRPN(self, tokens):
+#         stack = []
+#         for item in tokens:
+#             if item not in {"+", "-", "*", "/"}:
+#                 stack.append(item)
+#             else:
+#                 f_ele, s_ele = stack.pop(), stack.pop()
+#                 stack.append(int(eval(f"{s_ele} {item} {f_ele}")))
+#         return int(stack.pop())
+
+# 2022/10/05  author:WH
 class Solution:
     def evalRPN(self, tokens):
-        stack = []
-        for item in tokens:
-            if item not in {"+", "-", "*", "/"}:
-                stack.append(item)
+        l = []
+        for i in tokens:
+            if i not in {'+', '-', '*', '/'}:
+                l.append(i)
             else:
-                f_ele, s_ele = stack.pop(), stack.pop()
-                stack.append(int(eval(f"{s_ele} {item} {f_ele}")))
-        return int(stack.pop())
+                val1 = int(l.pop())
+                val2 = int(l.pop())
+                val3 = int(eval(f"{val2} {i} {val1}"))
+                l.append(val3)
+        return int(l.pop())
+
 
 if __name__ == "__main__":
     tokens = ["2", "1", "+", "3", "*"]
