@@ -45,22 +45,41 @@
 #             result[i] = heapq.heappop(pri_que)[1]
 #         return result
 
+# import heapq
+# from collections import Counter
+# class Solution:
+#     def topKFrequent(self, nums, k):
+#         counter = Counter(nums)
+#         hp = []
+#         for num, freq in counter.items():
+#             if len(hp) == k:
+#                 heapq.heappush(hp, (freq, num))
+#                 heapq.heappop(hp)
+#             else:
+#                 heapq.heappush(hp, (freq, num))
+#         return [t[1] for t in hp]
+
+# 2022/10/07  author:WH
+# 总结一下Python中的堆这种数据结构的用法
+# 总结Python字典中的get()的用法
 import heapq
-from collections import Counter
 class Solution:
     def topKFrequent(self, nums, k):
-        counter = Counter(nums)
-        hp = []
-        for num, freq in counter.items():
-            if len(hp) == k:
-                heapq.heappush(hp, (freq, num))
-                heapq.heappop(hp)
-            else:
-                heapq.heappush(hp, (freq, num))
-        return [t[1] for t in hp]
-
+        dic = {}
+        for i in range(len(nums)):
+            dic[nums[i]] = dic.get(nums[i], 0) + 1
+        pri_que = []
+        for key, freq in dic.items():
+            heapq.heappush(pri_que, (freq, key))
+            if len(pri_que) > k:
+                heapq.heappop(pri_que)
+        ans = [0] * k
+        for i in range(k-1, -1, -1):
+            ans[i] = heapq.heappop(pri_que)[1]
+        return ans
 
 if __name__ == "__main__":
+    
     nums = [1,1,1,2,2,3]
     k = 2
     result = Solution().topKFrequent(nums, k)
