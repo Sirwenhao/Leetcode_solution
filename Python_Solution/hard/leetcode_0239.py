@@ -69,21 +69,57 @@
 #     q.append(i)
 
 
-from collections import deque
+# from collections import deque
+# class Solution:
+#     def maxSlindingWindow(self, nums, k):
+#         q = deque()
+#         ans = []
+#         for i, v in enumerate(nums):
+#             if q and i - k + 1 > q[0]:
+#                 q.popleft()
+#             while q and nums[q[-1]] <= v:
+#                 q.pop()
+#             # 双向队列q中存储的是索引
+#             q.append(i)
+#             if i >= k - 1:
+#                 ans.append(nums[q[0]])
+#         return ans
+
+# 2022/10/05 author:WH
+# 此题需要实现一种单调队列
+class MyQueue:
+    def __init__(self):
+        self.queue = []
+
+    # 每次弹出的时候，需要判断当前要弹出的元素是否等于队列出口(左侧)元素的数值,如果相等则弹出
+    # pop之前还需要确保当前队列不为空
+    def pop(self, value):
+        if self.queue and value == self.queue[0]:
+            self.queue.pop(0)
+
+    # 如果push的数值大于入口元素的数值，那么就将队列后端的数值弹出，直至push的数值小于等于队列入口的元素为止
+    # 这样可以保证队列是从大到小的单调队列
+    def push(self, value):
+        while self.queue and value > self.queue[-1]:
+            self.queue.pop()
+        self.queue.append(value)
+
+    # 返回队列里的最大值
+    def front(self):
+        return self.queue[0]
+
 class Solution:
     def maxSlindingWindow(self, nums, k):
-        q = deque()
+        que = MyQueue()
         ans = []
-        for i, v in enumerate(nums):
-            if q and i - k + 1 > q[0]:
-                q.popleft()
-            while q and nums[q[-1]] <= v:
-                q.pop()
-            # 双向队列q中存储的是索引
-            q.append(i)
-            if i >= k - 1:
-                ans.append(nums[q[0]])
-        return ans  
+        for i in range(k):
+            que.push(nums[i])
+        ans.append(que.front())
+        for i in range(k, len(nums)):
+            que.pop(nums[i-k])
+            que.push(nums[i])
+            ans.append(que.front())
+        return ans
 
 
 if __name__ == "__main__":
