@@ -260,12 +260,14 @@ class Solution:
         for i, v in enumerate(nums):
             if q and i-k+1 > q[0]:
                 q.popleft()
-            while q and nums[q[-q]] <= v:
+            while q and nums[q[-1]] <= v:
                 q.pop()
             q.append(i)
             if i >= k - 1:
                 ans.append(nums[q[0]])
         return ans
+    
+    
     
 # 2022/7/16  author:代码随想录
 # 定义单调队列（从大到小）
