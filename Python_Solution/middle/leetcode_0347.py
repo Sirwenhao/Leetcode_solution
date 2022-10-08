@@ -78,8 +78,7 @@ class Solution:
             ans[i] = heapq.heappop(pri_que)[1]
         return ans
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":  
     nums = [1,1,1,2,2,3]
     k = 2
     result = Solution().topKFrequent(nums, k)
