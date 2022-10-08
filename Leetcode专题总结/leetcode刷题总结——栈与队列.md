@@ -268,7 +268,6 @@ class Solution:
         return ans
     
     
-    
 # 2022/7/16  author:代码随想录
 # 定义单调队列（从大到小）
 class MyQueue:
@@ -357,7 +356,7 @@ if __name__ == "__main__":
 
 同面试题17.21 直方图的水量。核心：双指针，两种计算方法：单独一列的计算和单独一行的计算。
 
-![image-20220716175349385](https://gitee.com/sirwenhao/images/raw/master/image-20220716175349385.png)
+![image-20221008100800231](https://gitee.com/sirwenhao/typora-illustration/raw/master/image-20221008100800231.png)
 
 动态规划思想：对于位置i，此处最大水量取决于<font color=yellow>下标i左右两侧最大高度的最小值，再减去`height[i]`即为当前位置所对应的水量</font>
 
