@@ -54,23 +54,27 @@
 #                 right -= 1
 #         return ans
 
-class Solution:
-    def trap(self, height):
-        n = len(height)
-        if n < 3:
-            return 0
-        left_max = [height[0]] * n
-        for i in range(1, n):
-            left_max[i] = max(left_max[i - 1], height[i])
+# class Solution:
+#     def trap(self, height):
+#         n = len(height)
+#         if n < 3:
+#             return 0
+#         left_max = [height[0]] * n
+#         for i in range(1, n):
+#             left_max[i] = max(left_max[i - 1], height[i])
             
-        right_max = [height[n - 1]] * n
-        for i in range(n - 2, -1, -1):
-            right_max[i] = max(right_max[i + 1], height[i])
+#         right_max = [height[n - 1]] * n
+#         for i in range(n - 2, -1, -1):
+#             right_max[i] = max(right_max[i + 1], height[i])
             
-        res = 0
-        for i in range(n):
-            res += min(left_max[i], right_max[i]) - height[i]
-        return res
+#         res = 0
+#         for i in range(n):
+#             res += min(left_max[i], right_max[i]) - height[i]
+#         return res
+
+# 2022/10/09  author:WH
+# 说下基本想法：双指针遍历，快慢指针，快指针先行遇到比慢指针大的值更新慢指针
+# 快指针遇不到比当前值更大的值时停止，计算蓄水量；重新更新慢指针和快指针
 
 if __name__ == "__main__":
     height = [0,1,0,2,1,0,1,3,2,1,2,1]
