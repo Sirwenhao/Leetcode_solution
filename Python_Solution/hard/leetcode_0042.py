@@ -75,6 +75,37 @@
 # 2022/10/09  author:WH
 # 说下基本想法：双指针遍历，快慢指针，快指针先行遇到比慢指针大的值更新慢指针
 # 快指针遇不到比当前值更大的值时停止，计算蓄水量；重新更新慢指针和快指针
+# 计算复杂度过高，有问题：[4,2,0,3,2,5]不能通过
+# class Solution:
+#     def trap(self, height):
+#         ans = []
+#         res = 0
+#         # 第一个for循环，找出能成为边界值的索引
+#         for slow in range(1, len(height)-1):
+#             if height[slow] >= height[slow-1] and height[slow] >= height[slow+1]:
+#                 ans.append(slow)
+#         # 第二步求出这些索引值之间的蓄水量
+#         for i in range(len(ans)-1):
+#             left, right = ans[i], ans[i+1]
+#             for j in range(left+1, right):
+#                 res += min(height[left], height[right]) - height[j]
+#         return res
+
+class Solution:
+    def trap(self, height):
+        ans = 0
+        left, right = 0, len(height)-1
+        leftMax = rightMax = 0
+        while left < right:
+            leftMax = max(leftMax, height[left])
+            rightMax = max(rightMax, height[right])
+            if height[left] < height[right]:
+                ans += leftMax - height[left]
+                left += 1
+            else:
+                ans += rightMax - height[right]
+                right -= 1
+        return ans
 
 if __name__ == "__main__":
     height = [0,1,0,2,1,0,1,3,2,1,2,1]
