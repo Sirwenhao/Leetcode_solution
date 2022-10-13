@@ -161,7 +161,7 @@ class Solution:
         stack = [root]
         ans = []
         while stack:
-            node = stack.pop() # 中，先入栈，先出栈
+            node = stack.pop() # 中，先入栈，后出栈
             ans.append(node.value)
             if node.right:
                 stack.append(node.right) # 右，先入栈，后出栈
@@ -201,7 +201,7 @@ class Solution:
         ans = []
         stack = [root]
         while stack:
-            node = stack.pop() # 中先入栈，先出栈
+            node = stack.pop() # 中先入栈，后出栈
             ans.append(node.val)
             if node.left:
                 stack.append(node.left) # 左先入栈，后出栈
