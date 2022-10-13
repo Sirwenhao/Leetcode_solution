@@ -67,14 +67,14 @@ class Solution:
     def preorderTraversal(self, root):
         if not root:
             return
-        stack = [root]
+        stack = [root] # 先把中节点进栈
         result = []
         while stack:
-            node = stack.pop()
+            node = stack.pop() # 先把中节点出栈
             result.append(node)
-            if node.right:
+            if node.right: # 先把右节点进栈，后出栈
                 stack.append(node.right)
-            if node.left:
+            if node.left: # 左节点后进栈，先出栈
                 stack.append(node.left)
         return result
 
