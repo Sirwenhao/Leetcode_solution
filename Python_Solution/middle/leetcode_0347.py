@@ -3,23 +3,6 @@
     2、Python字典的get()方法
     3、Python数据结构——堆(heapq)
 """
-# 2022/7/13  author:WH
-# 最好的做法肯定是用队列，把每次统计到的出现次数大的元素从尾部进入，把之前的从头部输出
-# import queue
-# class Solution:
-#     def topKFrequent(self, nums, k):
-#         ans = []
-#         que = queue
-#         max_V = 0
-#         for i in range(len(nums)):
-#             num = 0
-#             num = nums.count(nums[i])
-#             if num > max_V:
-#                 max_V = num
-#                 que.push(nums[i])
-#         for j in range(k):
-#             ans.append(que.pop())
-#         return ans
 
 # 2022/7/13  author:代码随想录
 # import heapq
@@ -62,21 +45,39 @@
 # 2022/10/07  author:WH
 # 总结一下Python中的堆这种数据结构的用法
 # 总结Python字典中的get()的用法
+# import heapq
+# class Solution:
+#     def topKFrequent(self, nums, k):
+#         dic = {}
+#         for i in range(len(nums)):
+#             dic[nums[i]] = dic.get(nums[i], 0) + 1
+#         pri_que = []
+#         for key, freq in dic.items():
+#             # 核心思想是利用python中的小顶堆的性质，大值才能进入堆内，对内即包含k个排好序的值
+#             heapq.heappush(pri_que, (freq, key))
+#             if len(pri_que) > k:
+#                 heapq.heappop(pri_que)
+#         ans = [0] * k
+#         for i in range(k-1, -1, -1):
+#             ans[i] = heapq.heappop(pri_que)[1]
+#         return ans
+
+# 2022/10/13  author:github
+from collections import Counter
 import heapq
 class Solution:
     def topKFrequent(self, nums, k):
-        dic = {}
-        for i in range(len(nums)):
-            dic[nums[i]] = dic.get(nums[i], 0) + 1
-        pri_que = []
-        for key, freq in dic.items():
-            heapq.heappush(pri_que, (freq, key))
-            if len(pri_que) > k:
-                heapq.heappop(pri_que)
-        ans = [0] * k
-        for i in range(k-1, -1, -1):
-            ans[i] = heapq.heappop(pri_que)[1]
-        return ans
+        counter = Counter(nums)
+        hp = []
+        for num, freq in counter.items():
+            if len(hp) == k:
+                heapq.heappush(hp, (freq, num))
+                heapq.heappop(hp)
+            else:
+                heapq.heappush(hp, (freq, num))
+        return [t[1] for t in hp]
+
+
 
 if __name__ == "__main__":  
     nums = [1,1,1,2,2,3]
