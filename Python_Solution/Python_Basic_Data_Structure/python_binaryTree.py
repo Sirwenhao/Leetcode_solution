@@ -96,3 +96,21 @@ class Solution:
                 result.append(cur.val)
                 cur = cur.right
         return result
+
+
+# 迭代——后续
+class Solution:
+    def postorderTraversal(self, root):
+        if not root:
+            return
+        ans = []
+        stack = [root] # 中先入栈
+        while stack:
+            node = stack.pop() # 中先出栈
+            ans.append(node.val)
+            if node.left:
+                stack.append(node.left) # 先入栈，后出栈
+            if node.right:
+                stack.append(node.right) # 后入栈，先出栈
+        # 按照上述顺序输出的是中右左,但是后序遍历要求是左右中,因此翻转输出
+        return ans[::-1]
