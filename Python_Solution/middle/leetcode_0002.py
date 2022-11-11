@@ -105,15 +105,31 @@
 #             cur.next = ListNode(carry)
 #         return dummy.next
 
-# 爱学习的饲养员解法二：递归法
+# # 爱学习的饲养员解法二：递归法
+# class Solution:
+#     def addTwoNumbers(self, l1, l2):
+#         total = l1.val + l2.val
+#         carry = total // 10
+#         dummy = ListNode(total % 10)
+#         if(l1.next or l2.next or carry):
+#             l1 = l1.next if l1.next else ListNode(0)
+#             l2 = l2.next if l2.next else ListNode(0)
+#             l1.val += carry # 这一步是防止上一步的及位置丢失
+#             carry.next = self.addTwoNumbers(l1, l2)
+#         return dummy
+
+# 2022/11/11 author:github
 class Solution:
     def addTwoNumbers(self, l1, l2):
-        total = l1.val + l2.val
-        carry = total // 10
-        dummy = ListNode(total % 10)
-        if(l1.next or l2.next or carry):
-            l1 = l1.next if l1.next else ListNode(0)
-            l2 = l2.next if l2.next else ListNode(0)
-            l1.val += carry # 这一步是防止上一步的及位置丢失
-            carry.next = self.addTwoNumbers(l1, l2)
-        return dummy
+        dummy = ListNode()
+        carry, curr = 0, dummy
+        while l1 or l2 or carry:
+            sum = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+            carry, val = divmod(sum, 10)
+            curr.next = ListNode(val)
+            curr = curr.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+        return dummy.next
+
+
