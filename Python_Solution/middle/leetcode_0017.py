@@ -183,29 +183,58 @@
 #         for i in range(start_index, len(digits)):
 #             character = self.dic[int(digits[i])]
 
-# 对比上述错解，重写（参考了正解） 2022/5/21 author:WH
-class Solution: 
+# # 对比上述错解，重写（参考了正解） 2022/5/21 author:WH
+# class Solution: 
+#     def __init__(self):
+#         self.ans = []
+#         self.current = ''
+#         self.dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+
+#     def letterCombinations(self, digits):
+#         self.ans.clear()
+#         self.backtracking(digits, 0)
+#         return self.ans
+
+#     def backtracking(self, digits, index):
+#         # 此处有使用到start_index，则递归终止的条件
+#         if index == len(digits):
+#             self.ans.append(self.current[:])
+#             return
+#         for i in self.dic[int(digits[index])-2]:
+#             if len(self.current) > len(digits):
+#                 return
+#             self.current += i
+#             self.backtracking(digits, index+1)
+#             self.current = self.current[:-1] # 字符串的回溯
+
+# 2022/11/12 author:WH
+class Solution:
     def __init__(self):
-        self.ans = []
-        self.current = ''
-        self.dic = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+        self.res = []
+        self.letter_map = {
+            '2':'abc',
+            '3':'def',
+            '4':'ghi',
+            '5':'jkl',
+            '6':'mno',
+            '7':'pqrs',
+            '8':'tuv',
+            '9':'wxyz'
+            }
 
     def letterCombinations(self, digits):
-        self.ans.clear()
-        self.backtracking(digits, 0)
-        return self.ans
+        self.res.clear()
+        if not digits: return []
+        self.backtracking(digits, 0, '')
+        return self.res
 
-    def backtracking(self, digits, index):
-        # 此处有使用到start_index，则递归终止的条件
+    def backtracking(self, digits, index, ans):
         if index == len(digits):
-            self.ans.append(self.current[:])
+            self.res.append(ans)
             return
-        for i in self.dic[int(digits[index])-2]:
-            if len(self.current) > len(digits):
-                return
-            self.current += i
-            self.backtracking(digits, index+1)
-            self.current = self.current[:-1] # 字符串的回溯
+        letters = self.letter_map[digits[index]]
+        for letter in letters:
+            self.backtracking(digits, index+1, ans+letter)
 
 if __name__ == '__main__':
     digits = "23"
