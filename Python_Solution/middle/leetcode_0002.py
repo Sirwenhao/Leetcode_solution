@@ -118,7 +118,21 @@
 #             carry.next = self.addTwoNumbers(l1, l2)
 #         return dummy
 
-# 2022/11/11 author:github
+# # 2022/11/11 author:github
+# class Solution:
+#     def addTwoNumbers(self, l1, l2):
+#         dummy = ListNode()
+#         carry, curr = 0, dummy
+#         while l1 or l2 or carry:
+#             sum = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+#             carry, val = divmod(sum, 10)
+#             curr.next = ListNode(val)
+#             curr = curr.next
+#             l1 = l1.next if l1 else None
+#             l2 = l2.next if l2 else None
+#         return dummy.next
+
+# 2022/11/13 author:Wh
 class Solution:
     def addTwoNumbers(self, l1, l2):
         dummy = ListNode()
@@ -131,5 +145,4 @@ class Solution:
             l1 = l1.next if l1 else None
             l2 = l2.next if l2 else None
         return dummy.next
-
 
