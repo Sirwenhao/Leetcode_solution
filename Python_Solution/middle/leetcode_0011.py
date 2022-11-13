@@ -55,20 +55,35 @@
 #                 j -= 1
 #         return res
 
-# 2022/11/12 author:WH
+# # 2022/11/12 author:WH
+# class Solution:
+#     def maxArea(self, height):
+#         left, right = 0, len(height)-1
+#         ans = 0
+#         while left < right:
+#             vol = (right-left)*min(height[left], height[right])
+#             ans = max(ans, vol)
+#             # 左侧边界矮更新左侧，否则更新右侧
+#             if height[left] < height[right]:
+#                 left += 1
+#             else:
+#                 right -= 1
+#         return ans
+
+# 2022/11/13 author:WH
 class Solution:
     def maxArea(self, height):
         left, right = 0, len(height)-1
         ans = 0
         while left < right:
-            vol = (right-left)*min(height[left], height[right])
-            ans = max(ans, vol)
-            # 左侧边界矮更新左侧，否则更新右侧
+            area = (right-left)*min(height[left], height[right])
+            ans = max(ans, area)
             if height[left] < height[right]:
                 left += 1
             else:
                 right -= 1
         return ans
+
 
 if __name__ == "__main__":
     heights = [1,8,6,2,5,4,8,3,7]
