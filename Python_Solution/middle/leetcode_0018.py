@@ -65,25 +65,25 @@
 #                         right -= 1
 #         return ans
 
-# 2022/7/6 0:28  author:WH
-# 关键逻辑在于去重，使用哈希集合去重
-class Solution:
-    def fourSum(self, nums, target):
-        if len(nums) < 4: return []
-        nums.sort()
-        ans = set()
-        for i in range(len(nums)-3):
-            for j in range(i+1, len(nums)-2):
-                left, right = j+1, len(nums)-1
-                while left < right:
-                    total = nums[i] + nums[j] + nums[left] + nums[right] 
-                    if total == target:
-                        ans.add((nums[i], nums[j], nums[left], nums[right]))
-                    if total < target:
-                        left += 1
-                    else:
-                        right -= 1
-        return list(map(list, ans))
+# # 2022/7/6 0:28  author:WH
+# # 关键逻辑在于去重，使用哈希集合去重
+# class Solution:
+#     def fourSum(self, nums, target):
+#         if len(nums) < 4: return []
+#         nums.sort()
+#         ans = set()
+#         for i in range(len(nums)-3):
+#             for j in range(i+1, len(nums)-2):
+#                 left, right = j+1, len(nums)-1
+#                 while left < right:
+#                     total = nums[i] + nums[j] + nums[left] + nums[right] 
+#                     if total == target:
+#                         ans.add((nums[i], nums[j], nums[left], nums[right]))
+#                     if total < target:
+#                         left += 1
+#                     else:
+#                         right -= 1
+#         return list(map(list, ans))
 
 # 2022/09/21 author:WH
 # 感觉代码没有问题，但没能AC
@@ -144,13 +144,28 @@ class Solution:
 #                         q -= 1
 #         return res
 
-
+# 2022/11/12 author:WH
+class Solution:
+    def fourSum(self, nums, target):
+        nums.sort()
+        ans = set()
+        for i in range(len(nums)-3):
+            for j in range(len(nums)-2):
+                left, right = j+1, len(nums)-1
+                while left < right:
+                    if nums[i] + nums[j] + nums[left] + nums[right] == target:
+                        ans.add((nums[i], nums[j], nums[left], nums[right]))
+                    if nums[i] + nums[j] + nums[left] + nums[right] < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(map(list, ans))
 
 
 if __name__ == "__main__":
-    # nums = [1, 0, -1, 0, -2, 2]
-    # target = 0
-    nums = [2, 2, 2, 2, 2]
-    target = 8
+    nums = [1, 0, -1, 0, -2, 2]
+    target = 0
+    # nums = [2, 2, 2, 2, 2]
+    # target = 8
     result = Solution().fourSum(nums, target)
     print(result)
