@@ -125,22 +125,44 @@
 #         dummyNode.next = dumyNode.next.next
 #         return dummyNode.next
 
-# 2022/9/20  author:WH
-# 这个题目初始化部分有个坑，如果初始化快慢指针为头节点时，对于单个元素的用例可能不能AC
+# # 2022/9/20  author:WH
+# # 这个题目初始化部分有个坑，如果初始化快慢指针为头节点时，对于单个元素的用例可能不能AC
+# class ListNode:
+#     def __init__(self, val=0, next=None) -> None:
+#         self.val = val
+#         self.next = next
+# class Solution:
+#     def removeNthFromEnd(self, head, n):
+#         dummyNode = ListNode()
+#         dummyNode.next = head
+#         slow = fast = dummyNode
+#         while n:
+#             fast = fast.next
+#             n -= 1
+#         while fast.next:
+#             slow = slow.next
+#             fast = fast.next
+#         slow.next = slow.next.next
+#         return dummyNode.next
+
+# 2022/11/12 author:WH
 class ListNode:
-    def __init__(self, val=0, next=None) -> None:
+    def __init__(self, val, next=None):
         self.val = val
         self.next = next
+
 class Solution:
     def removeNthFromEnd(self, head, n):
-        dummyNode = ListNode()
-        dummyNode.next = head
-        slow = fast = dummyNode
+        dummy = ListNode(0, head)
+        slow = dummy
+        fast = head
         while n:
             fast = fast.next
             n -= 1
-        while fast.next:
-            slow = slow.next
+        while fast:
             fast = fast.next
+            slow = slow.next
+
         slow.next = slow.next.next
-        return dummyNode.next
+        return dummy.next
+

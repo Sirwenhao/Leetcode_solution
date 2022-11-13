@@ -1,0 +1,3 @@
+D:\SoftwareInstallation\CMake\bin\cmake.exe -E rm -f CMakeFiles\solution.dir/objects.a
+D:\SoftwareInstallation\mingw64\bin\ar.exe qc CMakeFiles\solution.dir/objects.a @CMakeFiles\solution.dir\objects1
+D:\SoftwareInstallation\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\solution.dir/objects.a -Wl,--no-whole-archive -o solution.exe -Wl,--out-implib,libsolution.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\solution.dir\linkLibs.rsp

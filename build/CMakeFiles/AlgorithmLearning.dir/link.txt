@@ -1,0 +1,3 @@
+D:\SoftwareInstallation\CMake\bin\cmake.exe -E rm -f CMakeFiles\AlgorithmLearning.dir/objects.a
+D:\SoftwareInstallation\mingw64\bin\ar.exe qc CMakeFiles\AlgorithmLearning.dir/objects.a @CMakeFiles\AlgorithmLearning.dir\objects1
+D:\SoftwareInstallation\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\AlgorithmLearning.dir/objects.a -Wl,--no-whole-archive -o AlgorithmLearning.exe -Wl,--out-implib,libAlgorithmLearning.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\AlgorithmLearning.dir\linkLibs.rsp

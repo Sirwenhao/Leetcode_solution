@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "ostream": "cpp"
+    },
+    "cmake.debugConfig": {
+        "externalConsole": true,
+    },
+    "cmake.configureOnOpen": false
+}
