@@ -145,24 +145,44 @@
 #         slow.next = slow.next.next
 #         return dummyNode.next
 
-# 2022/11/12 author:WH
+# # 2022/11/12 author:WH
+# class ListNode:
+#     def __init__(self, val, next=None):
+#         self.val = val
+#         self.next = next
+
+# class Solution:
+#     def removeNthFromEnd(self, head, n):
+#         dummy = ListNode(0, head)
+#         slow = dummy
+#         fast = head
+#         while n:
+#             fast = fast.next
+#             n -= 1
+#         while fast:
+#             fast = fast.next
+#             slow = slow.next
+#         slow.next = slow.next.next
+#         return dummy.next
+
+
+# 2022/11/13 author:WH
 class ListNode:
-    def __init__(self, val, next=None):
+    def __init__(self, val, next):
         self.val = val
         self.next = next
 
 class Solution:
     def removeNthFromEnd(self, head, n):
         dummy = ListNode(0, head)
-        slow = dummy
         fast = head
+        slow = dummy
         while n:
             fast = fast.next
             n -= 1
         while fast:
             fast = fast.next
             slow = slow.next
-
         slow.next = slow.next.next
         return dummy.next
 
