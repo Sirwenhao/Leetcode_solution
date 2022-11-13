@@ -207,10 +207,39 @@
 #             self.backtracking(digits, index+1)
 #             self.current = self.current[:-1] # 字符串的回溯
 
-# 2022/11/12 author:WH
+# # 2022/11/12 author:WH
+# class Solution:
+#     def __init__(self):
+#         self.res = []
+#         self.letter_map = {
+#             '2':'abc',
+#             '3':'def',
+#             '4':'ghi',
+#             '5':'jkl',
+#             '6':'mno',
+#             '7':'pqrs',
+#             '8':'tuv',
+#             '9':'wxyz'
+#             }
+
+#     def letterCombinations(self, digits):
+#         self.res.clear()
+#         if not digits: return []
+#         self.backtracking(digits, 0, '')
+#         return self.res
+
+#     def backtracking(self, digits, index, ans):
+#         if index == len(digits):
+#             self.res.append(ans)
+#             return
+#         letters = self.letter_map[digits[index]]
+#         for letter in letters:
+#             self.backtracking(digits, index+1, ans+letter)
+
+# 2022/11/13 author:WH
 class Solution:
     def __init__(self):
-        self.res = []
+        self.ans = []
         self.letter_map = {
             '2':'abc',
             '3':'def',
@@ -223,18 +252,19 @@ class Solution:
             }
 
     def letterCombinations(self, digits):
-        self.res.clear()
+        self.ans.clear()
         if not digits: return []
         self.backtracking(digits, 0, '')
-        return self.res
-
-    def backtracking(self, digits, index, ans):
+        return self.ans
+    def backtracking(self, digits, index, res):
         if index == len(digits):
-            self.res.append(ans)
+            self.ans.append(res)
             return
         letters = self.letter_map[digits[index]]
         for letter in letters:
-            self.backtracking(digits, index+1, ans+letter)
+            self.backtracking(digits, index+1, res+letter)
+
+    
 
 if __name__ == '__main__':
     digits = "23"
