@@ -123,7 +123,7 @@
 #         # 定义回溯函数结构体
 #         def backtracking(candidates, target, start_index, current):
 #             if sum(current) == target:
-#                 # 此处符合条件的当前解集以前拷贝的方式加入到结果集
+#                 # 此处符合条件的当前解集以浅拷贝的方式加入到结果集
 #                 ans.append(current[:])
 #                 return
 
@@ -141,7 +141,32 @@
 #         backtracking(candidates, target, 0, current)
 #         return ans
 
-# 2022/5/21 author:WH
+# # 2022/5/21 author:WH
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def combinationsSum(self, candidates, target):
+#         candidates.sort()
+#         self.ans.clear()    
+#         self.current.clear()
+#         self.backtracking(candidates, target, 0)
+#         return self.ans
+
+#     def backtracking(self, candidates, target, start_index):
+#         if sum(self.current) == target:
+#             self.ans.append(self.current[:])
+#             return
+#         for i in range(start_index, len(candidates)):
+#             # 如果不加上这个if语句，递归栈会炸
+#             if sum(self.current) > target:
+#                 return
+#             self.current.append(candidates[i])
+#             self.backtracking(candidates, target, i) # 关键点:不用i+1了，表示可以重复读取当前的数
+#             self.current.pop()
+
+# 2022/11/14 author:WH
 class Solution:
     def __init__(self):
         self.ans = []
@@ -149,22 +174,23 @@ class Solution:
 
     def combinationsSum(self, candidates, target):
         candidates.sort()
-        self.ans.clear()    
+        self.ans.clear()
         self.current.clear()
         self.backtracking(candidates, target, 0)
         return self.ans
 
     def backtracking(self, candidates, target, start_index):
         if sum(self.current) == target:
-            self.ans.append(self.current[:])
+            self.ans.append(self.current[:]) # 以浅拷贝的方式加入结果集
             return
         for i in range(start_index, len(candidates)):
-            # 如果不加上这个if语句，递归栈会炸
             if sum(self.current) > target:
                 return
             self.current.append(candidates[i])
-            self.backtracking(candidates, target, i) # 关键点:不用i+1了，表示可以重复读取当前的数
+            self.backtracking(candidates, target, i)
             self.current.pop()
+    
+
 
 if __name__ == '__main__':
     candidates = [2,7,6,3,1,5]
