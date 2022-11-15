@@ -8,7 +8,7 @@
 	"installers" : [],
 	"paths" : 
 	{
-		"build" : "CPP_Solution/easy",
-		"source" : "CPP_Solution/easy"
+		"build" : "CPP_Solution/middle",
+		"source" : "CPP_Solution/middle"
 	}
 }

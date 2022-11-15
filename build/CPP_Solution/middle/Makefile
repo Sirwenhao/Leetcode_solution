@@ -86,14 +86,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Learning\Leetcode_solution\build\CMakeFiles D:\Learning\Leetcode_solution\build\\CMakeFiles\progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
+	cd /d D:\Learning\Leetcode_solution\build && $(CMAKE_COMMAND) -E cmake_progress_start D:\Learning\Leetcode_solution\build\CMakeFiles D:\Learning\Leetcode_solution\build\CPP_Solution\middle\\CMakeFiles\progress.marks
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CPP_Solution/middle/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\Learning\Leetcode_solution\build\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 clean
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CPP_Solution/middle/clean
 .PHONY : clean
 
 # The main clean target
@@ -102,31 +102,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CPP_Solution/middle/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CPP_Solution/middle/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d D:\Learning\Leetcode_solution\build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named solution
+# Convenience name for target.
+CPP_Solution/middle/CMakeFiles/solution.dir/rule:
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CPP_Solution/middle/CMakeFiles/solution.dir/rule
+.PHONY : CPP_Solution/middle/CMakeFiles/solution.dir/rule
 
-# Build rule for target.
-solution: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 solution
+# Convenience name for target.
+solution: CPP_Solution/middle/CMakeFiles/solution.dir/rule
 .PHONY : solution
 
 # fast build rule for target.
 solution/fast:
-	$(MAKE) $(MAKESILENT) -f CPP_Solution\middle\CMakeFiles\solution.dir\build.make CPP_Solution/middle/CMakeFiles/solution.dir/build
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CPP_Solution\middle\CMakeFiles\solution.dir\build.make CPP_Solution/middle/CMakeFiles/solution.dir/build
 .PHONY : solution/fast
+
+leetcode_0022.obj: leetcode_0022.cpp.obj
+.PHONY : leetcode_0022.obj
+
+# target to build an object file
+leetcode_0022.cpp.obj:
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CPP_Solution\middle\CMakeFiles\solution.dir\build.make CPP_Solution/middle/CMakeFiles/solution.dir/leetcode_0022.cpp.obj
+.PHONY : leetcode_0022.cpp.obj
+
+leetcode_0022.i: leetcode_0022.cpp.i
+.PHONY : leetcode_0022.i
+
+# target to preprocess a source file
+leetcode_0022.cpp.i:
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CPP_Solution\middle\CMakeFiles\solution.dir\build.make CPP_Solution/middle/CMakeFiles/solution.dir/leetcode_0022.cpp.i
+.PHONY : leetcode_0022.cpp.i
+
+leetcode_0022.s: leetcode_0022.cpp.s
+.PHONY : leetcode_0022.s
+
+# target to generate assembly for a file
+leetcode_0022.cpp.s:
+	cd /d D:\Learning\Leetcode_solution\build && $(MAKE) $(MAKESILENT) -f CPP_Solution\middle\CMakeFiles\solution.dir\build.make CPP_Solution/middle/CMakeFiles/solution.dir/leetcode_0022.cpp.s
+.PHONY : leetcode_0022.cpp.s
 
 # Help Target
 help:
@@ -137,6 +162,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... solution
+	@echo ... leetcode_0022.obj
+	@echo ... leetcode_0022.i
+	@echo ... leetcode_0022.s
 .PHONY : help
 
 
@@ -148,6 +176,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d D:\Learning\Leetcode_solution\build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

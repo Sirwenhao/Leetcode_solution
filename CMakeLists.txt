@@ -10,4 +10,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 # find_package(Threads REQUIRED)
 # target_link_libraries(${PROJECT_NAME} Threads::Threads )
-add_subdirectory(./CPP_Solution/easy)
+add_subdirectory(./CPP_Solution/middle)

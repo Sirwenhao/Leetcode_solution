@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "D:/Learning/Leetcode_solution/CMakeLists.txt"
-  "D:/Learning/Leetcode_solution/CPP_Solution/easy/CMakeLists.txt"
+  "D:/Learning/Leetcode_solution/CPP_Solution/middle/CMakeLists.txt"
   "CMakeFiles/3.25.0-rc3/CMakeCCompiler.cmake"
   "CMakeFiles/3.25.0-rc3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.25.0-rc3/CMakeRCCompiler.cmake"
@@ -45,10 +45,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "CPP_Solution/easy/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "CPP_Solution/middle/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CPP_Solution/easy/CMakeFiles/solution.dir/DependInfo.cmake"
+  "CPP_Solution/middle/CMakeFiles/solution.dir/DependInfo.cmake"
   )

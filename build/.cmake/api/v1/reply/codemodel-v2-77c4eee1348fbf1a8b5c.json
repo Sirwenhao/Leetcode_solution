@@ -19,15 +19,15 @@
 					"source" : "."
 				},
 				{
-					"build" : "CPP_Solution/easy",
-					"jsonFile" : "directory-CPP_Solution.easy-Debug-b5028e85e54ec53faf49.json",
+					"build" : "CPP_Solution/middle",
+					"jsonFile" : "directory-CPP_Solution.middle-Debug-19c5de567fa96980afc0.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
 					},
 					"parentIndex" : 0,
 					"projectIndex" : 0,
-					"source" : "CPP_Solution/easy",
+					"source" : "CPP_Solution/middle",
 					"targetIndexes" : 
 					[
 						0
@@ -54,8 +54,8 @@
 			[
 				{
 					"directoryIndex" : 1,
-					"id" : "solution::@efa0d54973a60574e987",
-					"jsonFile" : "target-solution-Debug-e64d6d7c8a1ad8b6d07d.json",
+					"id" : "solution::@5671f691d401e1b95697",
+					"jsonFile" : "target-solution-Debug-e1785e2efc438442c7d5.json",
 					"name" : "solution",
 					"projectIndex" : 0
 				}

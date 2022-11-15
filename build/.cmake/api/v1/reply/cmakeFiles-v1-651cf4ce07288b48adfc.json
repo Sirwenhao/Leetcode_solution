@@ -146,7 +146,7 @@
 			"path" : "D:/SoftwareInstallation/CMake/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake"
 		},
 		{
-			"path" : "CPP_Solution/easy/CMakeLists.txt"
+			"path" : "CPP_Solution/middle/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

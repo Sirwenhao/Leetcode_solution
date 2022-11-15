@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<functional>
 
 using namespace std;
 
@@ -15,9 +16,15 @@ class Solution{
                 return;
             }
             dfs(l+1, r, t+"(");
-            def(l, r+1, t+")");
+            dfs(l, r+1, t+")");
         };
         dfs(0, 0, "");
         return ans;
     }
 };
+
+int main(){
+    cout << "Ssss" << endl;
+    system("pause");
+    return 0;
+}

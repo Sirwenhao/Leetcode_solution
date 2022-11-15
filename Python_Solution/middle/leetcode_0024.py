@@ -21,12 +21,28 @@
 # 具体操作为：temp.next = node2,node1.next=node2.next,node2.next = node1
 
 
-class Solution:
+# class Solution:
+#     def swapPairs(self, head):
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         temp = dummy
+
+#         while temp.next and temp.next.next:
+#             node1 = temp.next
+#             node2 = temp.next.next
+#             temp.next = node2
+#             node1.next = node2.next
+#             node2.next = node1
+#             temp = node1
+#         return dummy.next
+
+
+# 2022/11/14 author:WH
+class SOlution:
     def swapPairs(self, head):
         dummy = ListNode(0)
         dummy.next = head
         temp = dummy
-
         while temp.next and temp.next.next:
             node1 = temp.next
             node2 = temp.next.next
