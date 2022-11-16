@@ -42,7 +42,7 @@ class Solution:
         n = len(nums)
         slow, fast = 0, n-1
         i = 0
-        while i < fast:
+        while i <= fast:
             while i <= fast and nums[i] == 2:
                 nums[i], nums[fast] = nums[fast], nums[i]
                 fast -= 1
