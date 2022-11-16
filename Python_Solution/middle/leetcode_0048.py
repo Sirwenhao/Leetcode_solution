@@ -40,6 +40,7 @@
 # 此方法可解，但并非In-place办法
 class Solution:
     def rotateImage(self, matrix):
+        print(matrix)
         row, col = len(matrix), len(matrix[0])
         matrix_new = [[matrix[i][j] for i in range(row)] for j in range(col)]
         print(matrix_new)
@@ -64,3 +65,10 @@ if __name__ == "__main__":
     matrix = [[1,2,3],[4,5,6]]
     result = Solution().rotateImage(matrix)
     print(result)
+
+# numpy的转置矩阵
+import numpy as np
+matrix = [[1,2,3],[4,5,6]]
+matrix = np.array(matrix)
+matrix_T = matrix.T
+print('转置矩阵：',matrix_T)
