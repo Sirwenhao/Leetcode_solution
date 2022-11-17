@@ -34,17 +34,45 @@
 #         if right < left:
 #             self.backtracking(n, result, left, right+1, s+")")
 
-# 2022/11/13 author:github
-# DFS+剪枝
-# l代表左括号的数目，r代表右括号的数目，t表示当前形成的括号序列
+# # 2022/11/13 author:github
+# # DFS+剪枝
+# # l代表左括号的数目，r代表右括号的数目，t表示当前形成的括号序列
+# class Solution:
+#     def generateParenthesis(self, n):
+#         def dfs(l, r, t):
+#             if l > n or r > n or l < r:
+#                 return
+#             if l == n and r == n:
+#                 ans.append(t)
+#                 return
+#             dfs(l+1, r, t+'(')
+#             dfs(l, r+1, t+')')
+#         ans = []
+#         dfs(0, 0, '')
+#         return ans
+
+# 2022/11/17 author:WH
+# 错解，忘记了
+# class Solution:
+#     def generateParenthesis(self, n):
+#         def dfs(l, r, t):
+#             if l<0 or r<0 or l<r:
+#                 return
+#             if l==n and r==n:
+#                 ans.append(t)
+#             dfs(l+1, r, t+'(')
+#             dfs(l, r+1, t+')')
+#         ans = []
+#         dfs(0,0,'')
+#         return ans
+
 class Solution:
     def generateParenthesis(self, n):
         def dfs(l, r, t):
-            if l > n or r > n or l < r:
+            if l>n or r>n or l<r:
                 return
-            if l == n and r == n:
+            if l==n and r==n:
                 ans.append(t)
-                return
             dfs(l+1, r, t+'(')
             dfs(l, r+1, t+')')
         ans = []
