@@ -41,14 +41,50 @@
 #                 cur = cur.next
 #         return dummy_head.next
 
-# 2022/09/21 author:WH
+# # 2022/09/21 author:WH
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+# class Solution:
+#     def removeElements(self, head, val):
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         cur = dummy
+#         while cur.next:
+#             if cur.next.val == val:
+#                 cur.next = cur.next.next
+#             else:
+#                 cur = cur.next
+#         return dummy.next
+
+# # 2022/11/17 author:WH
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# class Solution:
+#     def removeElements(self, head, val):
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         cur = head
+#         while cur:
+#             if cur.val != val:
+#                 cur = cur.next
+#             else:
+#                 cur = cur.next.next
+#         return dummy.next
+            
+# 2022/11/17 author:WH
+# 对比上述错解
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, next=next):
         self.val = val
         self.next = next
-
 class Solution:
     def removeElements(self, head, val):
+        # 添加一个空节点指向头部作，方便处理
         dummy = ListNode(0)
         dummy.next = head
         cur = dummy
@@ -58,6 +94,7 @@ class Solution:
             else:
                 cur = cur.next
         return dummy.next
+
 
 if __name__ == "__main__":
     head = [1,2,3,4,5,6,7]
