@@ -40,8 +40,9 @@
 # 此方法可解，但并非In-place办法
 class Solution:
     def rotateImage(self, matrix):
-        print(matrix)
+        # print(matrix)
         row, col = len(matrix), len(matrix[0])
+        # 矩阵转置
         matrix_new = [[matrix[i][j] for i in range(row)] for j in range(col)]
         print(matrix_new)
         for i in range(len(matrix_new)):
@@ -56,6 +57,7 @@ class Solution:
 #             for j in range(n):
 #                 matrix[i][j], matrix[n-i-1][j] = matrix[n-1-i][j], matrix[i][j]
 #         for i in range(n):
+#             # 主对角线反转时，用这种方法相对较好
 #             for j in range(i):
 #                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 #         return matrix
