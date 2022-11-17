@@ -69,6 +69,7 @@
 class Solution:
     def generateParenthesis(self, n):
         def dfs(l, r, t):
+            # l < r是剪枝的条件，为什么是l小于r呢，因为构造括号要先构造左侧，再搭配右侧
             if l>n or r>n or l<r:
                 return
             if l==n and r==n:
