@@ -62,6 +62,22 @@ class Solution:
 #                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 #         return matrix
 
+# # 2022/11/19 author:WH
+# # 方法一：In-place, 上下翻转，主对角线对称翻转
+# # 写面经总结时，再一次忘掉了细节。这是错解，自己对比下重点理解
+# class Solution:
+#     def rotateImage(self, matrix):
+#         row, col = len(matrix), len(matrix[0])
+#         # 上下翻转
+#         for i in range(m//2):
+#             for j in range(n):
+#                 matrix[i][j], matrix[n-i-1][j] = matrix[n-i-1][j], matrix[i][j]
+#         # 主对角线翻转
+#         for i in range(n):
+#             for j in range(i):
+#                 matrix[i][j] = matrix[j][i]
+#         return matrix
+
 
 if __name__ == "__main__":
     matrix = [[1,2,3],[4,5,6]]
