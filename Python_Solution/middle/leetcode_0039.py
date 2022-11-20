@@ -166,13 +166,38 @@
 #             self.backtracking(candidates, target, i) # 关键点:不用i+1了，表示可以重复读取当前的数
 #             self.current.pop()
 
-# 2022/11/14 author:WH
+# # 2022/11/14 author:WH
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def combinationsSum(self, candidates, target):
+#         candidates.sort()
+#         self.ans.clear()
+#         self.current.clear()
+#         self.backtracking(candidates, target, 0)
+#         return self.ans
+
+#     def backtracking(self, candidates, target, start_index):
+#         if sum(self.current) == target:
+#             self.ans.append(self.current[:]) # 以浅拷贝的方式加入结果集
+#             return
+#         for i in range(start_index, len(candidates)):
+#             if sum(self.current) > target:
+#                 return
+#             self.current.append(candidates[i])
+#             self.backtracking(candidates, target, i)
+#             self.current.pop()
+    
+# 2022/11/20 author:WH
 class Solution:
     def __init__(self):
         self.ans = []
         self.current = []
 
     def combinationsSum(self, candidates, target):
+        # 先排序(没想到)
         candidates.sort()
         self.ans.clear()
         self.current.clear()
@@ -181,7 +206,7 @@ class Solution:
 
     def backtracking(self, candidates, target, start_index):
         if sum(self.current) == target:
-            self.ans.append(self.current[:]) # 以浅拷贝的方式加入结果集
+            self.ans.append(self.current[:])
             return
         for i in range(start_index, len(candidates)):
             if sum(self.current) > target:
