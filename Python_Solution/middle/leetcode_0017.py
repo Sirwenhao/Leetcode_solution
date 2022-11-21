@@ -264,11 +264,42 @@
 #         for letter in letters:
 #             self.backtracking(digits, index+1, res+letter)
 
-# 2022/11/20 author:WH
+# # 2022/11/20 author:WH
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.letter_dic = {
+#             '2':'abc',
+#             '3':'def',
+#             '4':'ghi',
+#             '5':'jkl',
+#             '6':'mno',
+#             '7':'pqrs',
+#             '8':'tuv',
+#             '9':'wxyz'
+#         }
+
+#     def letterCombinations(self, digits):
+#         self.ans.clear()
+#         if not digits:
+#             return []
+#         self.backtracking(digits, 0, '')
+#         return self.ans
+
+#     def backtracking(self, digits, index, cur):
+#         if index == len(digits):
+#             self.ans.append(cur)
+#             return self.ans
+#         for letter in self.letter_dic[digits[index]]:
+#             self.backtracking(digits, index+1, cur+letter)
+
+
+# 2022/11/21 author:WH
 class Solution:
     def __init__(self):
         self.ans = []
-        self.letter_dic = {
+        self.cur = ''
+        self.letter_map = {
             '2':'abc',
             '3':'def',
             '4':'ghi',
@@ -278,20 +309,21 @@ class Solution:
             '8':'tuv',
             '9':'wxyz'
         }
+    def backtracking(self, digits, i):
+        if len(self.cur) == len(digits):
+            self.ans.append(self.ans)
+        for letter in self.letter_map[digits[i]]:
+            if letter in self.cur:
+                continue
+            self.cur += letter
+            self.backtracking(digits, i+1)
+            self.cur.pop()
 
     def letterCombinations(self, digits):
         self.ans.clear()
-        if not digits:
-            return []
-        self.backtracking(digits, 0, '')
+        self.backtracking(digits, 0)
         return self.ans
 
-    def backtracking(self, digits, index, cur):
-        if index == len(digits):
-            self.ans.append(cur)
-            return self.ans
-        for letter in self.letter_dic[digits[index]]:
-            self.backtracking(digits, index+1, cur+letter)
 
 
 if __name__ == '__main__':
