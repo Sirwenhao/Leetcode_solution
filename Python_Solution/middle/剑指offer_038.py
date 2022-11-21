@@ -34,7 +34,7 @@
 #     def permutation(self, s):
 #         n = len(s)
 #         if n <= 1:
-#             return s
+#             return [s]
 #         ans = []
 #         for i in range(n):
 #             s1 = s[i]
@@ -65,27 +65,50 @@
 #         backtracking(s, '', 0)
 #         return list(set(res))
 
-# 2022/11/19 回溯
+# # 2022/11/19 回溯
+# class Solution:
+#     def permutation(self, s):
+#         def backtracking(s, index, end):
+#             if index == end-1:
+#                 res.append(''.join(s))
+#                 return
+#             dic = set()
+#             for i in range(index, end):
+#                 if s[i] in dic:continue
+#                 dic.add(s[i])
+#                 s[i], s[index] = s[index], s[i]
+#                 backtracking(s, index+1, end)
+#                 s[i], s[index] = s[index], s[i]
+
+#         res = []
+#         s = list(s)
+#         backtracking(s, 0, len(s))
+#         return res
+
+# 2022/11/20  author:WH
+# 没有办法解决重复字符问题，如aab
 class Solution:
+    def __init__(self):
+        self.ans = []
+        self.current = ''
+
     def permutation(self, s):
-        def backtracking(s, index, end):
-            if index == end-1:
-                res.append(''.join(s))
-                return
-            dic = set()
-            for i in range(index, end):
-                if s[i] in dic:continue
-                dic.add(s[i])
-                s[i], s[index] = s[index], s[i]
-                backtracking(s, index+1, end)
-                s[i], s[index] = s[index], s[i]
-
-        res = []
-        s = list(s)
-        backtracking(s, 0, len(s))
-        return res
-
-
+        self.ans.clear()
+        s = sorted(s)
+        self.backtracking(s, 0)
+        return self.ans
+        
+    def backtracking(self, s, start_index):
+        if len(self.current) == len(s):
+            self.ans.append(self.current[:])
+            return
+        for i in range(len(s)):
+            # 剪枝条件，如果当前字符已经在current中了，就跳过当前的这个找下一个
+            if i > 0 and s[i] == s[i-1]:
+                continue
+            self.current += s[i]
+            self.backtracking(s, start_index+1)
+            self.current = self.current[:-1]
 
 if __name__ == "__main__":
     s = "ABC"
