@@ -128,15 +128,13 @@ class Solution:
             self.ans.append(self.current)
             return
         for i in range(len(s)):
-            # if flag[i]:
-            #     continue
+            if flag[i]:
+                continue
             flag[i] = True
             self.current += s[i]
             self.backtracking(s, start_index+1, flag)
             flag[i] = False
             self.current = self.current[:-1]
-
-
 
 
 if __name__ == "__main__":
