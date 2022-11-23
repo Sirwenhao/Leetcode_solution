@@ -21,8 +21,7 @@ private:
             sum -= candidates[i];
             path.pop_back();
         }
-}
-
+    }
 public:
     vector<vector<int>> combinationsSum(vector<int>& candidates, int target){
         result.clear();
@@ -31,3 +30,4 @@ public:
         backtracking(candidates, target, 0, 0);
         return result;
     }
+};
