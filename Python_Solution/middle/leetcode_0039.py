@@ -215,6 +215,32 @@ class Solution:
             self.backtracking(candidates, target, i)
             self.current.pop()
     
+# # 2022/11/23 author:WH
+# # 与上述解答案不一致，此处去重的逻辑不太一样，体会一下
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+    
+#     def combinationsSum(self, candidates, target):
+#         candidates.sort()
+#         self.ans.clear()
+#         self.current.clear()
+#         self.backtracking(candidates, target, 0)
+#         return self.ans
+
+#     def backtracking(self, candidates, target, start_index):
+#         if sum(self.current) == target:
+#             # 此处加入结果集是要使用浅拷贝的形式
+#             self.ans.append(self.current[:])
+#             return
+#         for i in range(start_index, len(candidates)):
+#             if sum(self.current) > target:
+#                 continue
+#             self.current.append(candidates[i])
+#             self.backtracking(candidates, target, start_index+1)
+#             self.current.pop()
+
 
 
 if __name__ == '__main__':
