@@ -107,10 +107,34 @@
 # print(result)
 # print(list)
 
-# 2022/6/1 author:WH  双指针解法
+# # 2022/6/1 author:WH  双指针解法
+# class Solution:
+#     def removeDuplicates(self, nums):
+#         if len(nums) == 0:
+#             return False
+#         slow = fast = 0
+#         for fast in range(1, len(nums)):
+#             if nums[slow] != nums[fast]:
+#                 slow += 1
+#                 nums[slow] = nums[fast]
+#         return nums
+
+# # 2022/11/24  author:WH
+# class Solution:
+#     def removeDuplicates(self, nums):
+#         slow = 0 
+#         for fast in range(slow, len(nums)):
+#             if nums[fast] > nums[slow]:
+#                 nums[fast], nums[slow+1] = nums[slow+1], nums[fast]
+#                 slow += 1
+#             else:
+#                 continue
+#         return nums
+
+# 2022/11/14  author:WH
 class Solution:
     def removeDuplicates(self, nums):
-        if len(nums) == 0:
+        if not nums:
             return False
         slow = fast = 0
         for fast in range(1, len(nums)):
