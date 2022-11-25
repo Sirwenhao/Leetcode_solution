@@ -124,7 +124,33 @@
 #         backtracking(nums)
 #         return ans
 
-# 2022/5/31 author:WH
+# # 2022/5/31 author:WH
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def permute(self, nums):
+#         self.ans.clear()
+#         self.current.clear()
+#         self.backtracking(nums)
+#         return self.ans
+
+#     def backtracking(self, nums):
+#         if len(self.current) == len(nums):
+#             self.ans.append(self.current[:])
+#             return
+
+#         for i in range(len(nums)):
+#             # 子集中的元素不能重复
+#             if nums[i] in self.current:
+#                 continue
+#             self.current.append(nums[i])
+#             self.backtracking(nums)
+#             self.current.pop()
+
+
+# 2022/11/26 author:WH
 class Solution:
     def __init__(self):
         self.ans = []
@@ -133,6 +159,7 @@ class Solution:
     def permute(self, nums):
         self.ans.clear()
         self.current.clear()
+        nums.sort()
         self.backtracking(nums)
         return self.ans
 
@@ -140,14 +167,13 @@ class Solution:
         if len(self.current) == len(nums):
             self.ans.append(self.current[:])
             return
-
         for i in range(len(nums)):
-            # 子集中的元素不能重复
             if nums[i] in self.current:
                 continue
             self.current.append(nums[i])
             self.backtracking(nums)
             self.current.pop()
+
 
 if __name__ == "__main__":
     nums = [1,2,3]
