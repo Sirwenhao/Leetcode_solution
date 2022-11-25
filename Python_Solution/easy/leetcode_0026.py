@@ -98,7 +98,6 @@
 #                 cnt += 1
 #                 left += 1
 #                 nums[left] = nums[right]
-
 #         return cnt+1
 
 # list = [0,0,1,1,1,2,2,3,3,4]
@@ -119,29 +118,29 @@
 #                 nums[slow] = nums[fast]
 #         return nums
 
-# # 2022/11/24  author:WH
-# class Solution:
-#     def removeDuplicates(self, nums):
-#         slow = 0 
-#         for fast in range(slow, len(nums)):
-#             if nums[fast] > nums[slow]:
-#                 nums[fast], nums[slow+1] = nums[slow+1], nums[fast]
-#                 slow += 1
-#             else:
-#                 continue
-#         return nums
-
-# 2022/11/14  author:WH
+# 2022/11/24  author:WH
 class Solution:
     def removeDuplicates(self, nums):
-        if not nums:
-            return False
-        slow = fast = 0
-        for fast in range(1, len(nums)):
-            if nums[slow] != nums[fast]:
+        slow = 0 
+        for fast in range(slow, len(nums)):
+            if nums[fast] > nums[slow]:
+                nums[fast], nums[slow+1] = nums[slow+1], nums[fast]
                 slow += 1
-                nums[slow] = nums[fast]
-        return nums
+            else:
+                continue
+        return slow+1
+
+# # 2022/11/14  author:WH
+# class Solution:
+#     def removeDuplicates(self, nums):
+#         if not nums:
+#             return False
+#         slow = fast = 0
+#         for fast in range(1, len(nums)):
+#             if nums[slow] != nums[fast]:
+#                 slow += 1
+#                 nums[slow] = nums[fast]
+#         return slow+1
 
 if __name__ == "__main__":
     nums = [0,0,1,1,1,2,2,3,3,4]
