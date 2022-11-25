@@ -116,7 +116,11 @@ class Solution:
         for i in range(start_index, len(candidates)):
             if sum(self.current) > target:
                 continue
+            # 这个去重的条件还是没搞明白,树层去重
             if i>start_index and candidates[i] == candidates[i-1]:
+                continue
+            # 树层去重
+            if i!=start_index and candidates[i] == candidates[i-1]:
                 continue
             self.current.append(candidates[i])
             self.backtracing(candidates, target, i+1)
