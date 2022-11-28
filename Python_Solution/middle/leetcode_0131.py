@@ -50,8 +50,32 @@
 #             else:
 #                 continue      
 
-# 2022/11/26  author:WH
-# 没写出来
+# # 2022/11/26  author:WH
+# # 没写出来
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def partition(self, s):
+#         self.ans.clear()
+#         self.backtracking(s, 0)
+#         return self.ans
+
+#     # 设置start_index为字符串分割的起始位置
+#     def backtracking(self, s, start_index):
+#         if start_index >= len(s):
+#             self.ans.append(self.current[:])
+#             return
+#         for i in range(start_index, len(s)):
+#             if s[start_index:i+1][::1] == s[start_index:i+1][::-1]:
+#                 self.current.append(s[start_index:i+1])
+#                 self.backtracking(s, i+1)
+#                 self.current.pop()
+#             else:
+#                 continue
+
+# 2022/11/28  author:WH
 class Solution:
     def __init__(self):
         self.ans = []
@@ -59,10 +83,10 @@ class Solution:
 
     def partition(self, s):
         self.ans.clear()
+        self.current.clear()
         self.backtracking(s, 0)
         return self.ans
 
-    # 设置start_index为字符串分割的起始位置
     def backtracking(self, s, start_index):
         if start_index >= len(s):
             self.ans.append(self.current[:])
@@ -73,9 +97,7 @@ class Solution:
                 self.backtracking(s, i+1)
                 self.current.pop()
             else:
-                continue
-
-
+                continue 
 
 if __name__ == "__main__":
     s = "aab"
