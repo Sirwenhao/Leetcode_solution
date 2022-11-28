@@ -116,6 +116,7 @@ class Solution:
             return
 
         for i in range(start_index, len(s)):
+            # [start_index, i]就是被截取的子串
             if self.isValid(s, start_index, i):
                 s = s[:i+1] + '.' + s[i+1:]
                 # 此处的i+2是因为前段加入了.所以后延
