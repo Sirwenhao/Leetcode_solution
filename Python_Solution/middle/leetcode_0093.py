@@ -91,46 +91,81 @@
 #             return False
 #         return True
 
-# 2022/11/28  author:WH
-# 参考代码随想录答案，核心点在于分割字符串和回溯终止的判断条件
+# # 2022/11/28  author:WH
+# # 参考代码随想录答案，核心点在于分割字符串和回溯终止的判断条件
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+
+#     def restoreIPAddress(self, s):
+#         self.ans.clear()
+#         if len(s) > 12:
+#             return []
+#         self.backtracking(s, 0, 0)
+#         return self.ans
+
+#     def backtracking(self, s, start_index, dotNum):
+#         # 此处写错，递归终止的条件应该是在原字符串中顺利加入三个.分隔
+#         # if self.isValid(start_index, end, s):
+#         #     self.ans.append(s[:] + '.')
+#         #     return
+#         if dotNum == 3:
+#             # 等于3时还需判断最后剩余的部分是否合法
+#             if self.isValid(s, start_index, len(s)-1):
+#                 self.ans.append(s[:])
+#             return
+
+#         for i in range(start_index, len(s)):
+#             # [start_index, i]就是被截取的子串
+#             if self.isValid(s, start_index, i):
+#                 s = s[:i+1] + '.' + s[i+1:]
+#                 # 此处的i+2是因为前段加入了.所以后延
+#                 self.backtracking(s, i+2, dotNum+1)
+#                 # 回溯是把加入的.去掉
+#                 s = s[:i+1] + s[i+2:]
+#             else:
+#                 break
+        
+
+#     def isValid(self, s, start, end):
+#         if start > end:
+#             return False
+#         if s[start] == '0' and start != end:
+#             return False
+#         if not 0 <= int(s[start:end+1]) <= 255:
+#             return False
+#         return True
+
+# 2022/11/29 author:WH
+# 重写
 class Solution:
     def __init__(self):
         self.ans = []
 
     def restoreIPAddress(self, s):
         self.ans.clear()
-        if len(s) > 12:
-            return []
         self.backtracking(s, 0, 0)
         return self.ans
 
     def backtracking(self, s, start_index, dotNum):
-        # 此处写错，递归终止的条件应该是在原字符串中顺利加入三个.分隔
-        # if self.isValid(start_index, end, s):
-        #     self.ans.append(s[:] + '.')
-        #     return
         if dotNum == 3:
-            # 等于3时还需判断最后剩余的部分是否合法
             if self.isValid(s, start_index, len(s)-1):
-                self.ans.append(s[:])
+                self.ans.append(s[:] + '.') # 漏掉+ '.'
             return
 
         for i in range(start_index, len(s)):
-            # [start_index, i]就是被截取的子串
             if self.isValid(s, start_index, i):
                 s = s[:i+1] + '.' + s[i+1:]
-                # 此处的i+2是因为前段加入了.所以后延
-                self.backtracking(s, i+2, dotNum+1)
-                # 回溯是把加入的.去掉
+                self.backtracking(s, i+2, dotNum+1) # i+2写成i+1
                 s = s[:i+1] + s[i+2:]
             else:
                 break
-        
+
 
     def isValid(self, s, start, end):
-        if start > end:
-            return False
         if s[start] == '0' and start != end:
+            return False
+        if start > end:
             return False
         if not 0 <= int(s[start:end+1]) <= 255:
             return False
