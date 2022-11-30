@@ -107,7 +107,7 @@
 #     def backtracking(self, s, start_index, dotNum):
 #         # 此处写错，递归终止的条件应该是在原字符串中顺利加入三个.分隔
 #         # if self.isValid(start_index, end, s):
-#         #     self.ans.append(s[:] + '.')
+#         #     self.ans.append(s[:] + '.')  # 错误，此处没有加入'.'的操作
 #         #     return
 #         if dotNum == 3:
 #             # 等于3时还需判断最后剩余的部分是否合法
@@ -136,8 +136,43 @@
 #             return False
 #         return True
 
-# 2022/11/29 author:WH
-# 重写
+# # 2022/11/29 author:WH
+# # 重写
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+
+#     def restoreIPAddress(self, s):
+#         self.ans.clear()
+#         self.backtracking(s, 0, 0)
+#         return self.ans
+
+#     def backtracking(self, s, start_index, dotNum):
+#         if dotNum == 3:
+#             if self.isValid(s, start_index, len(s)-1):
+#                 self.ans.append(s[:])
+#             return
+
+#         for i in range(start_index, len(s)):
+#             if self.isValid(s, start_index, i):
+#                 s = s[:i+1] + '.' + s[i+1:]
+#                 self.backtracking(s, i+2, dotNum+1) # i+2写成i+1
+#                 s = s[:i+1] + s[i+2:]
+#             else:
+#                 break
+
+
+#     def isValid(self, s, start, end):
+#         if s[start] == '0' and start != end:
+#             return False
+#         if start > end:
+#             return False
+#         if not 0 <= int(s[start:end+1]) <= 255:
+#             return False
+#         return True
+
+# 2022/11/30 author:WH
+# 重写，第三遍重写依旧有错误出现，说明理解的还是不够深刻
 class Solution:
     def __init__(self):
         self.ans = []
@@ -150,17 +185,15 @@ class Solution:
     def backtracking(self, s, start_index, dotNum):
         if dotNum == 3:
             if self.isValid(s, start_index, len(s)-1):
-                self.ans.append(s[:] + '.') # 漏掉+ '.'
+                self.ans.append(s[:]) # 此处没有加入'.'的操作
             return
-
         for i in range(start_index, len(s)):
             if self.isValid(s, start_index, i):
                 s = s[:i+1] + '.' + s[i+1:]
-                self.backtracking(s, i+2, dotNum+1) # i+2写成i+1
+                self.backtracking(s, i+2, dotNum+1)
                 s = s[:i+1] + s[i+2:]
             else:
                 break
-
 
     def isValid(self, s, start, end):
         if s[start] == '0' and start != end:
@@ -170,6 +203,7 @@ class Solution:
         if not 0 <= int(s[start:end+1]) <= 255:
             return False
         return True
+
 
 if __name__ == "__main__":
     s = "25525511135"
