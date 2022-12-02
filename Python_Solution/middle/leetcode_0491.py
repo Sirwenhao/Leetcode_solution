@@ -82,6 +82,35 @@
 #             self.backtracking(nums, i+1)
 #             self.current.pop()
 
+# class Solution:
+#     def __init__(self):
+#         self.ans = []
+#         self.current = []
+
+#     def findSubsequences(self, nums):
+#         self.ans.clear()
+#         self.current.clear()
+#         self.backtracking(nums, 0)
+#         return self.ans
+    
+#     def backtracking(self, nums, start_index):
+#         if len(self.current) >= 2:
+#             self.ans.append(self.current[:])
+
+#         if len(self.current) == len(nums):
+#             return
+        
+#         usedList = set()
+#         for i in range(start_index, len(nums)):
+#             if (self.current and nums[i] < self.current[-1]) or nums[i] in usedList:
+#                 continue
+#             usedList.add(nums[i])
+#             self.current.append(nums[i])
+#             self.backtracking(nums, i+1)
+#             self.current.pop()
+
+# 2022/12/01  author:WH
+# 感觉此做法应该没有问题
 class Solution:
     def __init__(self):
         self.ans = []
@@ -92,22 +121,33 @@ class Solution:
         self.current.clear()
         self.backtracking(nums, 0)
         return self.ans
-    
+
     def backtracking(self, nums, start_index):
         if len(self.current) >= 2:
             self.ans.append(self.current[:])
-
-        if len(self.current) == len(nums):
-            return
         
-        usedList = set()
+        if start_index == len(nums):
+            return
+        # 创建一个集合用于剪枝，剪掉重复出现的元素
+        used_Num = set()
         for i in range(start_index, len(nums)):
-            if (self.current and nums[i] < self.current[-1]) or nums[i] in usedList:
+            # # 这个去重逻辑适用于已排序的nums去掉相邻的重复元素，此处数组并未排序因此并不适用
+            # if i > start_index and nums[i] == nums[i-1]:
+            #     continue
+            if self.current and nums[i] < self.current[-1] or nums[i] in used_Num:
                 continue
-            usedList.add(nums[i])
+            used_Num.add(nums[i])
             self.current.append(nums[i])
             self.backtracking(nums, i+1)
             self.current.pop()
+
+    # # 这个判断的逻辑写的有问题，递增的判断并没有实现对应的功能
+    # def isValid(self, nums):
+    #     if len(nums) >= 2 and (nums[i-1] <= nums[i] for i in range(1, len(nums))):
+    #         return True
+    #     return False
+
+
 
 if __name__ == "__main__":
     nums = [4,7,6,7]
