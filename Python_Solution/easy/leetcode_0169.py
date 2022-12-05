@@ -20,17 +20,26 @@
 # 投票算法：原理是通过消除不同元素直至没有不同元素，剩下的就是满足条件的元素，关键在于消除不同元素。
 # 投票算法的最坏情况，是每一个非众数元素都与众数元素进行消除
 
-def majorityElement(nums):
-    count, majority = 1, nums[0]
-    for num in nums[1:]:
-        if count == 0:
-            majority = num
-        if num == majority:
-            count += 1
-        else:
-            count -= 1
-    return majority
+# def majorityElement(nums):
+#     count, majority = 1, nums[0]
+#     for num in nums[1:]:
+#         if count == 0:
+#             majority = num
+#         if num == majority:
+#             count += 1
+#         else:
+#             count -= 1
+#     return majority
+
+# 2022/12/05 author:WH
+from collections import Counter
+class Solution:
+    def majorityElement(self, nums):
+        dic = Counter(nums)
+        for key, value in dic.items():
+            if value > len(nums) // 2:
+                return key
 
 nums = [3,2,3]
-result = majorityElement(nums)
+result = Solution().majorityElement(nums)
 print(result)
