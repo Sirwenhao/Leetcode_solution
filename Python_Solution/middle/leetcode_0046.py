@@ -169,7 +169,7 @@ class Solution:
             return
         for i in range(len(nums)):
             if nums[i] in self.current:
-                continue
+                continue    
             self.current.append(nums[i])
             self.backtracking(nums)
             self.current.pop()
