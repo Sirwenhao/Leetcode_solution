@@ -36,9 +36,12 @@ from collections import Counter
 class Solution:
     def majorityElement(self, nums):
         dic = Counter(nums)
-        for key, value in dic.items():
-            if value > len(nums) // 2:
-                return key
+        # for key, value in dic.items():
+        #     if value > len(nums) // 2:
+        #         return key
+        # 使用Counter内置的most_common()函数
+        return dic.most_common(1)[0][0]
+
 
 nums = [3,2,3]
 result = Solution().majorityElement(nums)
