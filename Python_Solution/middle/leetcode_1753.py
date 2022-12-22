@@ -31,6 +31,15 @@
 #             s.sort()
 #         return ans
 
+# 2022/12/22  author:github
+class Solution:
+    def maximumScore(self, a, b, c):
+        a, b, c = sorted([a, b, c])
+        if a+b < c:
+            return a+b
+        return (a+b+c) >> 1 # python数字右移操作，每右移一位相当于除2，右移n位相当于除以2的n次方，取商而不是余数
+        
+
 if __name__ == "__main__":
     a = 2
     b = 4
