@@ -31,14 +31,25 @@
 #             s.sort()
 #         return ans
 
-# 2022/12/22  author:github
+# # 2022/12/22  author:github
+# class Solution:
+#     def maximumScore(self, a, b, c):
+#         a, b, c = sorted([a, b, c])
+#         if a+b < c:
+#             return a+b
+#         return (a+b+c) >> 1 # python数字右移操作，每右移一位相当于除2，右移n位相当于除以2的n次方，取商而不是余数
+
+# 2022/12/23 author:WH
 class Solution:
     def maximumScore(self, a, b, c):
+        # v = sorted([a, b, c])
+        # a, b, c = v
+        # 上述两行代码的简化
         a, b, c = sorted([a, b, c])
-        if a+b < c:
+        if a+b <= c:
             return a+b
-        return (a+b+c) >> 1 # python数字右移操作，每右移一位相当于除2，右移n位相当于除以2的n次方，取商而不是余数
-        
+        return (a+b+c) >> 1
+
 
 if __name__ == "__main__":
     a = 2
