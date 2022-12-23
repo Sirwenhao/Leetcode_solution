@@ -1,5 +1,5 @@
 # 2022/12/23  author:WH
-# 时间复杂度:O(N)
+# 时间复杂度:O(N)，空间复杂度:O(1)
 # class Solution:
 #     def finalValueAfterOperations(self, operations):
 #         X = 0
