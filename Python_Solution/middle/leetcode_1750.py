@@ -12,6 +12,19 @@ class Solution:
             left, right = left+1, right-1
         return max(0, right-left+1)
 
+# 2022/12/28  author:官解
+class Solution:
+    def minimumLength(self, s):
+        left, right = 0, len(s) - 1
+        while left < right and s[left] == s[right]:
+            c = s[left]
+            while left <= right and s[left] == c:
+                left += 1
+            while right >= left and s[right] == c:
+                right -= 1
+        return right - left + 1
+
+
 if __name__ == "__main__":
     # s = "cabaabac"
     s = "aabccabba"
