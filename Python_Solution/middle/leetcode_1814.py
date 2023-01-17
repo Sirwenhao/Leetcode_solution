@@ -1,5 +1,5 @@
 # 2023/1/17  author:WH
-# 回溯解法
+# 时间复杂度过高，O(n*(n-1)), 空间复杂度O(1)
 
 class Solution:
     def countNicePairs(self, nums):
@@ -11,7 +11,7 @@ class Solution:
                 else:
                     continue
         return ans
-        
+
 
 if __name__ ==  "__main__":
     nums = [42, 11, 1, 97]
