@@ -12,17 +12,23 @@
 #                     continue
 #         return ans
 
-# leetcode官解
-from collections import Counter
-class Solution:
-    def countNicePairs(self, nums):
-        ans = 0
-        cnt = Counter()
-        for i in nums:
-            j = int(str(i)[::-1])
-            ans += cnt[i - j]
-            cnt[i - j] += 1
-        return ans % (10 ** 9 + 7)
+# # leetcode官解
+# from collections import Counter
+# class Solution:
+#     def countNicePairs(self, nums):
+#         ans = 0
+#         cnt = Counter()
+#         for i in nums:
+#             j = int(str(i)[::-1])
+#             ans += cnt[i - j]
+#             cnt[i - j] += 1
+#         return ans % (10 ** 9 + 7)
+
+
+# # github解法
+# class Solution:
+#     def countNicePairs(self, nums):
+
 
 if __name__ ==  "__main__":
     nums = [42, 11, 1, 97]
