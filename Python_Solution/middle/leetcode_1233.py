@@ -17,15 +17,27 @@
 #                 ans.append(i)
 #         return ans
 
-# leetcode官解
+# # leetcode官解
+# class Solution:
+#     def removeSubfolders(self, folder):
+#         folder.sort()
+#         ans = [folder[0]]
+#         for i in range(1, len(folder)):
+#             if not ((pre := len(ans[-1])) < len(folder[i]) and ans[-1] == folder[i][:pre] and folder[i][pre] == "/"):
+#                 ans.append(folder[i])
+#         return ans
+
+# github
 class Solution:
     def removeSubfolders(self, folder):
         folder.sort()
         ans = [folder[0]]
-        for i in range(1, len(folder)):
-            if not ((pre := len(ans[-1])) < len(folder[i]) and ans[-1] == folder[i][:pre] and folder[i][pre] == "/"):
-                ans.append(folder[i])
+        for f in folder[1:]:
+            m, n = len(ans[-1]), len(f)
+            if m >= n or not (ans[:-1] == f[:m] and f[m] == '/'):
+                ans.append(f)
         return ans
+
 
 if __name__ == "__main__":
     # folder = ["/a","/a/b","/c/d","/c/d/e","/c/f"]
