@@ -27,16 +27,20 @@
 #                 ans.append(folder[i])
 #         return ans
 
-# github
+# # github 时间复杂度 O(n×logn×m)，空间复杂度 O(m)。其中 n 和 m 分别为数组 folder 的长度和数组 folder 中字符串的最大长度。
+# class Solution:
+#     def removeSubfolders(self, folder):
+#         folder.sort()
+#         ans = [folder[0]]
+#         for f in folder[1:]:
+#             m, n = len(ans[-1]), len(f)
+#             if m >= n or not (ans[:-1] == f[:m] and f[m] == '/'):
+#                 ans.append(f)
+#         return ans
+
+# 字典树
 class Solution:
     def removeSubfolders(self, folder):
-        folder.sort()
-        ans = [folder[0]]
-        for f in folder[1:]:
-            m, n = len(ans[-1]), len(f)
-            if m >= n or not (ans[:-1] == f[:m] and f[m] == '/'):
-                ans.append(f)
-        return ans
 
 
 if __name__ == "__main__":
