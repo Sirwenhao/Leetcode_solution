@@ -2,7 +2,6 @@
 # 参考github解法
 from heapq import heapify, heappop, heappush
 
-
 class Solution:
     def maxAverageRatio(self, classes, extraStudents):
         h = [(a/b - (a+1)/(b+1), a, b) for a,b in classes]
