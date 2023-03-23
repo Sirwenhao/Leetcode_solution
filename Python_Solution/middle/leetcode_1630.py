@@ -40,6 +40,7 @@ class Solution:
             return mod == 0 and all((a1 + (i-1)*d) in s for i in range(1, n))
         return [check(nums, left, right) for left, right in zip(l, r)]
 
+
 if __name__ == "__main__":
     nums = [4,6,5,9,3,7]
     l = [0,0,2]
