@@ -1,24 +1,34 @@
 # 2023/3/26  author:WH
 
+# class Solution:
+#     def findSubarrays(self, nums):
+#         # start = 0
+#         # while start < len(nums)-3:
+#         #     for i in range(start, len(nums)-3):
+#         #         # print(i)
+#         #         # print(sum(nums[i:i+2]))
+#         #         if sum(nums[i:i+2]) == sum(nums[i+1:i+3]):
+#         #             return True
+#         #     start += 1
+#         # return False
+#         lst = set()
+#         for i in range(len(nums)-1):
+#             if nums[i]+nums[i+1] not in lst:
+#                 lst.add(nums[i]+nums[i+1])
+#             else:
+#                 return True
+#         return False
+
+
+from itertools import pairwise
 class Solution:
     def findSubarrays(self, nums):
-        # start = 0
-        # while start < len(nums)-3:
-        #     for i in range(start, len(nums)-3):
-        #         # print(i)
-        #         # print(sum(nums[i:i+2]))
-        #         if sum(nums[i:i+2]) == sum(nums[i+1:i+3]):
-        #             return True
-        #     start += 1
-        # return False
-        lst = set()
-        for i in range(len(nums)-1):
-            if nums[i]+nums[i+1] not in lst:
-                lst.add(nums[i]+nums[i+1])
-            else:
+        vis = set()
+        for a,b in pairwise(nums):
+            if (x := a+b):  # 海象运算符
                 return True
+            vis.add(x)
         return False
-
 
 
 if __name__ == "__main__":
