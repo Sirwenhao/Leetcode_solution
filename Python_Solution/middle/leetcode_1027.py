@@ -1,4 +1,5 @@
 # 2023/4/23  author:WH
+# 动态规划解法：f[i][j]表示以nums[i]为最后一个元素，j为公差的等差序列的最大长度
 
 class Solution:
     def longestArithSeqLength(self, nums):
