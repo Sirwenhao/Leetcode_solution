@@ -12,14 +12,25 @@
 #                     ans += 1
 #         return ans
 
-# github答案
+# # github答案
 from collections import Counter
+# class Solution:
+#     def numPairsDivisibleBy60(self, time):
+#         cnt = Counter(t % 60 for t in time)
+#         ans = sum(cnt[x] * cnt[60 - x] for x in range(1, 30))
+#         ans += cnt[0] * (cnt[0] - 1) // 2
+#         ans += cnt[30] * (cnt[30] - 1) // 2
+#         return ans
+
 class Solution:
     def numPairsDivisibleBy60(self, time):
-        cnt = Counter(t % 60 for t in time)
-        ans = sum(cnt[x] * cnt[60 - x] for x in range(1, 30))
-        ans += cnt[0] * (cnt[0] - 1) // 2
-        ans += cnt[30] * (cnt[30] - 1) // 2
+        cnt = Counter()
+        ans = 0
+        for x in time:
+            x %= 60
+            y = (60 - x) % 60
+            ans += cnt[y]
+            cnt[x] += 1
         return ans
 
     
