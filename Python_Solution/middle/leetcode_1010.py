@@ -9,8 +9,6 @@
 #         for i in range(n-1):
 #             for j in range(i+1, n):
 #                 if (time[i] + time[j]) % 60 != 0:
-#                     continue
-#                 else:
 #                     ans += 1
 #         return ans
 
