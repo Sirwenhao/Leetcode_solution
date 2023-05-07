@@ -33,8 +33,31 @@ class Solution:
             cnt[x] += 1
         return ans
 
+# # 超出内存限制
+# import itertools
+# class Solution:
+#     def numPairsDivisibleBy60(self, time):
+#         list1 = list(itertools.combinations(time, 2))
+#         ans = 0
+#         for i in list1:
+#             if sum(i) % 60 == 0:
+#                 ans += 1
+#         return ans
+
     
 if __name__ == "__main__":
     time = [30, 20, 150, 100, 40]
     result = Solution().numPairsDivisibleBy60(time)
     print(result)
+
+
+
+# import itertools
+# time = [30, 20, 150, 100, 40]
+# list1 = list(itertools.combinations(time, 2))
+# print(list1)
+# ans = 0
+# for i in list1:
+#     if sum(i) % 60 == 0:
+#         ans += 1
+# print(ans)
