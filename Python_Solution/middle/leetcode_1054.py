@@ -50,4 +50,3 @@ if __name__ == "__main__":
     barcodes = [1,1,1,2,2,2]
     result = Solution().rearrangeBarcodes(barcodes)
     print(result)
-            
