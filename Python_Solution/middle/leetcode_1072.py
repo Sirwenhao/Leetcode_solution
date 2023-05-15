@@ -1,6 +1,7 @@
 # 2023/5/15  author:WH
 
 # 没有看出来此题的本质是找等价行，所谓等价行指相同的或者互补的行
+# 将所有行的第一个元素统一变为0, 然后用哈希表统计转换后每一行出现的次数，出现次数最多的即为所求
 from collections import Counter
 class Solution:
     def maxEqualRowsAfterFlips(self, matrix):
