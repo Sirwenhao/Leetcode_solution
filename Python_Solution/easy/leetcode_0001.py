@@ -10,7 +10,7 @@
 #         for i in range(l):
 #             for j in range(l+1, l): #注意起点l+1
 #                 if nums[i] + nums[j] == target:
-#                     return [i, j ]
+#                     return [i, j]
 #         return []
 
 
