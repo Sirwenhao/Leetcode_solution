@@ -61,7 +61,7 @@ class Solution:
             if target - val not in dic:
                 dic[val] = idx
             else:
-                return [idx, dic[target-val]]
+                return [dic[target-val], idx]
 
 
 if __name__ == "__main__":
