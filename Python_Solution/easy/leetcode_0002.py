@@ -22,10 +22,10 @@ class Solution:
         return ans.next
 
 
-# if __name__ == "__main__":
-#     a1 = [2,4,3]
-#     a2 = [5,6,4]
-#     l1 = ListNode(a1)
-#     l2 = ListNode(a2)
-#     result = Solution().addTwoNumbers(l1, l2)
-#     print(result)
+if __name__ == "__main__":
+    a1 = [2,4,3]
+    a2 = [5,6,4]
+    l1 = ListNode(a1)
+    l2 = ListNode(a2)
+    result = Solution().addTwoNumbers(l1, l2)
+    print(result)
