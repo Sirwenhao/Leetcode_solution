@@ -67,21 +67,44 @@
 #             ans = max(ans, right-left+1)
 #         return ans
 
+# class Solution:
+#     def lengthOfLongestSubstring(self, s):
+#         dir = set()
+#         left = ans = 0
+#         for right, value in enumerate(s):
+#             while value in dir:
+#                 dir.remove(s[left])
+#                 left += 1
+#             dir.add(value)
+#             ans = max(ans, right-left+1)
+#         return ans
+
+
+# 23/10/19 author:WH
+# 思路：双指针快慢指针  终止条件：快指针指向字符串的最后位置
+# 不能解决所有字符都相同的情况
 class Solution:
     def lengthOfLongestSubstring(self, s):
-        dir = set()
-        left = ans = 0
-        for right, value in enumerate(s):
-            while value in dir:
-                dir.remove(s[left])
-                left += 1
-            dir.add(value)
-            ans = max(ans, right-left+1)
-        return ans
+        maxLength = 0
+        slow, fast = 0, 1
+        if len(s) <= 1:
+            return 1
+        while fast < len(s):
+            if s[fast] not in s[slow:fast]:
+                maxLength = max(maxLength, fast-slow+1)
+                fast += 1
+            else:
+                index = s[slow:fast].find(s[fast])
+                slow = index + 1
+                fast += 1
+        return maxLength
+
 
 
 if __name__ == "__main__":
     s = "abcbacbb"
+    # s = "aab"
+    # s = "bbbb"
     result = Solution().lengthOfLongestSubstring(s)
     print(result)
 
