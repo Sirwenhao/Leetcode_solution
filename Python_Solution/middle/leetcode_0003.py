@@ -80,31 +80,45 @@
 #         return ans
 
 
-# 23/10/19 author:WH
-# 思路：双指针快慢指针  终止条件：快指针指向字符串的最后位置
-# 不能解决所有字符都相同的情况
+# # 23/10/19 author:WH
+# # 思路：双指针快慢指针  终止条件：快指针指向字符串的最后位置
+# # 不能解决所有字符都相同的情况
 class Solution:
     def lengthOfLongestSubstring(self, s):
-        maxLength = 0
+        maxLength = 1
         slow, fast = 0, 1
         if len(s) <= 1:
-            return 1
+            return len(s)
         while fast < len(s):
             if s[fast] not in s[slow:fast]:
                 maxLength = max(maxLength, fast-slow+1)
                 fast += 1
             else:
-                index = s[slow:fast].find(s[fast])
-                slow = index + 1
-                fast += 1
+                slow += 1
         return maxLength
+
+
+# 23/10/23 author:WH
+# class Solution:
+#     def lengthOfLongestSubstring(self, s):
+#         dir = set() # 用于存储遍历的字符
+#         left = ans = 0
+#         for index, value in enumerate(s):
+#             while value in dir:
+#                 dir.remove(s[left])
+#                 left += 1
+#             dir.add(value)
+#             ans = max(ans, index - left + 1)
+#         return ans
 
 
 
 if __name__ == "__main__":
-    s = "abcbacbb"
+    # s = "abcbacbb"
     # s = "aab"
     # s = "bbbb"
+    s = "bbtablud"
+    s = "pwwkew"
     result = Solution().lengthOfLongestSubstring(s)
     print(result)
 
