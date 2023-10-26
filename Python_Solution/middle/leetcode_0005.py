@@ -160,31 +160,54 @@ class Solution:
 #                 right2, left2 = end, start
 #         return s[start:end+1]
 
-# 23/10/25 author:WH
-# leetcode测试不能通过？？？
+# # 23/10/25 author:WH
+# # leetcode测试不能通过？？？
+
+# class Solution:
+#     def longestPalindrome(self, s):
+#         ans = 0
+#         res = ''
+#         # 定义回文字符串的判断逻辑
+#         def palindRome(s):
+#             if s == s[::-1]:
+#                 return True
+#             return False
+#         l = len(s)
+#         if l == 1:
+#             return s
+#         slow = 0
+#         while slow < l:
+#             for fast in range(slow+1, l+1):
+#                 if palindRome(s[slow:fast]) and len(s[slow:fast]) > ans:
+#                     res = s[slow:fast]
+#                     ans = len(s[slow:fast])
+#                 else:
+#                     continue
+#             slow += 1
+#         return res
+
+# 23/10/26 author:WH
+# 参考leetcode加加方法
 
 class Solution:
     def longestPalindrome(self, s):
-        ans = 0
-        res = ''
-        # 定义回文字符串的判断逻辑
-        def palindRome(s):
-            if s == s[::-1]:
-                return True
-            return False
+        res = s[0]
         l = len(s)
-        if l == 1:
-            return s
-        slow = 0
-        while slow < l:
-            for fast in range(slow+1, l+1):
-                if palindRome(s[slow:fast]) and len(s[slow:fast]) > ans:
-                    res = s[slow:fast]
-                    ans = len(s[slow:fast])
-                else:
-                    continue
-            slow += 1
+        if l == 0:
+            return ""
+        def extend(left, right, s):
+            while (left >= 0 and right < l and s[left] == s[right]):
+                left -= 1
+                right += 1
+            return s[left:right]
+            
+        for k in range(l-1):
+            e1 = extend(k, k, s)
+            e2 = extend(k, k+1, s)
+            if max(len(e1), len(e2)) > len(res):
+                res = e1 if len(e1) > len(e2) else e2
         return res
+
 
         
 
