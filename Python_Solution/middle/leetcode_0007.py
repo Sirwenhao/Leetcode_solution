@@ -21,11 +21,26 @@
 #             ans = ans*10 + tmp
 #         return 0 if ans < -(2**31) or ans > 2**31-1 else flag*ans
 
+# class Solution:
+#     def reverse(self, x):
+#         y = int(str(abs(x))[::-1])
+#         res = -y if x < 0 else y
+#         return 0 if res < -(2**31) or res > 2**31-1 else res
+
+# 23/10/29 author:WH
+# 
 class Solution:
     def reverse(self, x):
-        y = int(str(abs(x))[::-1])
-        res = -y if x < 0 else y
-        return 0 if res < -(2**31) or res > 2**31-1 else res
+        flag =  x // abs(x)
+        x = abs(x)
+        s = ''
+        while x:
+            x, c = divmod(x, 10)
+            s += (str(c))
+        ans = flag*int(s)
+        return 0 if ans < -(2**31) or ans > 2**31-1 else ans 
+
+
 
 if __name__ == "__main__":
     x = -123
