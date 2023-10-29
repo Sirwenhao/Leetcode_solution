@@ -1,11 +1,11 @@
 # 2023/3/24  author:WH
 # 考察数字位与符号位的操作
-# class Solution:
-#     def reverse(self, x):
-#         if 0 < int(str(x)[:1]) < 9:
-#             return int(str(x)[::-1])
-#         else:
-#             return -int(str(x)[1::-1])
+class Solution:
+    def reverse(self, x):
+        if 0 < int(str(x)[:1]) < 9:
+            return int(str(x)[::-1])
+        else:
+            return -int(str(x)[1::-1])
 
 # x为一个数字，取出其中的每一位数就相当于是除10取余，反转输出体现了栈的思想
 # 超时，但是测试可以通过
