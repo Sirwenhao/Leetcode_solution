@@ -38,7 +38,7 @@
 #         return sign * res
 
 # 23/10/30 author:WH
-# 
+# 这个版本本地可以，提交会出错 
 class Solution:
     def myAtoi(self, s):
         for c in s:
