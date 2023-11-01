@@ -25,16 +25,23 @@
 #         s = str(x)
 #         return s[:len(s) >> 1] == s[:-(len(s) >> 1)-1: -1]
 
-# 数学方法
+# # 数学方法
+# class Solution:
+#     def isPalindrome(self, x):
+#         if x < 0 or (x and x % 10 == 0):
+#             return False
+#         y = 0
+#         while y < x:
+#             y = y * 10 + x % 10
+#             x //= 10
+#         return x in (y, y//10)
+    
+# 23/11/01 author:WH
+# 果然还是需要不断的深入学习，刚接触python这种题型各种头脑风暴想解法.大道至简
+# 时间复杂度上还算ok，空间复杂度上有待优化
 class Solution:
     def isPalindrome(self, x):
-        if x < 0 or (x and x % 10 == 0):
-            return False
-        y = 0
-        while y < x:
-            y = y * 10 + x % 10
-            x //= 10
-        return x in (y, y//10)
+        return str(x) == str(x)[::-1]
 
 if __name__ == "__main__":
     x = 121
