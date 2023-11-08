@@ -222,22 +222,40 @@
 #                     left += 1
 #         return list(map(list, ans))
 
-# 2022/11/12 author:WH
+# # 2022/11/12 author:WH
+# class Solution:
+#     def threeSum(self, nums):
+#         nums.sort()
+#         ans = set()
+#         for i in range(len(nums)-2):
+#              left, right = i+1, len(nums)-1
+#              while left < right:
+#                 if nums[i] + nums[left] + nums[right] == 0:
+#                     ans.add((nums[i], nums[left], nums[right]))
+#                 if nums[i] + nums[left] + nums[right] > 0:
+#                     right -= 1
+#                 else:
+#                      left += 1
+#         return list(map(list, ans))
+
+# 23/11/08 author:WH
+
 class Solution:
     def threeSum(self, nums):
         nums.sort()
         ans = set()
         for i in range(len(nums)-2):
-             left, right = i+1, len(nums)-1
-             while left < right:
-                if nums[i] + nums[left] + nums[right] == 0:
-                    ans.add((nums[i], nums[left], nums[right]))
-                if nums[i] + nums[left] + nums[right] > 0:
-                    right -= 1
+            j = i+1
+            k = len(nums)-1
+            while j < k:
+                flag = nums[i] + nums[j] + nums[k]
+                if flag == 0:
+                    ans.add((nums[i], nums[j], nums[k]))
+                if flag > 0:
+                    k -= 1
                 else:
-                     left += 1
+                    j += 1
         return list(map(list, ans))
-
 
 if __name__ == '__main__':
     nums = [-1, 0, 1, 2, -1, -4]
