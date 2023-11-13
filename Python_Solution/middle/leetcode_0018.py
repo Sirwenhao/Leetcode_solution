@@ -144,23 +144,42 @@
 #                         q -= 1
 #         return res
 
-# 2022/11/12 author:WH
+# # 2022/11/12 author:WH
+# class Solution:
+#     def fourSum(self, nums, target):
+#         nums.sort()
+#         ans = set()
+#         for i in range(len(nums)-3):
+#             for j in range(len(nums)-2):
+#                 left, right = j+1, len(nums)-1
+#                 while left < right:
+#                     if nums[i] + nums[j] + nums[left] + nums[right] == target:
+#                         ans.add((nums[i], nums[j], nums[left], nums[right]))
+#                     if nums[i] + nums[j] + nums[left] + nums[right] < target:
+#                         left += 1
+#                     else:
+#                         right -= 1
+#         return list(map(list, ans))
+
+
+# 23/11/13 author:WH
+
 class Solution:
     def fourSum(self, nums, target):
+        ans = []
         nums.sort()
-        ans = set()
         for i in range(len(nums)-3):
-            for j in range(len(nums)-2):
-                left, right = j+1, len(nums)-1
-                while left < right:
-                    if nums[i] + nums[j] + nums[left] + nums[right] == target:
-                        ans.add((nums[i], nums[j], nums[left], nums[right]))
-                    if nums[i] + nums[j] + nums[left] + nums[right] < target:
-                        left += 1
+            for j in range(i+1, len(nums)-2):
+                m, n = j + 1, len(nums)-1
+                while m < n:
+                    v = nums[i] + nums[j] + nums[m] + nums[n]
+                    if v == target:
+                        ans.append([nums[i], nums[j], nums[m], nums[n]])
+                    if v > target:
+                        n -= 1
                     else:
-                        right -= 1
-        return list(map(list, ans))
-
+                        m += 1
+        return ans
 
 if __name__ == "__main__":
     nums = [1, 0, -1, 0, -2, 2]
