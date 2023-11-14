@@ -166,7 +166,7 @@
 
 class Solution:
     def fourSum(self, nums, target):
-        ans = []
+        ans = set()
         nums.sort()
         for i in range(len(nums)-3):
             for j in range(i+1, len(nums)-2):
@@ -174,12 +174,12 @@ class Solution:
                 while m < n:
                     v = nums[i] + nums[j] + nums[m] + nums[n]
                     if v == target:
-                        ans.append([nums[i], nums[j], nums[m], nums[n]])
+                        ans.add((nums[i], nums[j], nums[m], nums[n]))
                     if v > target:
                         n -= 1
                     else:
                         m += 1
-        return ans
+        return list(map(list, ans))
 
 if __name__ == "__main__":
     nums = [1, 0, -1, 0, -2, 2]
