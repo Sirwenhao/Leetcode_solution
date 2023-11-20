@@ -114,25 +114,52 @@
 #         return len(stack) == 0
 
 # 2022/10/05  author:WH
+# class Solution:
+#     def isValid(self, s):
+#         if len(s) % 2 != 0:
+#             return False
+#         l = []
+#         dic = {
+#             '(':')',
+#             '[':']',
+#             '{':'}'}
+#         for i in s:
+#             if i in dic:
+#                 l.append(i)
+#             else:
+#                 if i != dic[l.pop()]:
+#                     return False
+#         return len(l) == 0
+
+
+# 23/11/16 author:WH
+# 出错
+
 class Solution:
     def isValid(self, s):
-        if len(s) % 2 != 0:
-            return False
-        l = []
-        dic = {
-            '(':')',
-            '[':']',
-            '{':'}'}
-        for i in s:
-            if i in dic:
-                l.append(i)
+        ans = []
+        brace_dic = {
+            '(': ')',
+            '[': ']',
+            '{': '}'
+        }
+        for c in s:
+            if c in brace_dic:
+                ans.append(c)   
             else:
-                if i != dic[l.pop()]:
+                if len(ans) != 0:
+                    if c != brace_dic[ans.pop()]:
+                        return False
+                    else:
+                        continue
+                else:
                     return False
-        return len(l) == 0
+        return len(ans) == 0
 
 if __name__ == "__main__":
-    # s = "{[()]}"
-    s = "[["
+    s = "{[()]}"
+    # s = "[["
+    s = "){"
+    s = "]"
     result = Solution().isValid(s)
     print(result)
