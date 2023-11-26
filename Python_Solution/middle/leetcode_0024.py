@@ -16,7 +16,7 @@
 #         return _next
 
 # 力扣官解解法二：迭代
-# 创建哑节点dummy指向头节点，令dummy.next=heaad，每次交换dummy后面的两个节点
+# 创建哑节点dummy指向头节点，令dummy.next=head，每次交换dummy后面的两个节点
 # 交换前：dummy->node1->node2，交换后：dummy->node2->node1
 # 具体操作为：temp.next = node2,node1.next=node2.next,node2.next = node1
 
@@ -51,3 +51,18 @@ class SOlution:
             node2.next = node1
             temp = node1
         return dummy.next
+    
+# 23/11/26 author:WH
+class Solution:
+    def swapPairs(self, head):
+        dummyHead = ListNode(0)
+        dummyHead.next = head
+        tmp = dummyHead
+        while tmp.next and tmp.next.next:
+            node1 = tmp.next
+            node2 = tmp.next.next
+            tmp.next = node2
+            node1.next = node2.next
+            node2.next = node2
+            tmp = node1
+        return dummyHead.next
