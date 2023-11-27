@@ -141,6 +141,21 @@ class Solution:
 #                 slow += 1
 #                 nums[slow] = nums[fast]
 #         return slow+1
+ 
+# 23/11/27 author:WH
+class Solution:
+    def removeDuplicates(self, nums):
+        slow = 0
+        for fast in range(1, len(nums)):
+            if nums[fast] != nums[slow]:
+                slow += 1
+                nums[slow] = nums[fast]
+            else:
+                continue
+        return nums
+
+
+
 
 if __name__ == "__main__":
     nums = [0,0,1,1,1,2,2,3,3,4]
