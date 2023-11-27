@@ -152,7 +152,7 @@ class Solution:
                 nums[slow] = nums[fast]
             else:
                 continue
-        return nums
+        return slow+1
 
 
 
