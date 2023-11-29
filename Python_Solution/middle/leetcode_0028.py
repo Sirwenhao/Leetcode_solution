@@ -45,14 +45,22 @@
 
 # 2022/09/16  author:WH
 # 可以AC，但不是使用KMP解决的
+# class Solution:
+#     def strStr(self, haystack, needle):
+#         for idx, val in enumerate(haystack):
+#             if val == needle[:1] and idx + len(needle) <= len(haystack):
+#                 if haystack[idx:idx+len(needle)] == needle:
+#                     return idx
+#                 else:
+#                     continue
+#         return -1
+
+# 23/11/29 author:WH
 class Solution:
     def strStr(self, haystack, needle):
-        for idx, val in enumerate(haystack):
-            if val == needle[:1] and idx + len(needle) <= len(haystack):
-                if haystack[idx:idx+len(needle)] == needle:
-                    return idx
-                else:
-                    continue
+        for i,c in enumerate(haystack):
+            if c == needle[0] and needle == haystack[i:i+len(needle)]:
+                return i
         return -1
 
 if __name__ == "__main__":
