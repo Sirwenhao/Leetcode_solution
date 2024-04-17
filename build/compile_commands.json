@@ -1,7 +1,0 @@
-[
-{
-  "directory": "D:/Learning/Leetcode_solution/build/CPP_Solution/middle",
-  "command": "D:\\SoftwareInstallation\\mingw64\\bin\\g++.exe  @CMakeFiles/solution.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\solution.dir\\leetcode_0022.cpp.obj -c D:\\Learning\\Leetcode_solution\\CPP_Solution\\middle\\leetcode_0022.cpp",
-  "file": "D:/Learning/Leetcode_solution/CPP_Solution/middle/leetcode_0022.cpp"
-}
-]
