@@ -51,11 +51,27 @@ class Solution:
                 left = middle+1
             else:
                 return middle
-        return -1    
+        return -1
+    
+    
+# 24/6/25 @author:WH
+
+class Solution:
+    def search(self, nums, target):
+        l, r = 0, len(nums)-1
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] == target:
+                return m
+            elif nums[m] < target:
+                l = m+1
+            elif nums[m] > target:
+                r = m
+        return -1
 
 
 if __name__ == '__main__':
     nums = [1,2,3,4,5,6]
-    target = 3
+    target = 7
     result = Solution().search(nums, target)
     print(result)
