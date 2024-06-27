@@ -77,10 +77,40 @@ class Solution:
             else:
                 continue
         return fast
+    
+    
+class Solution():
+    def removeElement(self, nums, val):
+        if len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            if val in nums:
+                return 0
+            else:
+                return 1
+        if val not in nums:
+            return len(nums)
+        slow = fast = 0
+        while fast < len(nums):
+            if nums[slow] != val:
+                slow += 1
+                fast = slow
+            elif nums[slow] == val:
+                while nums[fast] == val:
+                    fast += 1
+                if fast == len(nums)-1:
+                    return slow
+                nums[slow], nums[fast] = nums[fast], nums[slow]
+                slow += 1
+        return 
+        
+        
 
 
 if __name__ == "__main__":
-    nums = [0,1,2,2,3,0,4,2]
-    val = 2
+    # nums = [0,1,2,2,3,0,4,2]
+    nums = [3,3,3,4,4, 4]
+    # val = 2
+    val = 3
     result = Solution().removeElement(nums, val)
     print(result)
