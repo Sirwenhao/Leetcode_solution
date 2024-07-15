@@ -47,9 +47,46 @@ class Solution:
                 Sum -= nums[slow]
                 slow += 1
         return 0 if res == float("inf") else res
+    
+# 24/7/15 author:WH
+# 解法应该无误，Gemini判断超时的地方是求和处    
+
+class Solution:
+    def minSubArrayLen(self, target, nums):
+        slow = fast = 0
+        minLen = float("inf")
+        while fast < len(nums)+1:
+            if sum(nums[slow:fast]) < target:
+                fast += 1
+            else:
+                minLen = min(minLen, len(nums[slow:fast]))
+                slow += 1
+        return 0 if minLen == float("inf") else minLen
+        
+# ChatGPT优化后的代码
+
+class Solution:
+    def minSubArrayLen(self, target, nums):
+        slow = 0
+        current_sum = 0
+        minLen = float("inf")
+        
+        for fast in range(len(nums)):
+            current_sum += nums[fast]
+            
+            while current_sum >= target:
+                minLen = min(minLen, fast - slow + 1)
+                current_sum -= nums[slow]
+                slow += 1
+        
+        return 0 if minLen == float("inf") else minLen
+
+
 
 if __name__ == "__main__":
-    target = 7
-    nums = [2,3,1,2,4,3]
+    # target = 7
+    # nums = [2,3,1,2,4,3]
+    nums = [1,1,1,1,1,1,1,1]
+    target = 11
     result = Solution().minSubArrayLen(target, nums)
     print(result)
