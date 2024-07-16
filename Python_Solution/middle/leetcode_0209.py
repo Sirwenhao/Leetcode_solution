@@ -80,6 +80,22 @@ class Solution:
                 slow += 1
         
         return 0 if minLen == float("inf") else minLen
+    
+    
+class Solution:
+    def minSubArrayLen(self, target, nums):
+        minLen = float("inf")
+        slow = 0
+        for fast in range(len(nums)):
+            current_sum = sum(nums[slow:fast])
+            
+            while current_sum >= target:
+                minLen= min(minLen, fast-slow+1)
+                current_sum -= nums[slow]
+                slow += 1
+                
+        return 0 if minLen == float('inf') else minLen
+        
 
 
 
