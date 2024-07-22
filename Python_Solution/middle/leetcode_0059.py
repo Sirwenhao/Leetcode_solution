@@ -70,6 +70,89 @@ class Solution:
 
 #         return matrix
 
+
+# 24/7/16 author:WH
+# 24/7/22 author:WH
+# 这个问题的本质是矩阵的螺旋遍历
+
+# 矩阵的螺旋遍历
+
+# def spiralOrder(matrix):
+#     if not matrix:
+#         return []
+#     result = []
+#     top, bottom = 0, len(matrix) - 1
+#     left, right = 0, len(matrix[0]) - 1
+    
+#     while top <= bottom and left <= right:
+#         # 上方从左到右遍历
+#         for i in range(left, right+1):
+#             result.append(matrix[top][i])
+#         top += 1
+#         # 右侧从上到下遍历
+#         for i in range(top, bottom+1):
+#             result.append(matrix[i][right])
+#         right -= 1
+        
+#         # 右侧从右到左遍历
+#         if bottom >= top:
+#             for i in range(right, left-1, -1):
+#                 result.append(matrix[bottom][i])
+#         bottom -= 1
+        
+#         # 左侧从下到上遍历
+#         if left <= right:
+#             for i in range(bottom, top-1, -1):
+#                 result.append(matrix[i][left])
+#         left += 1
+#     return matrix
+                
+                
+        
+        
+            
+    
+
+
+class Solution:
+    def generateMatrix(self, n):
+        matrix = [[0] * n for _ in range(n)]
+        count = 1
+        # print(matrix)
+        top, bottom = 0, n-1
+        left, right = 0, n-1
+        while top <= bottom and left <= right:
+            # 遍历上方从左到右
+            for i in range(left, right+1):
+                matrix[top][i] = count
+                count += 1
+            top += 1
+            
+            # 遍历右侧从上到下
+            for i in range(top, bottom+1):
+                matrix[i][right] = count
+                count += 1
+            right -= 1
+            
+            # 遍历底部从右到左 
+            if top <= bottom:    
+                for i in range(right, left-1, -1):
+                    matrix[bottom][i] = count
+                    count += 1
+                bottom -= 1
+            
+            # 遍历左侧从下往上
+            if left <= right:
+                for i in range(bottom, top-1, -1):
+                    matrix[i][left] = count
+                    count += 1
+                left += 1
+                
+        return matrix
+            
+        
+
+
 if __name__ == "__main__":
     n = 4
     result = Solution().generateMatrix(n)
