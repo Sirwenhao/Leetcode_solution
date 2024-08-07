@@ -94,6 +94,28 @@ class Solution:
             else:
                 cur = cur.next
         return dummy.next
+    
+    
+# # 24/8/7 author:WH
+# class ListNode:
+#     def __init__(self, next, val=0):
+#         self.next = next
+#         self.val = val
+    
+
+class Solution:
+    def removeElements(self, head, val):
+        dummyNode = ListNode(0)
+        dummyNode.next = head
+        cur = dummyNode
+        while cur.next:
+            if cur.next.val == val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return dummyNode.next
+                
+                
 
 
 if __name__ == "__main__":
