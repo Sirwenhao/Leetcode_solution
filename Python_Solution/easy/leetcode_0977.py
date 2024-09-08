@@ -17,6 +17,12 @@ class Solution:
                 left += 1
             k -= 1
         return new_Nums
+    
+# 24/9/8   author:@WH
+class Solution:
+    def sortedSquares(self, nums):
+        return sorted([i**2 for i in nums])   
+
 
 if __name__ == "__main__":
     nums = [-4, -1, 0, 3, 10]
