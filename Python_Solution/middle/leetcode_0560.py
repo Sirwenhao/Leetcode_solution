@@ -1,20 +1,36 @@
 # 24/9/13  @author:WH
 
+# 两层for循环
 class Solution:
     def subarraySum(self, nums, k):
         ans = []
-        slow, fast = 0, 1
-        while fast <= len(nums):
-            subarrsum = sum(nums[slow:fast])
-            if subarrsum == k:
-                ans.append(nums[slow:fast])
-                slow += 1
-                fast += 1
-            elif subarrsum < k:
-                fast += 1
-            elif subarrsum > k:
-                slow += 1
+        n = len(nums)
+        for slow in range(n):
+            subarrsum = 0
+            for fast in range(slow, n):
+                subarrsum += nums[fast]
+                if subarrsum == k:
+                    ans.append(nums[slow:fast+1])
         return len(ans)
+    
+    
+# 前缀和
+
+class Solution:
+    def subarraySum(self, nums, k):
+        ans = 0
+        prefix_sum = 0
+        sum_count = {0: 1}
+        
+        for num in nums:
+            prefix_sum += num
+            if (prefix_sum-k) in sum_count:
+                ans += sum_count[prefix_sum-k]
+            sum_count[prefix_sum] += sum_count.get(prefix_sum, 0) + 1
+        return ans
+            
+                
+            
     
     
 if __name__ == "__main__":
